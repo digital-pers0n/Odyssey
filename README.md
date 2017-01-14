@@ -2,11 +2,11 @@
 Simple webkit based browser
 
 # Feauters:
-  Tabs
-  Bookmarks
-  Downloads
-  Content Blocker
+  Tabs <br>
+  Bookmarks <br>
+  Downloads <br>
+  Content Blocker<br>
   
 # System Requirements:
-  Build: Xcode 7+ 
-  Run: 10.8+
+  Build: Xcode 7+ <br>
+  Run: 10.8+<br>
