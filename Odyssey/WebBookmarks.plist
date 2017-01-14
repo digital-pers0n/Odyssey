@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Children</key>
+	<array>
+		<dict>
+			<key>Title</key>
+			<string>Favorites</string>
+			<key>BookmarkType</key>
+			<string>BookmarkTypeList</string>
+			<key>Children</key>
+			<array>
+				<dict>
+					<key>Title</key>
+					<string>Apple</string>
+					<key>URLString</key>
+					<string>http://www.apple.com/</string>
+					<key>BookmarkType</key>
+					<string>BookmarkTypeLeaf</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Google</string>
+					<key>URLString</key>
+					<string>http://www.google.com/</string>
+					<key>BookmarkType</key>
+					<string>BookmarkTypeLeaf</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Wikipedia</string>
+					<key>URLString</key>
+					<string>http://en.wikipedia.org/wiki/Main_Page</string>
+					<key>BookmarkType</key>
+					<string>BookmarkTypeLeaf</string>
+				</dict>
+				<dict>
+					<key>Title</key>
+					<string>Youtube</string>
+					<key>URLString</key>
+					<string>http://www.youtube.com/</string>
+					<key>BookmarkType</key>
+					<string>BookmarkTypeLeaf</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Other</string>
+			<key>BookmarkType</key>
+			<string>BookmarkTypeList</string>
+			<key>Children</key>
+			<array/>
+		</dict>
+	</array>
+	<key>Title</key>
+	<string>BookmarksRoot</string>
+	<key>BookmarkType</key>
+	<string>BookmarkTypeList</string>
+</dict>
+</plist>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Name</key>
+		<string>Google</string>
+		<key>Identifier</key>
+		<string>com.google.www</string>
+		<key>URLTemplate</key>
+		<string>https://www.google.com/search?client=safari&amp;rls=en&amp;q={searchTerms}&amp;ie=UTF-8&amp;oe=UTF-8</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>DuckDuckGo</string>
+		<key>Identifier</key>
+		<string>com.duckduckgo</string>
+		<key>URLTemplate</key>
+		<string>https://duckduckgo.com/?q={searchTerms}&amp;t=osx</string>
+	</dict>
+</array>
+</plist>

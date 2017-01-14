@@ -1,0 +1,660 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE07EE491DEF101C008D32CE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED85E2A1D955F2900423367 /* WebKit.framework */; };
+		CE07EE4B1DEF26E0008D32CE /* ODUnifiedFieldButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2823A41D9C438400D2712A /* ODUnifiedFieldButton.m */; };
+		CE2E8D5B1DC2388E00266D2D /* UserAgent.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE2E8D5A1DC2388E00266D2D /* UserAgent.plist */; settings = {ASSET_TAGS = (); }; };
+		CE2E8D5D1DC238AD00266D2D /* SearchEngines.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE2E8D5C1DC238AD00266D2D /* SearchEngines.plist */; settings = {ASSET_TAGS = (); }; };
+		CE3BB5791D9D484100E84F17 /* ODStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BB5781D9D484100E84F17 /* ODStatusBar.m */; settings = {ASSET_TAGS = (); }; };
+		CE3BB57D1D9D6D6000E84F17 /* ODSearchForView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BB57C1D9D6D6000E84F17 /* ODSearchForView.m */; settings = {ASSET_TAGS = (); }; };
+		CE3BB5801D9D894300E84F17 /* ODSearchForController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3BB57F1D9D894300E84F17 /* ODSearchForController.m */; settings = {ASSET_TAGS = (); }; };
+		CE4201331DD62A9D000096DC /* WebFilterList.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE4201301DD62A9D000096DC /* WebFilterList.txt */; settings = {ASSET_TAGS = (); }; };
+		CE4201341DD62A9D000096DC /* WebFilterWhiteList.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE4201311DD62A9D000096DC /* WebFilterWhiteList.txt */; settings = {ASSET_TAGS = (); }; };
+		CE4201351DD62A9D000096DC /* blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4201321DD62A9D000096DC /* blocked.png */; settings = {ASSET_TAGS = (); }; };
+		CE60BA6D1DFED1C20070C22C /* ODWebPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = CE60BA6C1DFED1C20070C22C /* ODWebPreferences.m */; settings = {ASSET_TAGS = (); }; };
+		CE65C6081D9FE6CF00366ED2 /* ODWebHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE65C6071D9FE6CF00366ED2 /* ODWebHistory.m */; settings = {ASSET_TAGS = (); }; };
+		CE84F8531E053DA2004F83FB /* ODWebDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84F8511E053DA2004F83FB /* ODWebDownloadView.m */; settings = {ASSET_TAGS = (); }; };
+		CE84F8541E053DA2004F83FB /* ODWebDownloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE84F8521E053DA2004F83FB /* ODWebDownloadView.xib */; settings = {ASSET_TAGS = (); }; };
+		CE84F8571E053DBD004F83FB /* ODWebDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84F8561E053DBD004F83FB /* ODWebDownloadManager.m */; settings = {ASSET_TAGS = (); }; };
+		CE84F85A1E053DD8004F83FB /* ODWebDownloadData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84F8591E053DD8004F83FB /* ODWebDownloadData.m */; settings = {ASSET_TAGS = (); }; };
+		CE8781F31DEC68B00047770A /* ODGoTo.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8781F11DEC68B00047770A /* ODGoTo.m */; settings = {ASSET_TAGS = (); }; };
+		CE8781F41DEC68B00047770A /* ODGoTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8781F21DEC68B00047770A /* ODGoTo.xib */; settings = {ASSET_TAGS = (); }; };
+		CEA287231DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2871C1DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.m */; settings = {ASSET_TAGS = (); }; };
+		CEA287241DBA5B1200E6864D /* ODWebBookmarkData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2871E1DBA5B1200E6864D /* ODWebBookmarkData.m */; settings = {ASSET_TAGS = (); }; };
+		CEA287251DBA5B1200E6864D /* WebBookmarks.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEA2871F1DBA5B1200E6864D /* WebBookmarks.plist */; settings = {ASSET_TAGS = (); }; };
+		CEA287261DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA287201DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		CEA287271DBA5B1200E6864D /* ODWebBookmakrsEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA287221DBA5B1200E6864D /* ODWebBookmakrsEditorView.m */; settings = {ASSET_TAGS = (); }; };
+		CEA2872C1DBA5BC300E6864D /* ODAddBookmarkDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2872A1DBA5BC300E6864D /* ODAddBookmarkDialogController.m */; settings = {ASSET_TAGS = (); }; };
+		CEA2872D1DBA5BC300E6864D /* ODAddBookmarkDialogController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA2872B1DBA5BC300E6864D /* ODAddBookmarkDialogController.xib */; settings = {ASSET_TAGS = (); }; };
+		CEA287321DBA6FBF00E6864D /* NSDictionary+BookmarkItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA287301DBA6FBF00E6864D /* NSDictionary+BookmarkItem.m */; settings = {ASSET_TAGS = (); }; };
+		CEA287351DBA705A00E6864D /* ODBookmarksController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA287341DBA705A00E6864D /* ODBookmarksController.m */; settings = {ASSET_TAGS = (); }; };
+		CEA833F81DFA90DF00A58DE6 /* ODTabSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA833F61DFA90DF00A58DE6 /* ODTabSwitcher.m */; settings = {ASSET_TAGS = (); }; };
+		CEA833F91DFA90DF00A58DE6 /* ODTabSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA833F71DFA90DF00A58DE6 /* ODTabSwitcher.xib */; settings = {ASSET_TAGS = (); }; };
+		CEA833FC1DFA910F00A58DE6 /* ODTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA833FB1DFA910F00A58DE6 /* ODTabBar.m */; settings = {ASSET_TAGS = (); }; };
+		CEB5F7561E26987100CAA2C5 /* ODWindowTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB5F7541E26987100CAA2C5 /* ODWindowTitleBar.m */; settings = {ASSET_TAGS = (); }; };
+		CEB5F7571E26987100CAA2C5 /* ODWindowTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB5F7551E26987100CAA2C5 /* ODWindowTitleBar.xib */; settings = {ASSET_TAGS = (); }; };
+		CEB5F75B1E269D1B00CAA2C5 /* ODTitleBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB5F75A1E269D1B00CAA2C5 /* ODTitleBarView.m */; settings = {ASSET_TAGS = (); }; };
+		CECC11931DDE046B0059D952 /* dummy.js in Resources */ = {isa = PBXBuildFile; fileRef = CECC11921DDE046B0059D952 /* dummy.js */; settings = {ASSET_TAGS = (); }; };
+		CECC11961DDE05FE0059D952 /* ODContentBlocker.m in Sources */ = {isa = PBXBuildFile; fileRef = CECC11951DDE05FE0059D952 /* ODContentBlocker.m */; settings = {ASSET_TAGS = (); }; };
+		CED85E1B1D955F1200423367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CED85E1A1D955F1200423367 /* AppDelegate.m */; };
+		CED85E1E1D955F1200423367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CED85E1D1D955F1200423367 /* main.m */; };
+		CED85E201D955F1200423367 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CED85E1F1D955F1200423367 /* Assets.xcassets */; };
+		CED85E231D955F1200423367 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED85E211D955F1200423367 /* MainMenu.xib */; };
+		CED85E2F1D9560ED00423367 /* ODWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED85E2D1D9560ED00423367 /* ODWindowController.m */; settings = {ASSET_TAGS = (); }; };
+		CED85E301D9560ED00423367 /* ODWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED85E2E1D9560ED00423367 /* ODWindowController.xib */; settings = {ASSET_TAGS = (); }; };
+		CED85E371D95629A00423367 /* ODController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED85E361D95629A00423367 /* ODController.m */; settings = {ASSET_TAGS = (); }; };
+		CED85E3A1D9579CA00423367 /* ODWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CED85E391D9579CA00423367 /* ODWebView.m */; settings = {ASSET_TAGS = (); }; };
+		CEDAA3571DC8F96C0086367D /* ODSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDAA3561DC8F96C0086367D /* ODSessionData.m */; settings = {ASSET_TAGS = (); }; };
+		CEE6A0FF1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE6A0FD1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.m */; settings = {ASSET_TAGS = (); }; };
+		CEE6A1001DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE6A0FE1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.xib */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE07EE4A1DEF131E008D32CE /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CE2823A31D9C438400D2712A /* ODUnifiedFieldButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODUnifiedFieldButton.h; sourceTree = "<group>"; };
+		CE2823A41D9C438400D2712A /* ODUnifiedFieldButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODUnifiedFieldButton.m; sourceTree = "<group>"; };
+		CE2E8D5A1DC2388E00266D2D /* UserAgent.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserAgent.plist; sourceTree = "<group>"; };
+		CE2E8D5C1DC238AD00266D2D /* SearchEngines.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SearchEngines.plist; sourceTree = "<group>"; };
+		CE3BB5771D9D484100E84F17 /* ODStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODStatusBar.h; sourceTree = "<group>"; };
+		CE3BB5781D9D484100E84F17 /* ODStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODStatusBar.m; sourceTree = "<group>"; };
+		CE3BB57B1D9D6D6000E84F17 /* ODSearchForView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODSearchForView.h; sourceTree = "<group>"; };
+		CE3BB57C1D9D6D6000E84F17 /* ODSearchForView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODSearchForView.m; sourceTree = "<group>"; };
+		CE3BB57E1D9D894300E84F17 /* ODSearchForController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODSearchForController.h; sourceTree = "<group>"; };
+		CE3BB57F1D9D894300E84F17 /* ODSearchForController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODSearchForController.m; sourceTree = "<group>"; };
+		CE4201301DD62A9D000096DC /* WebFilterList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebFilterList.txt; sourceTree = "<group>"; };
+		CE4201311DD62A9D000096DC /* WebFilterWhiteList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebFilterWhiteList.txt; sourceTree = "<group>"; };
+		CE4201321DD62A9D000096DC /* blocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocked.png; sourceTree = "<group>"; };
+		CE60BA6B1DFED1C20070C22C /* ODWebPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebPreferences.h; sourceTree = "<group>"; };
+		CE60BA6C1DFED1C20070C22C /* ODWebPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebPreferences.m; sourceTree = "<group>"; };
+		CE60BA6E1DFEDBA10070C22C /* WebViewPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewPrivate.h; sourceTree = "<group>"; };
+		CE60BA6F1DFEDBB70070C22C /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPreferencesPrivate.h; sourceTree = "<group>"; };
+		CE65C6061D9FE6CF00366ED2 /* ODWebHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebHistory.h; sourceTree = "<group>"; };
+		CE65C6071D9FE6CF00366ED2 /* ODWebHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebHistory.m; sourceTree = "<group>"; };
+		CE84F8501E053DA2004F83FB /* ODWebDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebDownloadView.h; sourceTree = "<group>"; };
+		CE84F8511E053DA2004F83FB /* ODWebDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebDownloadView.m; sourceTree = "<group>"; };
+		CE84F8521E053DA2004F83FB /* ODWebDownloadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODWebDownloadView.xib; sourceTree = "<group>"; };
+		CE84F8551E053DBD004F83FB /* ODWebDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebDownloadManager.h; sourceTree = "<group>"; };
+		CE84F8561E053DBD004F83FB /* ODWebDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebDownloadManager.m; sourceTree = "<group>"; };
+		CE84F8581E053DD8004F83FB /* ODWebDownloadData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebDownloadData.h; sourceTree = "<group>"; };
+		CE84F8591E053DD8004F83FB /* ODWebDownloadData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebDownloadData.m; sourceTree = "<group>"; };
+		CE8781F01DEC68B00047770A /* ODGoTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODGoTo.h; sourceTree = "<group>"; };
+		CE8781F11DEC68B00047770A /* ODGoTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODGoTo.m; sourceTree = "<group>"; };
+		CE8781F21DEC68B00047770A /* ODGoTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODGoTo.xib; sourceTree = "<group>"; };
+		CEA2871B1DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebBookmarksOutlineViewController.h; sourceTree = "<group>"; };
+		CEA2871C1DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebBookmarksOutlineViewController.m; sourceTree = "<group>"; };
+		CEA2871D1DBA5B1200E6864D /* ODWebBookmarkData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebBookmarkData.h; sourceTree = "<group>"; };
+		CEA2871E1DBA5B1200E6864D /* ODWebBookmarkData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebBookmarkData.m; sourceTree = "<group>"; };
+		CEA2871F1DBA5B1200E6864D /* WebBookmarks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WebBookmarks.plist; sourceTree = "<group>"; };
+		CEA287201DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODWebBookmarksOutlineViewController.xib; sourceTree = "<group>"; };
+		CEA287211DBA5B1200E6864D /* ODWebBookmakrsEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebBookmakrsEditorView.h; sourceTree = "<group>"; };
+		CEA287221DBA5B1200E6864D /* ODWebBookmakrsEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebBookmakrsEditorView.m; sourceTree = "<group>"; };
+		CEA287291DBA5BC300E6864D /* ODAddBookmarkDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODAddBookmarkDialogController.h; sourceTree = "<group>"; };
+		CEA2872A1DBA5BC300E6864D /* ODAddBookmarkDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODAddBookmarkDialogController.m; sourceTree = "<group>"; };
+		CEA2872B1DBA5BC300E6864D /* ODAddBookmarkDialogController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODAddBookmarkDialogController.xib; sourceTree = "<group>"; };
+		CEA2872F1DBA6FBF00E6864D /* NSDictionary+BookmarkItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BookmarkItem.h"; sourceTree = "<group>"; };
+		CEA287301DBA6FBF00E6864D /* NSDictionary+BookmarkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BookmarkItem.m"; sourceTree = "<group>"; };
+		CEA287311DBA6FBF00E6864D /* Bookmarks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bookmarks.h; sourceTree = "<group>"; };
+		CEA287331DBA705A00E6864D /* ODBookmarksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODBookmarksController.h; sourceTree = "<group>"; };
+		CEA287341DBA705A00E6864D /* ODBookmarksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODBookmarksController.m; sourceTree = "<group>"; };
+		CEA833F51DFA90DF00A58DE6 /* ODTabSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabSwitcher.h; sourceTree = "<group>"; };
+		CEA833F61DFA90DF00A58DE6 /* ODTabSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabSwitcher.m; sourceTree = "<group>"; };
+		CEA833F71DFA90DF00A58DE6 /* ODTabSwitcher.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODTabSwitcher.xib; sourceTree = "<group>"; };
+		CEA833FA1DFA910F00A58DE6 /* ODTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabBar.h; sourceTree = "<group>"; };
+		CEA833FB1DFA910F00A58DE6 /* ODTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabBar.m; sourceTree = "<group>"; };
+		CEB5F7531E26987100CAA2C5 /* ODWindowTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWindowTitleBar.h; sourceTree = "<group>"; };
+		CEB5F7541E26987100CAA2C5 /* ODWindowTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWindowTitleBar.m; sourceTree = "<group>"; };
+		CEB5F7551E26987100CAA2C5 /* ODWindowTitleBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODWindowTitleBar.xib; sourceTree = "<group>"; };
+		CEB5F7591E269D1B00CAA2C5 /* ODTitleBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTitleBarView.h; sourceTree = "<group>"; };
+		CEB5F75A1E269D1B00CAA2C5 /* ODTitleBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTitleBarView.m; sourceTree = "<group>"; };
+		CECC11921DDE046B0059D952 /* dummy.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dummy.js; sourceTree = "<group>"; };
+		CECC11941DDE05FE0059D952 /* ODContentBlocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODContentBlocker.h; sourceTree = "<group>"; };
+		CECC11951DDE05FE0059D952 /* ODContentBlocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODContentBlocker.m; sourceTree = "<group>"; };
+		CED85E161D955F1200423367 /* Odyssey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odyssey.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED85E191D955F1200423367 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CED85E1A1D955F1200423367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CED85E1D1D955F1200423367 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CED85E1F1D955F1200423367 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CED85E221D955F1200423367 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CED85E241D955F1200423367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CED85E2A1D955F2900423367 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		CED85E2C1D9560ED00423367 /* ODWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWindowController.h; sourceTree = "<group>"; };
+		CED85E2D1D9560ED00423367 /* ODWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWindowController.m; sourceTree = "<group>"; };
+		CED85E2E1D9560ED00423367 /* ODWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODWindowController.xib; sourceTree = "<group>"; };
+		CED85E351D95629A00423367 /* ODController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODController.h; sourceTree = "<group>"; };
+		CED85E361D95629A00423367 /* ODController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODController.m; sourceTree = "<group>"; };
+		CED85E381D9579CA00423367 /* ODWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebView.h; sourceTree = "<group>"; };
+		CED85E391D9579CA00423367 /* ODWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebView.m; sourceTree = "<group>"; };
+		CEDAA3551DC8F96C0086367D /* ODSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODSessionData.h; sourceTree = "<group>"; };
+		CEDAA3561DC8F96C0086367D /* ODSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODSessionData.m; sourceTree = "<group>"; };
+		CEE6A0FC1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODContentBlockerAddRuleDialog.h; sourceTree = "<group>"; };
+		CEE6A0FD1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODContentBlockerAddRuleDialog.m; sourceTree = "<group>"; };
+		CEE6A0FE1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODContentBlockerAddRuleDialog.xib; sourceTree = "<group>"; };
+		CEF193781DFF321300D99FF1 /* WebCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebCache.h; sourceTree = "<group>"; };
+		CEF193791DFF333E00D99FF1 /* WebApplicationCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebApplicationCache.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CED85E131D955F1200423367 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE07EE491DEF101C008D32CE /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE28239C1D9C41EA00D2712A /* UnifiedField */ = {
+			isa = PBXGroup;
+			children = (
+				CE2823A31D9C438400D2712A /* ODUnifiedFieldButton.h */,
+				CE2823A41D9C438400D2712A /* ODUnifiedFieldButton.m */,
+			);
+			name = UnifiedField;
+			sourceTree = "<group>";
+		};
+		CE3BB5761D9D478500E84F17 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				CE3BB5771D9D484100E84F17 /* ODStatusBar.h */,
+				CE3BB5781D9D484100E84F17 /* ODStatusBar.m */,
+			);
+			name = StatusBar;
+			sourceTree = "<group>";
+		};
+		CE3BB57A1D9D66E000E84F17 /* SearchFor */ = {
+			isa = PBXGroup;
+			children = (
+				CE3BB57E1D9D894300E84F17 /* ODSearchForController.h */,
+				CE3BB57F1D9D894300E84F17 /* ODSearchForController.m */,
+				CE3BB57B1D9D6D6000E84F17 /* ODSearchForView.h */,
+				CE3BB57C1D9D6D6000E84F17 /* ODSearchForView.m */,
+			);
+			name = SearchFor;
+			sourceTree = "<group>";
+		};
+		CE42012C1DD6187B000096DC /* ContentBlocker */ = {
+			isa = PBXGroup;
+			children = (
+				CEE6A0FC1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.h */,
+				CEE6A0FD1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.m */,
+				CEE6A0FE1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.xib */,
+				CE4201301DD62A9D000096DC /* WebFilterList.txt */,
+				CE4201311DD62A9D000096DC /* WebFilterWhiteList.txt */,
+				CECC11921DDE046B0059D952 /* dummy.js */,
+				CE4201321DD62A9D000096DC /* blocked.png */,
+				CECC11941DDE05FE0059D952 /* ODContentBlocker.h */,
+				CECC11951DDE05FE0059D952 /* ODContentBlocker.m */,
+			);
+			name = ContentBlocker;
+			sourceTree = "<group>";
+		};
+		CE60BA6A1DFED16D0070C22C /* ODWebPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				CE60BA6B1DFED1C20070C22C /* ODWebPreferences.h */,
+				CE60BA6C1DFED1C20070C22C /* ODWebPreferences.m */,
+			);
+			name = ODWebPreferences;
+			sourceTree = "<group>";
+		};
+		CE65C6051D9FE69900366ED2 /* WebHistory */ = {
+			isa = PBXGroup;
+			children = (
+				CE65C6061D9FE6CF00366ED2 /* ODWebHistory.h */,
+				CE65C6071D9FE6CF00366ED2 /* ODWebHistory.m */,
+			);
+			name = WebHistory;
+			sourceTree = "<group>";
+		};
+		CE8781EE1DEC685A0047770A /* GoTo */ = {
+			isa = PBXGroup;
+			children = (
+				CE8781F01DEC68B00047770A /* ODGoTo.h */,
+				CE8781F11DEC68B00047770A /* ODGoTo.m */,
+				CE8781F21DEC68B00047770A /* ODGoTo.xib */,
+			);
+			name = GoTo;
+			sourceTree = "<group>";
+		};
+		CEA2871A1DBA5AC200E6864D /* WebBookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				CEA287281DBA5B7C00E6864D /* BookmarksEditor */,
+				CEA2872E1DBA5BD700E6864D /* AddBookmarkDialog */,
+				CEA2871D1DBA5B1200E6864D /* ODWebBookmarkData.h */,
+				CEA2871E1DBA5B1200E6864D /* ODWebBookmarkData.m */,
+				CEA2872F1DBA6FBF00E6864D /* NSDictionary+BookmarkItem.h */,
+				CEA287301DBA6FBF00E6864D /* NSDictionary+BookmarkItem.m */,
+				CEA287311DBA6FBF00E6864D /* Bookmarks.h */,
+				CEA2871F1DBA5B1200E6864D /* WebBookmarks.plist */,
+				CEA287331DBA705A00E6864D /* ODBookmarksController.h */,
+				CEA287341DBA705A00E6864D /* ODBookmarksController.m */,
+				CEDAA3551DC8F96C0086367D /* ODSessionData.h */,
+				CEDAA3561DC8F96C0086367D /* ODSessionData.m */,
+			);
+			name = WebBookmarks;
+			sourceTree = "<group>";
+		};
+		CEA287281DBA5B7C00E6864D /* BookmarksEditor */ = {
+			isa = PBXGroup;
+			children = (
+				CEA2871B1DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.h */,
+				CEA2871C1DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.m */,
+				CEA287201DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.xib */,
+				CEA287211DBA5B1200E6864D /* ODWebBookmakrsEditorView.h */,
+				CEA287221DBA5B1200E6864D /* ODWebBookmakrsEditorView.m */,
+			);
+			name = BookmarksEditor;
+			sourceTree = "<group>";
+		};
+		CEA2872E1DBA5BD700E6864D /* AddBookmarkDialog */ = {
+			isa = PBXGroup;
+			children = (
+				CEA287291DBA5BC300E6864D /* ODAddBookmarkDialogController.h */,
+				CEA2872A1DBA5BC300E6864D /* ODAddBookmarkDialogController.m */,
+				CEA2872B1DBA5BC300E6864D /* ODAddBookmarkDialogController.xib */,
+			);
+			name = AddBookmarkDialog;
+			sourceTree = "<group>";
+		};
+		CEA833F41DFA909300A58DE6 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				CEA833FA1DFA910F00A58DE6 /* ODTabBar.h */,
+				CEA833FB1DFA910F00A58DE6 /* ODTabBar.m */,
+				CEA833F51DFA90DF00A58DE6 /* ODTabSwitcher.h */,
+				CEA833F61DFA90DF00A58DE6 /* ODTabSwitcher.m */,
+				CEA833F71DFA90DF00A58DE6 /* ODTabSwitcher.xib */,
+			);
+			name = Tabs;
+			sourceTree = "<group>";
+		};
+		CEB10C321E01A0C5000922EC /* ODWebDownloads */ = {
+			isa = PBXGroup;
+			children = (
+				CE84F8501E053DA2004F83FB /* ODWebDownloadView.h */,
+				CE84F8511E053DA2004F83FB /* ODWebDownloadView.m */,
+				CE84F8521E053DA2004F83FB /* ODWebDownloadView.xib */,
+				CE84F8551E053DBD004F83FB /* ODWebDownloadManager.h */,
+				CE84F8561E053DBD004F83FB /* ODWebDownloadManager.m */,
+				CE84F8581E053DD8004F83FB /* ODWebDownloadData.h */,
+				CE84F8591E053DD8004F83FB /* ODWebDownloadData.m */,
+			);
+			name = ODWebDownloads;
+			sourceTree = "<group>";
+		};
+		CEB5F7581E26987900CAA2C5 /* TitleBar */ = {
+			isa = PBXGroup;
+			children = (
+				CEB5F7591E269D1B00CAA2C5 /* ODTitleBarView.h */,
+				CEB5F75A1E269D1B00CAA2C5 /* ODTitleBarView.m */,
+				CEB5F7551E26987100CAA2C5 /* ODWindowTitleBar.xib */,
+				CEB5F7541E26987100CAA2C5 /* ODWindowTitleBar.m */,
+				CEB5F7531E26987100CAA2C5 /* ODWindowTitleBar.h */,
+			);
+			name = TitleBar;
+			sourceTree = "<group>";
+		};
+		CED85E0D1D955F1200423367 = {
+			isa = PBXGroup;
+			children = (
+				CED85E2A1D955F2900423367 /* WebKit.framework */,
+				CED85E181D955F1200423367 /* Odyssey */,
+				CED85E171D955F1200423367 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CED85E171D955F1200423367 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CED85E161D955F1200423367 /* Odyssey.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CED85E181D955F1200423367 /* Odyssey */ = {
+			isa = PBXGroup;
+			children = (
+				CED85E191D955F1200423367 /* AppDelegate.h */,
+				CED85E1A1D955F1200423367 /* AppDelegate.m */,
+				CED85E1F1D955F1200423367 /* Assets.xcassets */,
+				CED85E211D955F1200423367 /* MainMenu.xib */,
+				CED85E241D955F1200423367 /* Info.plist */,
+				CED85E351D95629A00423367 /* ODController.h */,
+				CED85E361D95629A00423367 /* ODController.m */,
+				CEB10C321E01A0C5000922EC /* ODWebDownloads */,
+				CE60BA6A1DFED16D0070C22C /* ODWebPreferences */,
+				CE42012C1DD6187B000096DC /* ContentBlocker */,
+				CEA2871A1DBA5AC200E6864D /* WebBookmarks */,
+				CE65C6051D9FE69900366ED2 /* WebHistory */,
+				CED85E341D95612F00423367 /* OdysseyWindow */,
+				CE28239C1D9C41EA00D2712A /* UnifiedField */,
+				CED85E3B1D9579F600423367 /* WebView */,
+				CED85E1C1D955F1200423367 /* Supporting Files */,
+			);
+			path = Odyssey;
+			sourceTree = "<group>";
+		};
+		CED85E1C1D955F1200423367 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CED85E1D1D955F1200423367 /* main.m */,
+				CE2E8D5A1DC2388E00266D2D /* UserAgent.plist */,
+				CE2E8D5C1DC238AD00266D2D /* SearchEngines.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CED85E341D95612F00423367 /* OdysseyWindow */ = {
+			isa = PBXGroup;
+			children = (
+				CEA833F41DFA909300A58DE6 /* Tabs */,
+				CE8781EE1DEC685A0047770A /* GoTo */,
+				CE3BB57A1D9D66E000E84F17 /* SearchFor */,
+				CE3BB5761D9D478500E84F17 /* StatusBar */,
+				CEB5F7581E26987900CAA2C5 /* TitleBar */,
+				CED85E2C1D9560ED00423367 /* ODWindowController.h */,
+				CED85E2D1D9560ED00423367 /* ODWindowController.m */,
+				CED85E2E1D9560ED00423367 /* ODWindowController.xib */,
+			);
+			name = OdysseyWindow;
+			sourceTree = "<group>";
+		};
+		CED85E3B1D9579F600423367 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				CEF193791DFF333E00D99FF1 /* WebApplicationCache.h */,
+				CEF193781DFF321300D99FF1 /* WebCache.h */,
+				CE60BA6F1DFEDBB70070C22C /* WebPreferencesPrivate.h */,
+				CE60BA6E1DFEDBA10070C22C /* WebViewPrivate.h */,
+				CED85E381D9579CA00423367 /* ODWebView.h */,
+				CED85E391D9579CA00423367 /* ODWebView.m */,
+			);
+			name = WebView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CED85E151D955F1200423367 /* Odyssey */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CED85E271D955F1200423367 /* Build configuration list for PBXNativeTarget "Odyssey" */;
+			buildPhases = (
+				CED85E121D955F1200423367 /* Sources */,
+				CED85E131D955F1200423367 /* Frameworks */,
+				CED85E141D955F1200423367 /* Resources */,
+				CE07EE4A1DEF131E008D32CE /* Copy Files */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Odyssey;
+			productName = Odyssey;
+			productReference = CED85E161D955F1200423367 /* Odyssey.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CED85E0E1D955F1200423367 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OD;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = home;
+				TargetAttributes = {
+					CED85E151D955F1200423367 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
+			};
+			buildConfigurationList = CED85E111D955F1200423367 /* Build configuration list for PBXProject "Odyssey" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CED85E0D1D955F1200423367;
+			productRefGroup = CED85E171D955F1200423367 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CED85E151D955F1200423367 /* Odyssey */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CED85E141D955F1200423367 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CED85E301D9560ED00423367 /* ODWindowController.xib in Resources */,
+				CE2E8D5B1DC2388E00266D2D /* UserAgent.plist in Resources */,
+				CEB5F7571E26987100CAA2C5 /* ODWindowTitleBar.xib in Resources */,
+				CEA833F91DFA90DF00A58DE6 /* ODTabSwitcher.xib in Resources */,
+				CED85E201D955F1200423367 /* Assets.xcassets in Resources */,
+				CED85E231D955F1200423367 /* MainMenu.xib in Resources */,
+				CE4201351DD62A9D000096DC /* blocked.png in Resources */,
+				CE2E8D5D1DC238AD00266D2D /* SearchEngines.plist in Resources */,
+				CEA287251DBA5B1200E6864D /* WebBookmarks.plist in Resources */,
+				CE8781F41DEC68B00047770A /* ODGoTo.xib in Resources */,
+				CECC11931DDE046B0059D952 /* dummy.js in Resources */,
+				CE84F8541E053DA2004F83FB /* ODWebDownloadView.xib in Resources */,
+				CEA2872D1DBA5BC300E6864D /* ODAddBookmarkDialogController.xib in Resources */,
+				CEE6A1001DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.xib in Resources */,
+				CE4201341DD62A9D000096DC /* WebFilterWhiteList.txt in Resources */,
+				CE4201331DD62A9D000096DC /* WebFilterList.txt in Resources */,
+				CEA287261DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CED85E121D955F1200423367 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE07EE4B1DEF26E0008D32CE /* ODUnifiedFieldButton.m in Sources */,
+				CEA287271DBA5B1200E6864D /* ODWebBookmakrsEditorView.m in Sources */,
+				CEA287351DBA705A00E6864D /* ODBookmarksController.m in Sources */,
+				CEDAA3571DC8F96C0086367D /* ODSessionData.m in Sources */,
+				CEA833F81DFA90DF00A58DE6 /* ODTabSwitcher.m in Sources */,
+				CE3BB5791D9D484100E84F17 /* ODStatusBar.m in Sources */,
+				CE84F8531E053DA2004F83FB /* ODWebDownloadView.m in Sources */,
+				CED85E371D95629A00423367 /* ODController.m in Sources */,
+				CE84F8571E053DBD004F83FB /* ODWebDownloadManager.m in Sources */,
+				CEA287231DBA5B1200E6864D /* ODWebBookmarksOutlineViewController.m in Sources */,
+				CEA833FC1DFA910F00A58DE6 /* ODTabBar.m in Sources */,
+				CE3BB5801D9D894300E84F17 /* ODSearchForController.m in Sources */,
+				CED85E1E1D955F1200423367 /* main.m in Sources */,
+				CEA2872C1DBA5BC300E6864D /* ODAddBookmarkDialogController.m in Sources */,
+				CED85E3A1D9579CA00423367 /* ODWebView.m in Sources */,
+				CEE6A0FF1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.m in Sources */,
+				CED85E2F1D9560ED00423367 /* ODWindowController.m in Sources */,
+				CEA287321DBA6FBF00E6864D /* NSDictionary+BookmarkItem.m in Sources */,
+				CE3BB57D1D9D6D6000E84F17 /* ODSearchForView.m in Sources */,
+				CE65C6081D9FE6CF00366ED2 /* ODWebHistory.m in Sources */,
+				CEB5F7561E26987100CAA2C5 /* ODWindowTitleBar.m in Sources */,
+				CECC11961DDE05FE0059D952 /* ODContentBlocker.m in Sources */,
+				CE84F85A1E053DD8004F83FB /* ODWebDownloadData.m in Sources */,
+				CE8781F31DEC68B00047770A /* ODGoTo.m in Sources */,
+				CEB5F75B1E269D1B00CAA2C5 /* ODTitleBarView.m in Sources */,
+				CEA287241DBA5B1200E6864D /* ODWebBookmarkData.m in Sources */,
+				CE60BA6D1DFED1C20070C22C /* ODWebPreferences.m in Sources */,
+				CED85E1B1D955F1200423367 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CED85E211D955F1200423367 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CED85E221D955F1200423367 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CED85E251D955F1200423367 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CED85E261D955F1200423367 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CED85E281D955F1200423367 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Odyssey/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "/Volumes/WebKit/WebKit.app/Contents/Frameworks/10-11/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "void.digital-person.Odyssey";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CED85E291D955F1200423367 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Odyssey/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "/Volumes/WebKit/WebKit.app/Contents/Frameworks/10-11/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "void.digital-person.Odyssey";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CED85E111D955F1200423367 /* Build configuration list for PBXProject "Odyssey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CED85E251D955F1200423367 /* Debug */,
+				CED85E261D955F1200423367 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CED85E271D955F1200423367 /* Build configuration list for PBXNativeTarget "Odyssey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CED85E281D955F1200423367 /* Debug */,
+				CED85E291D955F1200423367 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CED85E0E1D955F1200423367 /* Project object */;
+}

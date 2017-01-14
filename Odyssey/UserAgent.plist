@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Name</key>
+		<string>Safari 9</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.56 (KHTML, like Gecko) Version/9.0 Safari/601.1.56</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Safari 7</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8) AppleWebKit/501.1.56 (KHTML, like Gecko) Version/7.0 Safari/501.1.56</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Safari iPad</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (iPad; CPU OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>IE 10</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>IE 7</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Chrome</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Firefox (Linux)</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Linux; Debian 6.0; rv:23.0) Gecko/20100101 Firefox/23.0</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Firefox</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:23.0) Gecko/20100101 Firefox/23.0</string>
+	</dict>
+</array>
+</plist>
