@@ -32,7 +32,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" id="GzZ-He-wTs">
-                    <rect key="frame" x="454" y="1" width="51" height="19"/>
+                    <rect key="frame" x="454" y="2" width="51" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <animations/>
                     <buttonCell key="cell" type="roundRect" title="[0/0]" bezelStyle="roundedRect" alignment="right" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="gEb-e9-pno">

@@ -54,6 +54,7 @@
 
   
     // Insert code here to initialize your application
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain];
     NSFileManager *shared = [NSFileManager defaultManager];
     NSURL *appSupp = [[shared URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
     appSupp = [appSupp URLByAppendingPathComponent:@"void.digital-person.Odyssey" isDirectory:YES];

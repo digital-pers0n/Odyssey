@@ -92,7 +92,7 @@
         
         NSRect winFrame = win.contentView.frame;
         
-        NSRect frame = NSMakeRect(NSMaxX(winFrame) - 150, NSMaxY(winFrame) - 5, 150, 5);
+        NSRect frame = NSMakeRect(NSMaxX(winFrame) - 130, NSMaxY(winFrame) - 5, 130, 5);
         
         //NSRect frame = NSMakeRect(0, NSMaxY(win.contentView.frame) - 5, 270, 5);
         
@@ -156,6 +156,23 @@
 }
 
 #pragma mark - Table View
+
+- (NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation
+{
+    ODWindowController *ctl = [NSApp mainWindow].windowController;
+    ODTabBar *tabBar = [ctl tabBar];
+    NSArray *items = tabBar.tabList;
+    NSString *result = nil;
+    if (row < items.count) {
+        
+        WebView *obj = [items objectAtIndex:row];
+        result = obj.mainFrameURL;
+        
+    }
+    
+    return result; 
+}
+
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row
 {
 
@@ -175,10 +192,10 @@
             obj = [items objectAtIndex:row];
             
             
-            if (tableColumn == tableColumn(@"ICON")) {
-                
-                return [obj mainFrameIcon];
-            }
+//            if (tableColumn == tableColumn(@"ICON")) {
+//                
+//                return [obj mainFrameIcon];
+//            }
             if (tableColumn == tableColumn(@"TITLE")) {
                 NSString *title = obj.mainFrameTitle.length ? obj.mainFrameTitle : obj.mainFrameURL;
                 if (!title.length) {
