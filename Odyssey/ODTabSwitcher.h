@@ -13,13 +13,20 @@
     IBOutlet NSTableView *_table;
 }
 
++(instancetype)switcher;
+
 -(IBAction)closeButtonClicked:(id)sender;
 -(IBAction)addButtonClicked:(id)sender;
 -(IBAction)cancelButtonClicked:(id)sender;
 -(IBAction)cellClicked:(id)sender;
 
 
+
+
 -(void)update;
 -(void)showPopover;
+-(void)runModal;
+-(void)showSidebar;
+-(BOOL)isSidebarOpen;
 
 @end

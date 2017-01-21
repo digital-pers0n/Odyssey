@@ -40,6 +40,18 @@ IBOutlet NSButton *_downloadsButton;
     // Do view setup here.
 }
 
+-(NSButton *)tabButton
+{
+    return _tabButton;
+}
+
+-(NSButton *)downloadsButton
+{
+    return _downloadsButton;
+}
+
+//
+
 -(void)setTitle:(NSString *)title icon:(NSImage *)icon tabInfo:(NSString *)tabInfo
 {
     ODTitleBarView *view = (ODTitleBarView *)self.view;

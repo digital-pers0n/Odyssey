@@ -45,7 +45,8 @@
     self = [super init];
     if (self) {
         self->_windowControllers = [NSMutableArray new];
-        self->_tabSwitcher = [[ODTabSwitcher alloc] init];
+//        self->_tabSwitcher = [[ODTabSwitcher alloc] init];
+        self->_tabSwitcher = [ODTabSwitcher switcher];
         //        [[NSUserDefaults standardUserDefaults] setObject:data[ID_KEY] forKey:DEFAULTS_KEY];
         //        [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_KEY];
         
@@ -232,7 +233,9 @@
     if (_tabSwitcher) {
         
         [_tabSwitcher.view setNeedsDisplay:YES];
-        [_tabSwitcher showPopover];
+        //[_tabSwitcher showPopover];
+        [_tabSwitcher runModal];
+        //[_tabSwitcher showSidebar];
         
         //       }
         

@@ -12,6 +12,6 @@
 -(void)setTitle:(NSString *)title icon:(NSImage *)icon;
 @property NSString * title;
 @property NSImage *icon;
-@property NSString * status;
+@property (nonatomic) NSString * status;
 
 @end

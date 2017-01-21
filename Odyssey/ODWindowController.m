@@ -11,6 +11,7 @@
 //#import "ODTabController.h"
 //#import "ODUnifiedFieldController.h"
 #import "ODTabBar.h"
+#import "ODTabSwitcher.h"
 #import "ODStatusBar.h"
 #import "ODSearchForController.h"
 
@@ -213,15 +214,14 @@ void ODLog(NSString *s);
     return [_tabBar activeTab];
 }
 
--(id)tabsController
-{
-    //return _tabsCtl;
-    return nil;
-}
-
 -(id)tabBar
 {
     return _tabBar;
+}
+
+-(id)titleBar
+{
+    return _titleBar;
 }
 
 -(void)openInNewWindow:(id)sender
@@ -266,7 +266,12 @@ void ODLog(NSString *s);
     //[self.window.contentView addSubview:view positioned:NSWindowBelow relativeTo:self.window.contentView];
     NSRect frame = self.window.contentView.frame;
     [self.window.contentView addSubview:view];
-    [view setFrame:NSMakeRect(0, 0, NSWidth(frame), NSHeight(frame))];
+    if ([[ODTabSwitcher switcher] isSidebarOpen]) {
+        [view setFrame:NSMakeRect(200, 0, NSWidth(frame) - 200, NSHeight(frame))];
+    } else {
+        
+        [view setFrame:NSMakeRect(0, 0, NSWidth(frame), NSHeight(frame))];
+    }
     
     [view setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable];
     [view setTranslatesAutoresizingMaskIntoConstraints:YES];
@@ -387,7 +392,11 @@ void ODLog(NSString *s);
     }
     
     string = url.pathExtension;
-    if ([string isEqualToString:@"webm"] || [string isEqualToString:@"mp4"] || [string isEqualToString:@"mp3"]) {
+    if ([string isEqualToString:@"webm"] 
+        || [string isEqualToString:@"mp3"] 
+        || [string isEqualToString:@"mp4"] 
+        || [string isEqualToString:@"ogg"]) {
+        
         return YES;
     }
     

@@ -15,6 +15,7 @@
 -(WebView *)mainWebView;
 -(id)tabsController;
 -(id)tabBar;
+-(id)titleBar;
 
 //-(IBAction)goTo:(id)sender;
 -(IBAction)showSearchDocument:(id)sender;

@@ -14,5 +14,8 @@
 -(void)setTitle:(NSString *)title;
 -(void)setStatus:(NSString *)status;
 
+-(NSButton *)tabButton;
+-(NSButton *)downloadsButton;
+
 
 @end

@@ -37,7 +37,7 @@
     self = [super init];
     if (self) {
         
-        _controller = [[ODController alloc] init];
+        //_controller = [[ODController alloc] init];
         //_controller = [ODController sharedController];
         
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self

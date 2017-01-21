@@ -34,10 +34,11 @@
          NSCell *cell = [[NSCell alloc] initTextCell:_status];
         [cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
         if (_canDrawAttributedString) {
+            
             NSRange range = [_status rangeOfString:@"/"];
             NSMutableAttributedString *_string = [cell.attributedStringValue mutableCopy]; //[[NSMutableAttributedString alloc] initWithString:_status];
             
-            //[_string setAttributes:self->_attrs range:NSMakeRange(0, _status.length)];
+            
             
             [_string addAttribute:NSFontAttributeName value:[NSFont boldSystemFontOfSize:[NSFont systemFontSize] - 1] range:NSMakeRange(0, range.location)];
             
@@ -47,7 +48,8 @@
         //[cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
         [cell drawWithFrame:NSMakeRect(6, 0, NSWidth(self.frame) - 95, 20) inView:self];
         //[_string drawInRect:NSMakeRect(36, 0, NSWidth(self.frame) - 90, 20)];
-    } else if(_title) {
+    } else if (_title) {
+        
         NSCell *tcell = [[NSCell alloc] initTextCell:_title];
         
         [tcell setLineBreakMode:NSLineBreakByTruncatingMiddle];

@@ -12,6 +12,7 @@
 //#import "WebViewPrivate.h"
 #import "WebPreferencesPrivate.h"
 #import "ODWebPreferences.h"
+#import "ODTabSwitcher.h"
 
 @interface WebStorageManager : NSObject
 
@@ -162,13 +163,18 @@
 //    [win.contentView addSubview:self];
     [self.window.windowController performSelector:@selector(updateTitle)];
     NSRect frame = self.window.contentView.frame;
-    [self setFrameSize:NSMakeSize(NSWidth(frame), NSHeight(frame))];
+    if ([[ODTabSwitcher switcher] isSidebarOpen]) {
+        [self setFrame:NSMakeRect(200, 0, NSWidth(frame) - 200, NSHeight(frame))];
+    } else {
+        [self setFrameSize:NSMakeSize(NSWidth(frame), NSHeight(frame))];
+    }
     //[self setFrameOrigin:NSMakePoint(0, 0)];
     //[self setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable];
 //    [self setTranslatesAutoresizingMaskIntoConstraints:YES];
     
     
-    [self.window setInitialFirstResponder:self];
+    //[self.window setInitialFirstResponder:self];
+    [self.window makeFirstResponder:self];
     
     [self setNeedsDisplay:YES];
     

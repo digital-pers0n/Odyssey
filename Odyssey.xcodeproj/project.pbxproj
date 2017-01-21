@@ -19,6 +19,7 @@
 		CE4201351DD62A9D000096DC /* blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4201321DD62A9D000096DC /* blocked.png */; settings = {ASSET_TAGS = (); }; };
 		CE60BA6D1DFED1C20070C22C /* ODWebPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = CE60BA6C1DFED1C20070C22C /* ODWebPreferences.m */; settings = {ASSET_TAGS = (); }; };
 		CE65C6081D9FE6CF00366ED2 /* ODWebHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE65C6071D9FE6CF00366ED2 /* ODWebHistory.m */; settings = {ASSET_TAGS = (); }; };
+		CE680C7D1E32A79A004F3806 /* ODTabSwitcherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE680C7C1E32A79A004F3806 /* ODTabSwitcherView.m */; settings = {ASSET_TAGS = (); }; };
 		CE84F8531E053DA2004F83FB /* ODWebDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84F8511E053DA2004F83FB /* ODWebDownloadView.m */; settings = {ASSET_TAGS = (); }; };
 		CE84F8541E053DA2004F83FB /* ODWebDownloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE84F8521E053DA2004F83FB /* ODWebDownloadView.xib */; settings = {ASSET_TAGS = (); }; };
 		CE84F8571E053DBD004F83FB /* ODWebDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84F8561E053DBD004F83FB /* ODWebDownloadManager.m */; settings = {ASSET_TAGS = (); }; };
@@ -88,6 +89,8 @@
 		CE60BA6F1DFEDBB70070C22C /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPreferencesPrivate.h; sourceTree = "<group>"; };
 		CE65C6061D9FE6CF00366ED2 /* ODWebHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebHistory.h; sourceTree = "<group>"; };
 		CE65C6071D9FE6CF00366ED2 /* ODWebHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebHistory.m; sourceTree = "<group>"; };
+		CE680C7B1E32A79A004F3806 /* ODTabSwitcherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabSwitcherView.h; sourceTree = "<group>"; };
+		CE680C7C1E32A79A004F3806 /* ODTabSwitcherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabSwitcherView.m; sourceTree = "<group>"; };
 		CE84F8501E053DA2004F83FB /* ODWebDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWebDownloadView.h; sourceTree = "<group>"; };
 		CE84F8511E053DA2004F83FB /* ODWebDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWebDownloadView.m; sourceTree = "<group>"; };
 		CE84F8521E053DA2004F83FB /* ODWebDownloadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODWebDownloadView.xib; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				CEA833FB1DFA910F00A58DE6 /* ODTabBar.m */,
 				CEA833F51DFA90DF00A58DE6 /* ODTabSwitcher.h */,
 				CEA833F61DFA90DF00A58DE6 /* ODTabSwitcher.m */,
+				CE680C7B1E32A79A004F3806 /* ODTabSwitcherView.h */,
+				CE680C7C1E32A79A004F3806 /* ODTabSwitcherView.m */,
 				CEA833F71DFA90DF00A58DE6 /* ODTabSwitcher.xib */,
 			);
 			name = Tabs;
@@ -493,6 +498,7 @@
 				CE3BB5801D9D894300E84F17 /* ODSearchForController.m in Sources */,
 				CED85E1E1D955F1200423367 /* main.m in Sources */,
 				CEA2872C1DBA5BC300E6864D /* ODAddBookmarkDialogController.m in Sources */,
+				CE680C7D1E32A79A004F3806 /* ODTabSwitcherView.m in Sources */,
 				CED85E3A1D9579CA00423367 /* ODWebView.m in Sources */,
 				CEE6A0FF1DE8B4FB0081D626 /* ODContentBlockerAddRuleDialog.m in Sources */,
 				CED85E2F1D9560ED00423367 /* ODWindowController.m in Sources */,

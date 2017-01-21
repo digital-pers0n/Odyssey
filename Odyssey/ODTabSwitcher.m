@@ -13,14 +13,16 @@
 //#import "ODTabController.h"
 #import "ODTabBar.h"
 #import "ODTabSwitcher.h"
+#import "ODWindowTitleBar.h"
 
 @import WebKit;
 #define tableColumn(x) [self->_table tableColumnWithIdentifier:x]
 
 @interface ODTabSwitcher () <NSTableViewDataSource, NSTableViewDelegate>
 {
-    NSMutableArray *_tabs;
+    //NSMutableArray *_tabs;
     NSPopover *_popover;
+    BOOL _sidebar;
 }
 
 @end
@@ -31,9 +33,20 @@
 {
     self = [super init];
     if (self) {
-        
+        _sidebar = NO;
     }
     return self;
+}
+
++(instancetype)switcher
+{
+    static ODTabSwitcher *switcher;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        switcher = [[ODTabSwitcher alloc] init];
+    });
+    
+    return switcher;
 }
 
 -(NSString *)nibName
@@ -43,22 +56,27 @@
 
 -(void)awakeFromNib
 {
-    _tabs = [NSMutableArray new];
+    //_tabs = [NSMutableArray new];
     _table.dataSource = self;
     _table.delegate = self;
     [_table setDoubleAction:@selector(cellClicked:)];
     
     _popover = [[NSPopover alloc] init];
     [_popover setContentSize:NSMakeSize(NSWidth(self.view.frame), NSHeight(self.view.frame))];
-    [_popover setBehavior: NSPopoverBehaviorTransient];
+    [_popover setBehavior: NSPopoverBehaviorSemitransient];
     [_popover setAnimates:YES];
-    [_popover setContentViewController:self];
+    //[_popover setContentViewController:self];
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+}
+
+-(BOOL)isSidebarOpen
+{
+    return _sidebar;
 }
 
 -(void)update
@@ -88,19 +106,101 @@
         
         //NSPoint mouseCoord = [NSEvent mouseLocation];
         //NSRect rect = [[NSApp mainWindow] convertRectFromScreen:button.frame];
-        [self update];
+        [_table reloadData];
         
-        NSRect winFrame = win.contentView.frame;
+        ODWindowController *ctl = win.windowController;
+        ODWindowTitleBar *titleBar = ctl.titleBar;
         
-        NSRect frame = NSMakeRect(NSMaxX(winFrame) - 130, NSMaxY(winFrame) - 5, 130, 5);
+       // NSRect winFrame = win.contentView.frame;
+        
+       // NSRect frame = NSMakeRect(NSMaxX(winFrame) - 130, NSMaxY(winFrame) - 5, 130, 5);
         
         //NSRect frame = NSMakeRect(0, NSMaxY(win.contentView.frame) - 5, 270, 5);
-        
-        [_popover showRelativeToRect:frame ofView:win.contentView preferredEdge:NSMinYEdge];
+        [_popover showRelativeToRect:titleBar.tabButton.frame ofView:titleBar.view preferredEdge:NSMinYEdge];
+        //[_popover showRelativeToRect:frame ofView:win.contentView preferredEdge:NSMinYEdge];
         //[_popover showRelativeToRect:button.frame ofView:button.superview preferredEdge:NSMinYEdge];
         
+    } else {
+        
+        [_popover close];
     };
 
+}
+
+-(void)runModal
+{
+    [self update];
+    
+    NSWindow *win = [[NSWindow alloc] init];
+    
+     long height = 28 * _table.numberOfRows;
+    if (height > 480) {
+        [self.view setFrameSize:NSMakeSize(280, 480)];
+    } else {
+        if (height < 100) {
+            height = 100;
+        }
+        [self.view setFrameSize:NSMakeSize(280, height)];
+    }
+    
+    NSRect frame = self.view.frame;
+    
+    [win setFrame:NSMakeRect(0, 0, NSWidth(frame), NSHeight(frame) + 8) display:NO animate:NO];
+    
+    [win.contentView addSubview:self.view];
+    
+    [NSApp beginSheet:win modalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    [NSApp runModalForWindow:win];
+    // sheet is up here...
+    
+    [NSApp endSheet:win];
+    [win orderOut:self];
+}
+
+-(void)showSidebar
+{
+    NSView *view = self.view;
+    NSWindow *win = [NSApp mainWindow];
+    ODWindowController *ctl = win.windowController;
+    ODTabBar *tabBar = [ctl tabBar];
+    WebView *wView = tabBar.activeTab;
+    NSRect viewRect = wView.frame;
+    
+    if (!view.window) {
+        
+        [_table reloadData];
+     
+        [win.contentView addSubview:view];
+
+        [wView setFrame:NSMakeRect(200, 0, NSWidth(viewRect) - 200, NSHeight(viewRect))];
+        NSRect winRect = win.contentView.frame;
+        [view setFrameSize:NSMakeSize(200, NSHeight(winRect) + 20)];
+        [win makeFirstResponder:_table];
+        _sidebar = YES;
+        
+        
+        //[view setNeedsDisplay:YES];
+    } else {
+        
+        [view removeFromSuperview];
+        NSRect winRect = win.contentView.frame;
+        [wView setFrame:NSMakeRect(0, 0, NSWidth(winRect), NSHeight(winRect))];
+        _sidebar = NO;
+    }
+    
+}
+
+-(void)closeSidebar
+{
+    NSView *view = self.view;
+    NSWindow *win = view.window;
+    ODWindowController *ctl = win.windowController;
+    ODTabBar *tabBar = [ctl tabBar];
+    WebView *wView = tabBar.activeTab;
+    NSRect winRect = win.contentView.frame;
+    [wView setFrame:NSMakeRect(0, 0, NSWidth(winRect), NSHeight(winRect))];
+    [view removeFromSuperview];
+    _sidebar = NO;
 }
 
 #pragma mark - Actions
@@ -134,6 +234,9 @@
 -(void)cancelButtonClicked:(id)sender
 {
     [_popover close];
+  //  [self closeSidebar];
+     //[self.view removeFromSuperview];
+    [NSApp stopModal];
 }
 
 -(void)addButtonClicked:(id)sender
@@ -149,7 +252,15 @@
     ODWindowController *ctl = [NSApp mainWindow].windowController;
     //ODTabController *tabctl = [ctl tabsController];
      ODTabBar *tabBar = [ctl tabBar];
-    [tabBar selectTabAtIndex:_table.selectedRow];
+    long row = _table.selectedRow;
+    if (tabBar.tabList.count > row) {
+            [tabBar selectTabAtIndex:row];
+    }
+    
+//     [self.view removeFromSuperview];
+   // [self closeSidebar];
+    [NSApp stopModal];
+
     //NSUInteger idx = [tabctl.menu indexOfItemWithRepresentedObject:[_tabs objectAtIndex:_table.selectedRow]];
     //[tabctl switchTab:[tabctl.menu itemAtIndex:_table.selectedRow]];
     

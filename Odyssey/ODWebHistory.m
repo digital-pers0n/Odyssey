@@ -50,7 +50,7 @@
     //[_historyMenu removeAllItems];
     
     WebView *view = [_controller webView];
-    NSArray *list = [[view backForwardList] backListWithLimit:45];
+    NSArray *list = [[view backForwardList] backListWithLimit:35];
     for (WebHistoryItem *obj in list) {
         
         NSInteger idx = [_historyMenu indexOfItemWithRepresentedObject:obj.URLString];
@@ -80,11 +80,11 @@
         
     }
     
-    if (_historyMenu.itemArray.count > 45) {
+    if (_historyMenu.itemArray.count > 35) {
         
         for (NSMenuItem *itm in [[_historyMenu itemArray] copy]) {
             
-            if ([_historyMenu indexOfItem:itm] > 44) {
+            if ([_historyMenu indexOfItem:itm] > 34) {
                 [_historyMenu removeItem:itm];
             }
             
