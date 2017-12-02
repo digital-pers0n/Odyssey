@@ -2,325 +2,247 @@
 //  ODTabBar.m
 //  Odyssey
 //
-//  Created by Terminator on 12/9/16.
-//  Copyright © 2016 home. All rights reserved.
+//  Created by Terminator on 4/7/17.
+//  Copyright © 2017 home. All rights reserved.
 //
 
 #import "ODTabBar.h"
-#import "ODWindowController.h"
-#import "ODWebView.h"
+#import "ODTabItem.h"
+#import "ODWindow.h"
 
-@import WebKit;
-
-@interface ODTabBar () {
-    
-    NSMutableArray *_tabList;
-    WebView *_activeTab;
-    NSWindow *_window;
+@interface ODTabBar ()
+{
+    NSMutableArray *_tabItems;
 }
-
-
 
 @end
 
 @implementation ODTabBar
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        
-        self->_tabList = [NSMutableArray new];
-    
+        _tabItems = [NSMutableArray new];
     }
     return self;
 }
 
-#pragma mark - tab managment
+#pragma mark - Select
 
--(void)openTabWithObject:(WebView *)obj background:(BOOL)state
+-(void)selectTabItem:(ODTabItem *)item
 {
-    [_tabList addObject:obj];
+
+       // [self selectTabItemAtIndex:[_tabItems indexOfObject:item]];
+    [_delegate tabBar:self willSelectTabItem:item];
+    [_selectedTabItem.view setHidden:YES];
+    //[_selectedTabItem.view removeFromSuperview];
+    [_selectedTabItem _setState:ODTabStateBackground];
     
-    if (!state) {
-        
-        [self selectTabAtIndex:[_tabList indexOfObject:obj]];
-//        [_activeTab setHidden:YES];
-//        _activeTab = obj;
-//        [obj setHidden:NO]; 
+    _selectedTabItem = item;
+    NSView *contentView = _window.contentView;
+    NSView *view = item.view;
+    view.frame = contentView.frame;
+    //[_window addSubview:view];
+    [item _setState:ODTabStateSelected];
+    [view setHidden:NO];
     
-    } else {
+    [_delegate tabBar:self didSelectTabItem:item];
+            
+}
+
+-(void)selectTabItemAtIndex:(NSInteger)idx
+{
+    if (_tabItems.count > idx) {
         
-        [obj setHidden:YES];
+        ODTabItem *item = _tabItems[idx];
+        
+        [self selectTabItem:item];
         
     }
 }
 
--(void)selectTabAtIndex:(NSUInteger)idx
+#pragma mark - Navigation
+
+-(void)selectFirstTabItem
 {
-    [_activeTab setHidden:YES];
-    [_activeTab removeFromSuperview];
-    _activeTab = [_tabList objectAtIndex:idx];
- //   [_window.contentView addSubview:_activeTab];
-//    [_window.contentView addSubview:_activeTab positioned:NSWindowBelow relativeTo:_window.contentView];
-    [_activeTab setHidden:NO];
-    [_activeTab setNeedsDisplay:YES];
+    [self selectTabItem:_tabItems.firstObject];
 }
 
--(void)nextTab
+-(void)selectLastTabItem
 {
-    u_long count = _tabList.count;
-    
-    if (count > 1) {
-        
-        u_long idx = [_tabList indexOfObject:_activeTab] + 1;
-        
-        if (idx > count - 1) {
-            
-            [self selectTabAtIndex:0];
-            
-        } else {
-            
-            [self selectTabAtIndex:idx];
-        }
-    }
-    
-
+    [self selectTabItem:_tabItems.lastObject];
 }
 
--(void)previousTab
+-(void)selectNextTabItem
 {
-    u_long count = _tabList.count;
-    
-    if (count > 1) {
+    NSInteger idx = [_tabItems indexOfObject:_selectedTabItem];
+    idx = idx + 1;
+    if (_tabItems.count > idx) {
         
-        u_long idx = [_tabList indexOfObject:_activeTab];
-        
-        if (idx != 0) {
-            
-            [self selectTabAtIndex:idx - 1];
-            
-        } else {
-            
-            idx = count - 1;
-            
-            [self selectTabAtIndex:idx];
-        }
-    }
-    
-    
-    
-}
-
--(void)closeTabAtIndex:(NSUInteger)idx
-{
-     u_long tab_idx = [_tabList indexOfObject:_activeTab];
-    if (tab_idx == idx) {
-        [_activeTab close];
-      
-        
-        if (tab_idx == _tabList.count - 1) {
-            
-            [self previousTab];
-            
-        } else {
-            
-            [self nextTab];
-        }
-        
-        [_tabList removeObjectAtIndex:tab_idx];
+        [self selectTabItemAtIndex:idx];
         
     } else {
         
-        WebView *tab = [_tabList objectAtIndex:idx];
-        [tab close];
-        [_tabList removeObject:tab];
-        
-        
+        [self selectFirstTabItem];
     }
-    
-    if (_tabList.count == 0) {
-        
-        [[NSApp mainWindow] performClose:nil];
-    }
-    
-    
 }
 
--(void)closeActiveTab
+-(void)selectPreviousTabItem
 {
-    u_long idx = [_tabList indexOfObject:_activeTab];
-    [self closeTabAtIndex:idx];
+    NSInteger idx = [_tabItems indexOfObject:_selectedTabItem];
+    idx = idx - 1;
+    if (0 <= idx) {
+        
+        [self selectTabItemAtIndex:idx];
+        
+    } else {
+        
+        [self selectLastTabItem];
+    } 
 }
 
--(void)closeAllTabs
+#pragma mark - Add/Remove
+
+-(void)addTabItems:(NSArray *)objects
 {
-    for (WebView *v in [_tabList copy]) {
-        
-        v.UIDelegate = nil;
-        [v close];
-        [v removeFromSuperview];
-        [_tabList removeObject:v];
+    for (ODTabItem *item in objects) {
+        [_tabItems addObject:item];
     }
-    [_activeTab setHidden:YES];
-    _activeTab = nil;
-    
-    [[NSApp mainWindow] performClose:nil];
 }
 
--(void)moveTabAtIndex:(NSUInteger)idx toWindow:(NSWindow *)window
+-(void)addTabItem:(ODTabItem *)item
 {
-    WebView *view = [_tabList objectAtIndex:idx];
-    if ([view isEqualTo:_activeTab]) {
-        WebView *dummy = [WebView new] ;
-        [_tabList replaceObjectAtIndex:idx withObject:dummy];
-        _activeTab = dummy;
+    [_delegate tabBar:self willAddTabItem:item];
+    [_tabItems addObject:item];
+    [_delegate tabBar:self didAddTabItem:item];
+}
+
+-(void)insertTabItem:(ODTabItem *)item atIndex:(NSInteger)idx
+{
+    if (_tabItems.count > idx) {
+        
+        [_delegate tabBar:self willAddTabItem:item];
+        [_tabItems insertObject:item atIndex:idx];
+        [_delegate tabBar:self didAddTabItem:item];
     }
-    [view removeFromSuperview];
-    [self closeTabAtIndex:idx];
-    ODWindowController *ctl = window.windowController;
-    [ctl openTabWithWebView:view];
-    
 }
 
--(void)moveAllTabsToWindow:(NSWindow *)window
+-(void)addTabItem:(ODTabItem *)item relativeToSelectedTab:(BOOL)value
 {
-    ODWindowController *ctl = window.windowController;
-   ODTabBar *tabBar = ctl.tabBar;
-//    NSWindow *win = [_activeTab window];
-    [_activeTab setHidden:YES];
-     _activeTab = nil;
-    for (WebView *view in [_tabList copy]) {
-        //[_tabList removeObject:view];
-        [view removeFromSuperview];
-        [ctl _setUpWebView:view];
-        [tabBar openTabWithObject:view background:YES];
-        //[ctl openTabWithWebView:view];
+    if (value && _tabItems.lastObject != _selectedTabItem) {
+        NSInteger idx = [_tabItems indexOfObject:_selectedTabItem];
+        idx = idx + 1;
+        [self insertTabItem:item atIndex:idx];
+    } else {
+        [self addTabItem:item];
+    }
+}
+
+-(void)removeTabItem:(ODTabItem *)item
+{
+    
+    if (_selectedTabItem == item) {
         
-        
+        if (_tabItems.count > 1) {
+            
+             (item == _tabItems.lastObject) ? [self selectPreviousTabItem] : [self selectNextTabItem];
         }
-    //[tabBar selectTabAtIndex:0];
-    [_tabList removeAllObjects];
-    //[win performClose:nil];
+       
+    }
     
+    [_delegate tabBar:self willRemoveTabItem:item];
+    [_tabItems removeObject:item];
+    [_delegate tabBar:self didRemoveTabItem:item];
     
+    if (_tabItems.count == 0) {
+        
+        _selectedTabItem = nil;
+        [_window close];
+    } 
 }
+
+-(void)removeTabItemAtIndex:(NSInteger)idx
+{
+    if (_tabItems.count > idx) {
+        
+        ODTabItem *item = [_tabItems objectAtIndex:idx];
+        [self removeTabItem:item];
+    }
+}
+
+-(void)removeTabItemWithView:(id)view
+{
+    for (ODTabItem *item in _tabItems) {
+        if (item.view == view) {
+            [self removeTabItem:item];
+            break;
+        }
+    }
+}
+
+-(void)removeSelectedTabItem
+{
+    [self removeTabItem:_selectedTabItem];
+}
+
+-(void)removeAllTabs
+{
+    NSArray *openTabs = _tabItems.copy;
+    for (ODTabItem *item in openTabs) {
+        [self removeTabItem:item];
+    }
+}
+
+#pragma mark - Query
+
+-(NSInteger)numberOfTabItems
+{
+    return _tabItems.count;
+}
+
+-(NSInteger)indexOfTabItem:(ODTabItem *)tabItem
+{
+    return [_tabItems indexOfObject:tabItem];
+}
+
+-(ODTabItem *)tabItemAtIndex:(NSInteger)idx
+{
+    if (_tabItems.count > idx) {
+        return _tabItems[idx];
+    }
+    
+    return nil;
+}
+
+-(ODTabItem *)tabItemWithView:(id)view
+{
+    for (ODTabItem *item in _tabItems) {
+        if (item.view == view) {
+            return item;
+        }
+    }
+    
+    return nil;
+}
+
+#pragma mark - info
 
 -(NSString *)info
 {
-    //WebView *obj = self.activeTabObject;
-    
-    
-    NSString *title = [[_activeTab mainFrameTitle] length] ? [_activeTab mainFrameTitle] : [_activeTab mainFrameURL];
-    if (!title) {
-        title = @"Empty Tab";
-    }
-    
-    if ([_activeTab isLoading]) {
-        title = [NSString stringWithFormat:@"(%.0f%%) %@", [_activeTab estimatedProgress] * 100, title];
-    }
-//    u_long idx = [_tabList indexOfObject:_activeTab];
-//    NSString *result = [NSString stringWithFormat:@"[%lu/%lu] :: %@", idx + 1, _tabList.count, title];
-    
-    return title;
-}
-
--(NSString *)tabInfo
-{
-    u_long idx = [_tabList indexOfObject:_activeTab];
-    NSString *result = [NSString stringWithFormat:@"[%lu/%lu]", idx + 1, _tabList.count];
-    
+    NSString *result =  [NSString stringWithFormat:@"%li/%li", [_tabItems indexOfObject:_selectedTabItem] + 1, _tabItems.count];
     return result;
 }
 
-#pragma mark - ivars
 
--(WebView *)activeTab
-{
-    return _activeTab;
-}
 
--(NSUInteger)activeTabIdx
-{
-    return [_tabList indexOfObject:_activeTab];
-}
 
--(void)setActiveTab:(WebView *)obj
-{
-    u_long idx = [_tabList indexOfObject:_activeTab];
-    
-    [_tabList replaceObjectAtIndex:idx withObject:obj];
-    [_activeTab close];
-    [_activeTab setHidden:YES];
 
-    
-    
-    _activeTab = obj;
-    [_activeTab setHidden:NO];
-}
 
--(NSArray *)tabList
-{
-    return _tabList;
-}
 
-#pragma mark - session restore
 
--(void)restoreSession:(NSArray *)sessionArray forWindow:(id)window
-{
-    ODWindowController *ctl = [window windowController];
-    for (NSDictionary *dict in sessionArray) {
-        @autoreleasepool {
-            ODWebView *view = [[ODWebView alloc] init];
-            [ctl _setUpWebView:view];
-           //  [view setHidden:YES];
-            [view setMainFrameURL:dict[TAB_URL_KEY]];
-           // [_tabList addObject:view];
-            BOOL isMain = [dict[TAB_IS_MAIN_KEY] boolValue];
-            if (isMain) {
-                
-                [self openTabWithObject:view background:NO];
-                // [self selectTabAtIndex:[_tabList indexOfObject:view]];
-            } else {
-                
-                [self openTabWithObject:view background:YES];
-            }
-        }
-    }
-    
-    
-}
 
--(NSArray *)sessionArray
-{
-    NSMutableArray *result = [NSMutableArray new];
-    
-    for (WebView *view in _tabList) {
-        
-        NSMutableDictionary *tab = [NSMutableDictionary new];
-        NSString *str = [view mainFrameTitle];
-        if (!str.length) {
-            str = @"(No Title)";
-        }
-        [tab setObject:str forKey:TAB_TITLE_KEY];
-        str = [view mainFrameURL];
-        if (!str) {
-            str = @"about:blank";
-        }
-        [tab setObject:str forKey:TAB_URL_KEY];
-        
-        if ([view isEqualTo:[self activeTab]]) {
-            
-            [tab setObject:[NSNumber numberWithBool:YES] forKey:TAB_IS_MAIN_KEY];
-        
-        } else {
-           
-            [tab setObject:[NSNumber numberWithBool:NO] forKey:TAB_IS_MAIN_KEY];
-        }
-        
-        [result addObject:tab];
-    }
-    return result;
-}
+
 
 
 @end

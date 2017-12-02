@@ -1,32 +1,20 @@
 //
-//  ODTabSwitcherView.h
+//  ODTabSwitcher.h
 //  Odyssey
 //
-//  Created by Terminator on 12/9/16.
-//  Copyright © 2016 home. All rights reserved.
+//  Created by Terminator on 4/9/17.
+//  Copyright © 2017 home. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 
+@class ODTabBar;
+
 @interface ODTabSwitcher : NSViewController
-{
-    IBOutlet NSTableView *_table;
-}
 
-+(instancetype)switcher;
++(id)tabSwitcher;
 
--(IBAction)closeButtonClicked:(id)sender;
--(IBAction)addButtonClicked:(id)sender;
--(IBAction)cancelButtonClicked:(id)sender;
--(IBAction)cellClicked:(id)sender;
-
-
-
-
--(void)update;
--(void)showPopover;
--(void)runModal;
--(void)showSidebar;
--(BOOL)isSidebarOpen;
+-(IBAction)showPopover:(id)sender;
+-(void)closeView:(id)sender;
 
 @end

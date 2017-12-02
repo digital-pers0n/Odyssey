@@ -4,9 +4,21 @@
 <array>
 	<dict>
 		<key>Name</key>
+		<string>Safari 10</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8</string>
+	</dict>
+	<dict>
+		<key>Name</key>
 		<string>Safari 9</string>
 		<key>UserAgentString</key>
 		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.56 (KHTML, like Gecko) Version/9.0 Safari/601.1.56</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Safari 8</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.1.56 (KHTML, like Gecko) Version/8.0 Safari/537.1.56</string>
 	</dict>
 	<dict>
 		<key>Name</key>
@@ -16,9 +28,21 @@
 	</dict>
 	<dict>
 		<key>Name</key>
-		<string>Safari iPad</string>
+		<string>Safari iPad IOS8</string>
 		<key>UserAgentString</key>
 		<string>Mozilla/5.0 (iPad; CPU OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Safari iPad IOS6</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (iPad; CPU OS 6_1 like Mac OS X) AppleWebKit/537.1.4 (KHTML, like Gecko) Version/6.0 Mobile/10B410 Safari/537.1.4</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>IE 11</string>
+		<key>UserAgentString</key>
+		<string>Mozilla/5.0 (Windows NT 10.0; Trident/7.0; TCO_20170712143538; rv:11.0) like Gecko</string>
 	</dict>
 	<dict>
 		<key>Name</key>

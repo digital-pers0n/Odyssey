@@ -1,9 +1,9 @@
 //
 //  main.m
-//  OD
+//  Odyssey
 //
-//  Created by Terminator on 9/23/16.
-//  Copyright © 2016 home. All rights reserved.
+//  Created by Terminator on 4/6/17.
+//  Copyright © 2017 home. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

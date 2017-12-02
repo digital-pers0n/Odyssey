@@ -1,49 +1,77 @@
 //
-//  ODTabs.h
+//  ODTabBar.h
 //  Odyssey
 //
-//  Created by Terminator on 12/9/16.
-//  Copyright © 2016 home. All rights reserved.
+//  Created by Terminator on 4/7/17.
+//  Copyright © 2017 home. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-@class WebView;
+@class ODTabItem, ODWindow;
+@protocol ODTabBarDelegate;
 
-#define TAB_TITLE_KEY @"TabTitle"
-#define TAB_URL_KEY @"TabURL"
-#define TAB_IS_MAIN_KEY @"Main"
+@interface ODTabBar : NSObject
 
-@interface ODTabBar: NSObject
+@property ODWindow *window;
 
-@property NSWindow *window;
+ /* Select */
 
--(NSArray *)tabList;
+- (void)selectTabItem:(ODTabItem *)item;
+- (void)selectTabItemAtIndex:(NSInteger)idx;
 
--(WebView *)activeTab;
--(void)setActiveTab:(WebView *)obj;
--(NSUInteger)activeTabIdx;
+ /* Navigation */
 
--(void)openTabWithObject:(WebView *)obj background:(BOOL)state;
+- (void)selectFirstTabItem;
+- (void)selectLastTabItem;
+- (void)selectNextTabItem;
+- (void)selectPreviousTabItem;
 
--(void)closeTabAtIndex:(NSUInteger)idx;
--(void)closeActiveTab;
--(void)closeAllTabs;
+ /* Getters */
 
--(void)selectTabAtIndex:(NSUInteger)idx;
+@property (readonly) ODTabItem *selectedTabItem;
+@property (readonly, copy) NSArray *tabItems;
 
--(void)moveTabAtIndex:(NSUInteger)idx toWindow:(NSWindow *)window;
--(void)moveAllTabsToWindow:(NSWindow *)window;
+ /* Add/Remove */
 
+- (void)addTabItems:(NSArray *)objects;
+- (void)addTabItem:(ODTabItem *)item;
+- (void)addTabItem:(ODTabItem *)item relativeToSelectedTab:(BOOL)value;
+- (void)insertTabItem:(ODTabItem *)item atIndex:(NSInteger)idx;
+- (void)removeTabItem:(ODTabItem *)item;
+- (void)removeTabItemAtIndex:(NSInteger)idx;
+- (void)removeTabItemWithView:(NSView *)view;
+- (void)removeSelectedTabItem;
+- (void)removeAllTabs;
 
--(void)nextTab;
--(void)previousTab;
+ /* Delegate */
 
+@property (assign) id<ODTabBarDelegate> delegate;
 
--(void)restoreSession:(NSArray *)sessionArray forWindow:(id)window;
--(NSArray *)sessionArray;
+ /* Query */
 
--(NSString *)info;
--(NSString *)tabInfo;
+-(NSInteger)numberOfTabItems;
+-(NSInteger)indexOfTabItem:(ODTabItem *)tabItem;
+-(ODTabItem *)tabItemAtIndex:(NSInteger)idx;
+-(ODTabItem *)tabItemWithView:(id)view;
+
+ /* Info */
+
+- (NSString *)info;
+
+@end
+
+//================================================================================
+//	ODTabBarDelegate protocol
+//================================================================================
+
+@protocol ODTabBarDelegate <NSObject>
+
+- (void)tabBar:(ODTabBar *)tabBar willSelectTabItem:(ODTabItem *)item;
+- (void)tabBar:(ODTabBar *)tabBar didSelectTabItem:(ODTabItem *)item;
+- (void)tabBar:(ODTabBar *)tabBar willRemoveTabItem:(ODTabItem *)item;
+- (void)tabBar:(ODTabBar *)tabBar didRemoveTabItem:(ODTabItem *)item;
+- (void)tabBar:(ODTabBar *)tabBar willAddTabItem:(ODTabItem *)item;
+- (void)tabBar:(ODTabBar *)tabBar didAddTabItem:(ODTabItem *)item;
 
 
 @end
