@@ -176,7 +176,7 @@
         }
         
         
-        item = [[NSMenuItem alloc] initWithTitle:@"Load JavaScript" action:@selector(menuItemAction:) keyEquivalent:@""];
+        item = [[NSMenuItem alloc] initWithTitle:@"Load JavaScript" action:@selector(menuItemAction:) keyEquivalent:@"J"];
         item.tag = ODMenuItemJavaScriptTag;
         item.target = self;
         [_menu addItem:item];

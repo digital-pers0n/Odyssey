@@ -8,13 +8,24 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ODTabBar;
+@class ODTabViewItem;
+@protocol ODTabSwitcherDelegate;
 
 @interface ODTabSwitcher : NSViewController
 
 +(id)tabSwitcher;
 
+@property id<ODTabSwitcherDelegate> delegate;
+
 -(IBAction)showPopover:(id)sender;
 -(void)closeView:(id)sender;
+
+@end
+
+@protocol ODTabSwitcherDelegate <NSObject>
+@optional
+- (NSString *)toolTipForTabViewItem:(ODTabViewItem *)item;
+- (NSString *)labelForTabViewItem:(ODTabViewItem *)item;
+- (void)openNewTab;
 
 @end

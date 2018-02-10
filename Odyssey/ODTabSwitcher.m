@@ -7,8 +7,8 @@
 //
 
 #import "ODTabSwitcher.h"
-#import "ODTabBar.h"
-#import "ODTabItem.h"
+#import "ODTabView.h"
+#import "ODTabViewItem.h"
 #import "ODWindow.h"
 #import "ODPopover.h"
 #import "ODDelegate.h"
@@ -17,8 +17,15 @@
 @interface ODTabSwitcher () <NSTableViewDataSource, NSTableViewDelegate>
 {
     IBOutlet NSTableView *_tableView;
-    ODTabBar *_tabBar;
+    ODTabView *_tabView;
     ODPopover *_popover;
+    
+    id<ODTabSwitcherDelegate> _delegate;
+    struct __ODTabSwitcherDelegateRespondTo {
+        unsigned int toolTipForTabViewItem:1;
+        unsigned int openNewTab:1;
+        unsigned int labelForTabViewItem:1;
+    } _delegateRespondTo;
 }
 
 -(void)removeTabItem:(id)sender;
@@ -29,8 +36,7 @@
 
 @implementation ODTabSwitcher
 
-+(id)tabSwitcher
-{
++ (id)tabSwitcher {
     static dispatch_once_t onceToken;
     static ODTabSwitcher *result;
     dispatch_once(&onceToken, ^{
@@ -40,13 +46,11 @@
     return result;
 }
 
--(NSString *)nibName
-{
+- (NSString *)nibName {
     return [self className];
 }
 
--(void)awakeFromNib
-{
+- (void)awakeFromNib {
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.doubleAction = @selector(selectTabItem:);
@@ -56,17 +60,35 @@
     _popover.appearance = ODPopoverAppearanceLight;
 }
 
+
+- (void)setDelegate:(id<ODTabSwitcherDelegate>)delegate {
+    if ([delegate respondsToSelector:@selector(toolTipForTabViewItem:)]) {
+        _delegateRespondTo.toolTipForTabViewItem = YES;
+    }
+    if ([delegate respondsToSelector:@selector(labelForTabViewItem:)]) {
+        _delegateRespondTo.labelForTabViewItem = YES;
+    }
+    if ([delegate respondsToSelector:@selector(openNewTab)]) {
+        _delegateRespondTo.openNewTab = YES;
+    }
+    _delegate = delegate;
+}
+
+- (id<ODTabSwitcherDelegate>)delegate {
+    return _delegate;
+}
+
 #pragma mark - Actions
 
 
-- (void)showPopoverForTabBar:(ODTabBar *)tabBar window:(ODWindow *)window
+- (void)showPopoverForTabBar:(ODTabView *)tabBar window:(ODWindow *)window
 {
     NSView *contentView = window.contentView;
     NSRect contentRect = contentView.frame;
 //    NSRect relativeRect = NSMakeRect(8, NSHeight(contentRect) - 16, 4, 4);
     NSRect relativeRect = NSMakeRect(NSMaxX(contentRect) - 256, NSMaxY(contentRect) - 10, 1, 1);
     [_popover showRelativeToRect:relativeRect ofView:contentView preferredEdge:NSMinYEdge];
-    _tabBar = tabBar;
+    _tabView = tabBar;
     [_tableView reloadData];
     
 }
@@ -74,13 +96,13 @@
 - (void)showPopover:(id)sender
 {
     ODWindow *window = (id)[NSApp mainWindow];
-    ODTabBar *tabBar = window.tabBar;
+    ODTabView *tabBar = window.tabView;
     if (tabBar) {
         [self showPopoverForTabBar:tabBar window:window];
     }
 //    if (!_popover.shown) {
 //        ODWindow *window = (id)[NSApp mainWindow];
-//        ODTabBar *tabBar = window.tabBar;
+//        ODTabView *tabBar = window.tabBar;
 //        if (tabBar) {
 //            [self showPopoverForTabBar:tabBar window:window];
 //        }   
@@ -90,101 +112,116 @@
 }
 
 
-- (IBAction)closeView:(id)sender
-{
+- (IBAction)closeView:(id)sender {
     [_popover close];
-    _tabBar = nil;
+    _tabView = nil;
     
 }
 
-- (IBAction)removeTabItem:(id)sender
-{
+- (IBAction)removeTabItem:(id)sender {
     NSInteger idx = _tableView.selectedRow;
 
-    if (_tabBar.numberOfTabItems > idx) {
+    if (_tabView.numberOfTabViewItems > idx) {
         
-        [_tabBar removeTabItemAtIndex:idx];
+        [_tabView removeTabViewItemAtIndex:idx];
     }
     
     [_tableView reloadData];
     [_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:idx - 1] byExtendingSelection:NO];
 }
 
-- (IBAction)selectTabItem:(id)sender
-{
+- (IBAction)selectTabItem:(id)sender {
     NSInteger idx = _tableView.selectedRow;
 
-    if (_tabBar.numberOfTabItems > idx) {
+    if (_tabView.numberOfTabViewItems > idx) {
         
-        [_tabBar selectTabItemAtIndex:idx];
+        [_tabView selectTabViewItemAtIndex:idx];
     }
     
     [self closeView:nil];
 }
 
-- (IBAction)newTab:(id)sender
-{
-    ODDelegate *delegate = [NSApp delegate];
-    [delegate openTab:nil];
-    [_tableView reloadData];
+- (IBAction)newTab:(id)sender {
+    
+    if (_delegateRespondTo.openNewTab) {
+        [_delegate openNewTab];
+        [_tableView reloadData];
+    } else {
+        NSBeep();
+    }
 }
 
 #pragma mark - Table View
 
-- (NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation
-{
+- (NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
 
+//    NSString *result = nil;
+//    if (row < _tabView.numberOfTabViewItems) {
+//        
+//        ODTabViewItem *obj = [_tabView tabViewItemAtIndex:row];
+//        if (obj.type == ODTabTypeDefault) {
+//            WebView *v = (id)obj.view;
+//            result = v.mainFrameURL;
+//        }
+//       
+//        
+//    }
     NSString *result = nil;
-    if (row < _tabBar.numberOfTabItems) {
-        
-        ODTabItem *obj = [_tabBar tabItemAtIndex:row];
-        if (obj.type == ODTabTypeWebView) {
-            WebView *v = (id)obj.view;
-            result = v.mainFrameURL;
+    if (row < _tabView.numberOfTabViewItems) {
+        ODTabViewItem *obj = [_tabView tabViewItemAtIndex:row];
+        if (_delegateRespondTo.toolTipForTabViewItem) {
+            result = [_delegate toolTipForTabViewItem:obj];
+        } else {
+            result = obj.label;
         }
-       
-        
     }
     
     return result; 
 }
 
--(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row
-{
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row {
     
-    ODTabItem *obj;
-    //NSString *mode;
-
-    if (row < _tabBar.numberOfTabItems) {
-        
-        obj = [_tabBar tabItemAtIndex:row];
-    
-        NSString *title = obj.label;
-        if (!title.length && obj.type == ODTabTypeWebView) {
-            WebView *v = (id)obj.view;
-            NSString *name = [[v.mainFrameURL lastPathComponent] stringByDeletingPathExtension];
-            title = name;
+//    ODTabViewItem *obj;
+//    //NSString *mode;
+//
+//    if (row < _tabView.numberOfTabViewItems) {
+//        
+//        obj = [_tabView tabViewItemAtIndex:row];
+//    
+//        NSString *title = obj.label;
+//        if (!title.length && obj.type == ODTabTypeDefault) {
+//            WebView *v = (id)obj.view;
+//            NSString *name = [[v.mainFrameURL lastPathComponent] stringByDeletingPathExtension];
+//            title = name;
+//        }
+//        return title;
+//  
+//        
+//    }
+    ODTabViewItem *obj;
+    if (row < _tabView.numberOfTabViewItems) {
+        obj = [_tabView tabViewItemAtIndex:row];
+        NSString *title = nil;
+        if (_delegateRespondTo.labelForTabViewItem) {
+            title = [_delegate labelForTabViewItem:obj];
+        } else {
+            title = obj.label;
         }
         return title;
-  
-        
     }
     
     return nil;
 }
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
-{
-    
-    return _tabBar.numberOfTabItems;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return _tabView.numberOfTabViewItems;
 }
 
 
 #pragma mark - NSEvent
 
 
--(void)keyDown:(NSEvent *)theEvent
-{
+- (void)keyDown:(NSEvent *)theEvent {
     if ([NSEvent modifierFlags] == 0) {
         
         int keyCode = [theEvent keyCode];

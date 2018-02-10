@@ -16,8 +16,7 @@
 extern NSString *WebElementMediaURLKey;
 
 
-@interface ODDownloadCell : NSCell
-{
+@interface ODDownloadCell : NSCell {
     @public
     NSCell *_labelCell;
     NSTextFieldCell *_statusCell;
@@ -30,8 +29,7 @@ extern NSString *WebElementMediaURLKey;
 
 @implementation ODDownloadCell
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self _setUp];
@@ -39,21 +37,28 @@ extern NSString *WebElementMediaURLKey;
     return self;
 }
 
--(void)setObjectValue:(id)objectValue
-{
+- (void)setObjectValue:(id)objectValue {
     ODDownloadData *data = objectValue;
     NSString *filename = data.filename;
     NSString *info = data.info;
     if (filename) { 
         _labelCell.stringValue = filename;
     } else {
-        _labelCell.stringValue = data.URL.lastPathComponent;
+        NSString *name = data.URL.lastPathComponent;
+        if (name) {
+           _labelCell.stringValue = name;
+        } else {
+            _labelCell.stringValue = @"(Error Empty Name)";
+        }
     }
-    _statusCell.stringValue = info;
+    
+    if (info) {
+        _statusCell.stringValue = info;
+    }
+    
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
-{
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
     NSRect labelFrame;
     NSRect statusFrame;
     
@@ -343,32 +348,38 @@ extern NSString *WebElementMediaURLKey;
         
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"mp4 - 1080p" action:action keyEquivalent:@""];
         item.target = self;
-        item.representedObject = @"\"bestvideo[height<=?1080][vcodec!=vp9]+bestaudio/best\"";
+        item.representedObject = @"\"bestvideo[height<=?1080][vcodec!=vp9]+140/best\"";
+        //item.representedObject = @"\"bestvideo[height<=?1080][vcodec!=vp9]+bestaudio[acodec!=opus]/best\"";
         [ytdlMenu addItem:item];
         
         item = [[NSMenuItem alloc] initWithTitle:@"mp4 - 720p" action:action keyEquivalent:@""];
         item.target = self;
-        item.representedObject = @"\"bestvideo[height<=?720][vcodec!=vp9]+bestaudio/best\"";
+        item.representedObject = @"22";
+        //item.representedObject = @"\"bestvideo[height<=?720][vcodec!=vp9]+bestaudio[acodec!=opus]/best\"";
         [ytdlMenu addItem:item];
         
         item = [[NSMenuItem alloc] initWithTitle:@"mp4 - 480p" action:action keyEquivalent:@""];
         item.target = self;
-        item.representedObject = @"\"bestvideo[height<=?480][vcodec!=vp9]+bestaudio/best\"";
+        item.representedObject = @"\"bestvideo[height<=?480][vcodec!=vp9]+140/best\"";
+        //item.representedObject = @"\"bestvideo[height<=?480][vcodec!=vp9]+bestaudio[acodec!=opus]/best\"";
         [ytdlMenu addItem:item];
         
         item = [[NSMenuItem alloc] initWithTitle:@"mp4 - 360p" action:action keyEquivalent:@""];
         item.target = self;
-        item.representedObject = @"\"bestvideo[height<=?360][vcodec!=vp9]+bestaudio/best\"";
+        item.representedObject = @"\"bestvideo[height<=?360][vcodec!=vp9]+140/best\"";
+        //item.representedObject = @"\"bestvideo[height<=?360][vcodec!=vp9]+bestaudio[acodec!=opus]/best\"";
         [ytdlMenu addItem:item];
         
         item = [[NSMenuItem alloc] initWithTitle:@"vpx - 480p" action:action keyEquivalent:@""];
         item.target = self;
-        item.representedObject = @"\"bestvideo[height<=?480][vcodec=vp9]+bestaudio/best\"";
+        item.representedObject = @"\"bestvideo[height<=?480][vcodec=vp9]+171/243+171\"";
+        //item.representedObject = @"\"bestvideo[height<=?480][vcodec=vp9]+bestaudio/best\"";
         [ytdlMenu addItem:item];
         
         item = [[NSMenuItem alloc] initWithTitle:@"vpx - 360p" action:action keyEquivalent:@""];
         item.target = self;
-        item.representedObject = @"\"bestvideo[height<=?360][vcodec=vp9]+bestaudio/best\"";
+        item.representedObject = @"243+171";
+        //item.representedObject = @"\"bestvideo[height<=?360][vcodec=vp9]+bestaudio/best\"";
         [ytdlMenu addItem:item];
 
         

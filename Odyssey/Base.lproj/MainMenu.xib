@@ -366,6 +366,11 @@
                                     <action selector="toggleTitlebar:" target="Voe-Tx-rLC" id="FRK-Zq-c3n"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Toggle Tab Bar" keyEquivalent="T" id="0rJ-36-jsw">
+                                <connections>
+                                    <action selector="toggleTabView:" target="Voe-Tx-rLC" id="A4u-rE-Jfo"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Toggle Status Bar" keyEquivalent="/" id="zbv-Lt-ZdU">
                                 <connections>
                                     <action selector="toggleStatusbar:" target="Voe-Tx-rLC" id="rVn-wi-hvy"/>

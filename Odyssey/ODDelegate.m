@@ -8,8 +8,8 @@
 
 #import "ODDelegate.h"
 #import "ODWindow.h"
-#import "ODTabBar.h"
-#import "ODTabItem.h"
+#import "ODTabView.h"
+#import "ODTabViewItem.h"
 #import "ODTabSwitcher.h"
 #import "ODAddressField.h"
 #import "ODBookmarks.h"
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 #define DEFAULTS_ZOOM_TEXT_ONLY_KEY @"ZoomTextOnly"
 
 
-@interface ODDelegate () <ODTabBarDelegate, WebUIDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebResourceLoadDelegate> {
+@interface ODDelegate () <ODTabViewDelegate, ODTabSwitcherDelegate, WebUIDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebResourceLoadDelegate> {
     
     ODBookmarks *_bookmarks;
     ODDownloadManager *_downloadManager;
@@ -72,6 +72,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     ODPreferences *_preferences;
     ODHistory *_history;
     ODFindBanner *_findBanner;
+    ODTabSwitcher *_tabSwitcher;
     
     NSMenuItem *_playWithMpvMenuItem;
     NSArray *_menuItemList;
@@ -88,8 +89,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 @implementation ODDelegate
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -120,6 +120,9 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     _contentFilter = [[ODContentFilter alloc] init];
     _preferences = [[ODPreferences alloc] init];
     _history = [[ODHistory alloc] init];
+    _tabSwitcher = [ODTabSwitcher tabSwitcher];
+    _tabSwitcher.delegate = self;
+    [_tabSwitcher.view setNeedsDisplay:YES];
     
     
     
@@ -153,9 +156,9 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         _menuItemList = @[openLinkInNewTab, openImageInNewTab, playWithMpvItem];
         
     
-    } 
+    }
 
-    [self restoreSession];
+  [self restoreSession];
     if (_initPath) {
         [self openInNewWindow:_initPath];
     } else {
@@ -166,20 +169,19 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
-   [self storeSession];
+  [self storeSession];
 }
 
 
 
 #pragma mark - Application Actions
 
--(void)openInNewWindow:(NSString *)path
-{
+- (ODWindow *)newWindow {
     NSRect screen = [[NSScreen mainScreen] visibleFrame];
     NSRect frame = (_window) ? _window.frame : NSMakeRect(NSMinX(screen), NSMinY(screen), 800, 600);
     
-    NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask 
-                            | NSMiniaturizableWindowMask  ;
+    NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask
+    | NSMiniaturizableWindowMask  ;
     
     ODWindow *window  = [[ODWindow alloc] initWithContentRect:frame styleMask:styleMask backing:NSBackingStoreBuffered defer:YES];
     [self _setUpWindow:window];
@@ -195,23 +197,26 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     [window cascadeTopLeftFromPoint:point];
     [window makeKeyAndOrderFront:nil];
     
-   [window awakeFromNib];
-    window.tabBar.delegate = self;
-    
+    [window awakeFromNib];
+    window.tabView.delegate = self;
+    return window;
+}
+
+- (void)openInNewWindow:(NSString *)path {
+    [self newWindow];
     [self openInMainWindow:path newTab:YES background:NO];
 }
 
--(void)openInMainWindow:(NSString *)path newTab:(BOOL)newTab background:(BOOL)background
-{
+- (void)openInMainWindow:(NSString *)path newTab:(BOOL)newTab background:(BOOL)background {
     if (_windows.count == 0) {
         
         [self openInNewWindow:path];
         
     } else {
         
-        ODTabBar *tabBar = _window.tabBar;
+        ODTabView *tabView = _window.tabView;
         
-        if (tabBar.numberOfTabItems == 0) {
+        if (tabView.numberOfTabViewItems == 0) {
             
             newTab = YES;
             background = NO;
@@ -219,12 +224,12 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         
         if (newTab) {
             
-            ODTabItem *item = [self _setUpWebTabItem];
+            ODTabViewItem *item = [self _setUpWebTabItem];
             item.representedObject = path;
-            [tabBar addTabItem:item relativeToSelectedTab:YES];
+            [tabView addTabViewItem:item relativeToSelectedTab:YES];
             
             if (!background) {
-                [tabBar selectTabItem:item];
+                [tabView selectTabViewItem:item];
 //                [(id)item.view setMainFrameURL:path];
 //                NSLog(@"path: %@ mainFrameURL: %@",path, [(id)item.view mainFrameURL]);
 
@@ -239,52 +244,58 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     }
 }
 
--(void)openInMainWindow:(NSString *)path newTab:(BOOL)value
-{
+- (void)openInMainWindow:(NSString *)path newTab:(BOOL)value {
     [self openInMainWindow:path newTab:value background:NO];
 }
 
--(void)openInMainWindow:(NSString *)path
-{
+- (void)openInMainWindow:(NSString *)path {
     [self openInMainWindow:path newTab:YES background:NO];
 }
 
--(void)openAddressListInTabs:(NSArray *)addressList newWindow:(BOOL)value
-{
+- (void)openAddressListInTabs:(NSArray *)addressList newWindow:(BOOL)value {
     if (value) {
         
         [self openInNewWindow:@"about:blank"];
     }
     
-    ODTabBar *tabBar = _window.tabBar;
+    ODTabView *tabView = _window.tabView;
     for (NSString *str in addressList) {
-        ODTabItem *webTab = [self _setUpWebTabItem];
+        ODTabViewItem *webTab = [self _setUpWebTabItem];
         webTab.representedObject = str;
-        [tabBar addTabItem:webTab];
+        [tabView addTabViewItem:webTab];
     }
     
     if (value) {
-        [tabBar removeTabItemAtIndex:0];
+        [tabView removeTabViewItemAtIndex:0];
     }
     
+}
+
+- (void)newWindowWithTabViewItem:(ODTabViewItem *)item {
+    ODWindow *window = [self newWindow];
+    ODTabView *tabView = window.tabView;
+    [tabView addTabViewItem:item];
+    [tabView selectTabViewItem:item];
 }
 
 #pragma mark - Window Actions
 
--(void)toggleTitlebar:(id)sender
-{
+- (void)toggleTitlebar:(id)sender {
     BOOL value = [_window isTitlebarHidden];
     _window.titlebarHidden = (value) ? NO : YES;
 }
 
--(void)toggleStatusbar:(id)sender
-{
+- (void)toggleStatusbar:(id)sender {
     BOOL value = [_window isStatusbarHidden];
     _window.statusbarHidden = (value) ? NO : YES;
 }
 
--(void)toggleFindBanner:(id)sender
-{
+- (IBAction)toggleTabView:(id)sender {
+    BOOL value = [_window isTabViewHidden];
+    _window.tabViewHidden = (value) ? NO : YES;
+}
+
+- (void)toggleFindBanner:(id)sender {
     if (!_findBanner) {
         _findBanner = [[ODFindBanner alloc] init];
         [_findBanner installBanner];
@@ -294,25 +305,18 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 }
 
--(void)zoomVertically:(id)sender
-{
+- (void)zoomVertically:(id)sender {
     [_window zoomVertically:sender];
 }
 
 
 #pragma mark - Tab Actions 
 
--(void)showTabs:(id)sender
-{
-    ODTabSwitcher *switcher =  [ODTabSwitcher tabSwitcher];
-    [switcher.view setNeedsDisplay:YES];
-    [switcher showPopover:nil];
-//    [_window.contentView addSubview:switcher.view positioned:NSWindowAbove relativeTo:nil];
-//    [switcher showViewForTabBar:_window.tabBar];
+- (void)showTabs:(id)sender {
+    [_tabSwitcher showPopover:nil];
 }
 
--(void)openTab:(id)sender
-{
+- (void)openTab:(id)sender {
     NSString *addr = @"about:blank";
     if (_windows.count == 0) {
         [self openInNewWindow:addr];
@@ -321,55 +325,43 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     }
 }
 
--(void)closeTab:(id)sender
-{
-    [_window.tabBar removeSelectedTabItem];
+- (void)closeTab:(id)sender {
+    [_window.tabView removeSelectedTabViewItem];
 }
 
 - (void)nextTab:(id)sender
 {
-    [_window.tabBar selectNextTabItem];
+    [_window.tabView selectNextTabViewItem];
 }
 
-- (void)previousTab:(id)sender
-{
-    [_window.tabBar selectPreviousTabItem];
+- (void)previousTab:(id)sender {
+    [_window.tabView selectPreviousTabViewItem];
 }
 
 
 #pragma mark - Navigation Actions
 
--(void)goForward:(id)sender
-{
-
+- (void)goForward:(id)sender {
     [self.webView goForward];
-
 }
 
--(void)goBackward:(id)sender
-{
-
+- (void)goBackward:(id)sender {
     [self.webView goBack];
-    
 }
 
-- (void)reloadPage:(id)sender
-{
+- (void)reloadPage:(id)sender {
     [self.webView reload:nil];
 }
 
-- (void)reloadFromOrigin:(id)sender
-{
+- (void)reloadFromOrigin:(id)sender {
     [self.webView reloadFromOrigin:nil];
 }
 
-- (void)stopLoad:(id)sender
-{
+- (void)stopLoad:(id)sender {
     [self.webView stopLoading:nil];
 }
 
--(void)zoomIn:(id)sender
-{
+- (void)zoomIn:(id)sender {
     float zoom;
     float step;
      WebView *webView = self.webView;
@@ -392,8 +384,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     
 }
 
--(void)zoomOut:(id)sender
-{
+- (void)zoomOut:(id)sender {
     float zoom;
     float step;
     WebView *webView = self.webView;
@@ -437,15 +428,13 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         
 }
 
--(void)defaultZoom:(id)sender
-{
+- (void)defaultZoom:(id)sender {
     self.webView.textSizeMultiplier = 1.0;
     [_userDefaults setDouble:1.0 forKey:DEFAULTS_PAGE_ZOOM_KEY];
     [_userDefaults setDouble:1.0 forKey:DEFAULTS_TEXT_ZOOM_KEY];
 }
 
--(void)zoomTextOnly:(id)sender
-{
+- (void)zoomTextOnly:(id)sender {
 //    WebPreferences *prefs = _preferences.preferences;
 //    BOOL value = prefs.zoomsTextOnly;
 //    [sender setState:value];
@@ -455,13 +444,12 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     [_userDefaults setBool:_zoomTextOnly forKey:DEFAULTS_ZOOM_TEXT_ONLY_KEY];
 }
 
--(void)showDownloads:(id)sender
-{
+- (void)showDownloads:(id)sender {
     [_downloadManager.view setNeedsDisplay:YES];
     [_downloadManager showPopoverForWindow:_window];
 }
 
--(void)goTo:(id)sender
+- (void)goTo:(id)sender
 {
     WebView *view = [self webView];
     
@@ -476,7 +464,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 }
 
--(void)restartApplication:(id)sender
+- (void)restartApplication:(id)sender
 {
     NSURL *path = [[NSBundle mainBundle] bundleURL];
     if(path){
@@ -568,7 +556,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 //    return WebDragDestinationActionDHTML | WebDragDestinationActionEdit | WebDragDestinationActionLoad;
 //}
 
--(void)webView:(WebView *)sender mouseDidMoveOverElement:(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags
+- (void)webView:(WebView *)sender mouseDidMoveOverElement:(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags
 {
 
     NSWindow *window = sender.window;
@@ -606,15 +594,15 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     NSEventModifierFlags flag = [NSEvent modifierFlags];
     if (flag == NSAlternateKeyMask) {
         [self openInNewWindow:nil];
-        return _window.webView;
+        return (WebView *)_window.tabView.selectedTabViewItem.view;
 
     } else {
     ODWindow *window = (id)sender.hostWindow;
-    ODTabBar *tabBar = window.tabBar;
-    ODTabItem *item = [self _setUpWebTabItem];
+    ODTabView *tabView = window.tabView;
+    ODTabViewItem *item = [self _setUpWebTabItem];
     
     item.representedObject = request.URL.absoluteString;
-    [tabBar addTabItem:item relativeToSelectedTab:YES];
+    [tabView addTabViewItem:item relativeToSelectedTab:YES];
     return (id)item.view;
     }
   
@@ -816,10 +804,10 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 //    return menuItems;
 //}
 
--(void)webViewClose:(WebView *)sender
+- (void)webViewClose:(WebView *)sender
 {
     ODWindow *window = (id)sender.hostWindow;
-    ODTabBar *tabBar = window.tabBar;
+    ODTabView *tabView = window.tabView;
     NSUndoManager *undo = window.undoManager;
     NSString *url = [sender mainFrameURL];
     
@@ -827,7 +815,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
                         selector:@selector(openInMainWindow:)
                           object:url];
     [undo setActionName:@"Close Tab"];
-    [tabBar removeTabItemWithView:sender];
+    [tabView removeTabViewItemWithView:sender];
 }
 
 - (void)webViewShow:(WebView *)sender
@@ -844,7 +832,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 
 #pragma mark - Web Frame Load Delegate
--(void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
+- (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
 {
   /*   NSURL *URL = [error.userInfo objectForKey:NSURLErrorFailingURLErrorKey];
     
@@ -853,14 +841,20 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
     } else */ if (error.code != WebKitErrorFrameLoadInterruptedByPolicyChange) {
         NSURL *URL = [error.userInfo objectForKey:NSURLErrorFailingURLErrorKey];
+        NSString *localizedDescription = error.localizedDescription;
     
 [frame loadAlternateHTMLString:[NSString stringWithFormat:@"<style>body{font-family:Verdana; font-size:14px; text-align:center;}</style> <h3>This page cannot be displayed</h3>"
                                 @"<a href=\"%@\"> %@"
                                 @"</a> <br><br> %@",
                                 URL, URL,
-                                error.localizedDescription]
+                                localizedDescription]
                        baseURL:URL
              forUnreachableURL:URL];
+
+//        ODWindow *win = (id)sender.window;
+//        ODTabView *tv = win.tabView;
+//        [tv tabViewItemWithView:sender].label = localizedDescription;
+        
     }
   
 }
@@ -869,18 +863,19 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 {
     [_history addItemWithTitle:title address:sender.mainFrameURL];
      ODWindow *window = (id)sender.hostWindow;
-    if (window.webView == sender) {
+    if (window.tabView.selectedTabViewItem.view == sender) {
         [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
     }
     
 }
 
--(void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame
+- (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame
 {
     ODWindow *window = (id)sender.hostWindow;
-    if (window.webView == sender) {
-        [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
-    }
+    [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
+//    if (window.tabView.selectedTabViewItem.view == sender) {
+//        [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
+//    }
     
     NSURL *URL = frame.dataSource.initialRequest.URL;
     
@@ -892,21 +887,22 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     ODWindow *window = (id)sender.hostWindow;
-    NSString *title = sender.mainFrameTitle;
-    
-    if (window.webView == sender) {
-        [self setTitle:title forWindow:window webView:sender];
-    } else {
-        ODTabItem *item = [window.tabBar tabItemWithView:sender];
-        item.label = title;
-    }
+   // NSString *title = sender.mainFrameTitle;
+    [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
+//    if (window.tabView.selectedTabViewItem.view == sender) {
+//        [self setTitle:title forWindow:window webView:sender];
+//    } else {
+//        ODTabViewItem *item = [window.tabView tabViewItemWithView:sender];
+//        item.label = title;
+//    }
 }
 - (void)webView:(WebView *)sender didCancelClientRedirectForFrame:(WebFrame *)frame
 {
     ODWindow *window = (id)sender.hostWindow;
-    if (window.webView == sender) {
-        [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
-    }
+    [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
+//    if (window.tabView.selectedTabViewItem.view == sender) {
+//        [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
+//    }
 }
 
 
@@ -932,14 +928,14 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     }
    
       ODWindow *window = (id)sender.hostWindow;
-    if (window.webView == sender) {
+    if (window.tabView.selectedTabViewItem.view == sender) {
         [self setTitle:sender.mainFrameTitle forWindow:window webView:sender];
     }
     
     return request;  
 }
 
--(void)setTitle:(NSString *)title forWindow:(ODWindow *)window webView:(WebView *)webView
+- (void)setTitle:(NSString *)title forWindow:(ODWindow *)window webView:(WebView *)webView
 {
     if (title.length == 0) {
         title = webView.mainFrameURL;
@@ -948,7 +944,11 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         title = [NSString stringWithFormat:@"(%.0f%%) %@", webView.estimatedProgress * 100, title];
     }
     [window setTitle:title];
-    window.tabBar.selectedTabItem.label = title;
+    ODTabView *tabView = window.tabView;
+    ODTabViewItem *item = [tabView tabViewItemWithView:webView];
+    item.label = title;
+    [tabView setNeedsDisplay:YES];
+    //window.tabView.selectedTabViewItem.label = title;
 }
 
 #pragma mark - Web Policy Delegate
@@ -969,7 +969,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     }
 }
 
--(void)webView:(WebView *)webView decidePolicyForMIMEType:(NSString *)type request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener
+- (void)webView:(WebView *)webView decidePolicyForMIMEType:(NSString *)type request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener
 {
 //    if (![WebView canShowMIMEType:type]) {
 //        NSURL *URL = request.URL;
@@ -979,7 +979,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         [listener use];
 }
 
--(void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id<WebPolicyDecisionListener>)listener
+- (void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id<WebPolicyDecisionListener>)listener
 {
     NSURL *originalURL = actionInformation[WebActionOriginalURLKey];
     BOOL ignored = NO;
@@ -1051,41 +1051,42 @@ decisionListener:(id)listener {
 //                NSLog(@"decidePolicyForNavigationAction: insecure URL detected! Closing tab...");
 //#endif
 //                ODWindow *window = (id)sender.hostWindow;
-//                ODTabBar *tabBar = window.tabBar;
-//                [tabBar removeTabItemWithView:sender];
+//                ODTabView *tabView = window.tabView;
+//                [tabView removeTabViewItemWithView:sender];
 //            };
 //        }
 //    }
 //    [listener use];
     
 }
+#pragma mark - ODTabSwitcherDelegate
+- (void)openNewTab {
+    [self openTab:nil];
+}
 
+#pragma mark - ODTabViewDelegate
 
-#pragma mark - ODTabBarDelegate
-
--(void)tabBar:(ODTabBar *)tabBar willSelectTabItem:(ODTabItem *)item
-{
-//    NSView *view = tabBar.selectedTabItem.view;
+- (void)tabView:(ODTabView *)tabView willSelectTabViewItem:(ODTabViewItem *)item {
+//    NSView *view = tabView.selectedTabItem.view;
 //    [view removeFromSuperview];
 }
 
--(void)tabBar:(ODTabBar *)tabBar didSelectTabItem:(ODTabItem *)item
-{
+- (void)tabView:(ODTabView *)tabView didSelectTabViewItem:(ODTabViewItem *)item {
 
-    ODWindow *window = tabBar.window;
+    ODWindow *window = (ODWindow *)tabView.window;
     NSView *view = item.view;
     if (item.tag == ODWebTabNewTag) {
         [(id)view setMainFrameURL:item.representedObject];
         item.tag = ODWebTabLoadedTag;
     }       
-    [window setTitlebarInfo:tabBar.info];
+    //[window setTitlebarInfo:tabView.info];
     [window setContentView:view];
     [window makeFirstResponder:view];
     NSString *label = item.label;
     if (window.titlebarHidden) {
         [window setStatus:[NSString stringWithFormat:@"Tab %lu of %lu '%@'", 
-                           [tabBar indexOfTabItem:item] + 1, 
-                           tabBar.numberOfTabItems, 
+                           [tabView indexOfTabViewItem:item] + 1,
+                           tabView.numberOfTabViewItems,
                            label]];
         
         //window.titlebarHidden = NO;
@@ -1094,15 +1095,13 @@ decisionListener:(id)listener {
     
 }
 
--(void)tabBar:(ODTabBar *)tabBar willRemoveTabItem:(ODTabItem *)item
-{
+- (void)tabView:(ODTabView *)tabView willRemoveTabViewItem:(ODTabViewItem *)item {
     [item.view removeFromSuperview];
 }
 
-- (void)tabBar:(ODTabBar *)tabBar didRemoveTabItem:(ODTabItem *)item
-{
-    [tabBar.window setTitlebarInfo:tabBar.info];
-    if (item.type == ODTabTypeWebView) {
+- (void)tabView:(ODTabView *)tabView didRemoveTabViewItem:(ODTabViewItem *)item {
+    //[tabView.window setTitlebarInfo:tabView.info];
+    if (item.type == ODTabTypeDefault) {
         WebView *webView = (id)item.view;
         [webView setMaintainsBackForwardList:NO];
         [webView close];
@@ -1110,20 +1109,38 @@ decisionListener:(id)listener {
 
 }
 
--(void)tabBar:(ODTabBar *)tabBar willAddTabItem:(ODTabItem *)item
-{
-    
+- (void)tabView:(ODTabView *)tabView willAddTabViewItem:(ODTabViewItem *)item {}
+
+- (void)tabView:(ODTabView *)tabView didAddTabViewItem:(ODTabViewItem *)item {
+     //[tabView.window setTitlebarInfo:tabView.info];
 }
 
--(void)tabBar:(ODTabBar *)tabBar didAddTabItem:(ODTabItem *)item
-{
-     [tabBar.window setTitlebarInfo:tabBar.info];
+- (void)tabView:(ODTabView *)tabView tabViewList:(NSArray *__autoreleasing *)tabViewList {
+
+    NSMutableArray *tvList = [[NSMutableArray alloc] init];
+    for (ODWindow *w in _windows) {
+        [tvList addObject:w.tabView];
+    }
+    *tabViewList = tvList;
+}
+
+- (BOOL)tabView:(ODTabView *)tabView shouldMoveTabViewItem:(ODTabViewItem *)item to:(ODTabView **)newTabView {
+    
+    ODWindow *window = [self newWindow];
+    //ODTabView *tv = window.tabView;
+    *newTabView = window.tabView;
+    
+    return YES;
+}
+
+- (void)tabView:(ODTabView *)tabView didMoveTabViewItem:(ODTabViewItem *)item to:(ODTabView *)tv {
+    WebView *wView = (id)item.view;
+    wView.hostWindow = tv.window;
 }
 
 #pragma mark - NSNotifications
 
--(void)windowWillClose:(NSNotification *)notification
-{
+- (void)windowWillClose:(NSNotification *)notification {
     NSWindow * win = notification.object;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:win];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowWillCloseNotification object:win];
@@ -1135,8 +1152,7 @@ decisionListener:(id)listener {
     
 }
 
--(void)windowDidBecomeMain:(NSNotification *)notification
-{
+- (void)windowDidBecomeMain:(NSNotification *)notification {
     _window = notification.object;
     
 }
@@ -1144,26 +1160,23 @@ decisionListener:(id)listener {
 
 #pragma mark - Private
 
-- (WebView *)webView
-{
-    ODTabItem *item = _window.tabBar.selectedTabItem;
-    if (item.type == ODTabTypeWebView) {
+- (WebView *)webView {
+    ODTabViewItem *item = _window.tabView.selectedTabViewItem;
+    if (item.type == ODTabTypeDefault) {
         return (WebView *)item.view;
     }
     
     return nil;
 }
 
--(NSData *)webArchiveDataFromWebView:(WebView *)view
-{
+- (NSData *)webArchiveDataFromWebView:(WebView *)view {
     NSData *data;
     WebDataSource *dataSource = [view.mainFrame dataSource];
     data = dataSource.webArchive.data;
     return data;
 }
 
--(ODTabItem *)_setUpWebTabItem
-{
+- (id)_setUpWebTabItem {
     WebView *view = [[WebView alloc] init];
     [view setUIDelegate:self];
     [view setFrameLoadDelegate:self];
@@ -1185,8 +1198,8 @@ decisionListener:(id)listener {
     view.applicationNameForUserAgent = _preferences.defaultUserAgentString;
     view.textSizeMultiplier = [_userDefaults doubleForKey:DEFAULTS_TEXT_ZOOM_KEY];
     view.pageSizeMultiplier = [_userDefaults doubleForKey:DEFAULTS_PAGE_ZOOM_KEY];
-    ODTabItem *result = [[ODTabItem alloc] initWithView:view];
-    result.type  = ODTabTypeWebView;
+    ODTabViewItem *result = [[ODTabViewItem alloc] initWithView:view];
+    result.type  = ODTabTypeDefault;
     result.tag = ODWebTabNewTag;
     
     return result;
@@ -1194,8 +1207,7 @@ decisionListener:(id)listener {
 }
 
 
--(void)_setUpWindow:(ODWindow *)window
-{
+- (void)_setUpWindow:(ODWindow *)window {
     [_windows  insertObject:window atIndex:0];
     window.auxButton.action = @selector(showDownloads:);
     window.auxButton.target = self;

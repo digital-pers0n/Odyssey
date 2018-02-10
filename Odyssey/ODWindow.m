@@ -7,14 +7,14 @@
 //
 
 #import "ODWindow.h"
-#import "ODTabBar.h"
-#import "ODTabItem.h"
+#import "ODTabView.h"
+#import "ODTabViewItem.h"
 #import "ODTabSwitcher.h"
-#import "ODDelegate.h"
+//#import "ODDelegate.h"
 
 
 @import Quartz;
-@import WebKit;
+
 BOOL is_full_screen(long mask);
 
 @interface NSNextStepFrame : NSView
@@ -127,7 +127,7 @@ BOOL is_full_screen(long mask);
 {
     BOOL hasHttpDomain = NO;
     _status = status;
-    if (status) {        
+    if (status) {
         NSRange range = [status rangeOfString:@"http://"];
         if (range.length) {
             status = [status stringByReplacingCharactersInRange:range withString:@""];
@@ -137,7 +137,7 @@ BOOL is_full_screen(long mask);
         _attributedStatus = [[NSMutableAttributedString alloc] initWithString:status attributes:_attrs];
         if (hasHttpDomain) {
             range = [status rangeOfString:@"/"];
-            [_attributedStatus addAttribute:NSFontAttributeName value:_boldFont range:NSMakeRange(0, range.location)]; 
+            [_attributedStatus addAttribute:NSFontAttributeName value:_boldFont range:NSMakeRange(0, range.location)];
         }
         self.wantsLayer = NO;
         [self setAlphaValue:1];
@@ -167,7 +167,7 @@ BOOL is_full_screen(long mask);
 @end
 
 @interface ODWindowFrame : NSNextStepFrame {
-    @public
+@public
     NSButton *_closeButton;
     NSButton *_minimizeButton;
     NSButton *_zoomButton;
@@ -182,6 +182,7 @@ BOOL is_full_screen(long mask);
     
     //BOOL _mouseEntered;
     BOOL _shouldHideTitlebar;
+    BOOL _shouldDrawTitle;
 }
 //@property NSUInteger styleMask;
 //@property NSString *title;
@@ -193,7 +194,7 @@ BOOL is_full_screen(long mask);
 
 
 - (NSRect)contentRectForFrameRect:(NSRect)rect styleMask:(NSUInteger)aStyle {
-
+    
     if (!_shouldHideTitlebar) {
         rect.size.height -= 22;
     }
@@ -212,17 +213,18 @@ BOOL is_full_screen(long mask);
 }
 
 - (instancetype)initWithFrame:(NSRect)frame styleMask:(NSUInteger)aStyle owner:(id)owner {
-    self = [super initWithFrame:frame styleMask:aStyle owner:owner]; 
+    self = [super initWithFrame:frame styleMask:aStyle owner:owner];
     [self setNextResponder:owner];
     NSAutoresizingMaskOptions mask = NSViewMaxXMargin | NSViewMinYMargin;
-//    CGFloat a = 8;
-//    CGFloat i = 15;
+    //    CGFloat a = 8;
+    //    CGFloat i = 15;
     CGFloat a = 16;
     CGFloat b = 2;
     CGFloat i = 19;
     _closeButton = [[NSButton alloc] initWithFrame:NSMakeRect(b + 3, NSHeight(frame) - i, a, a)];
     _closeButton.autoresizingMask = mask;
     _closeButton.image = [NSImage imageNamed:@"ODWindowCloseButton"];
+    //_closeButton.image = [NSImage imageNamed:NSImageNameStatusNone];
     _closeButton.bordered = NO;
     _closeButton.action = @selector(performClose:);
     _closeButton.target = self;
@@ -230,6 +232,7 @@ BOOL is_full_screen(long mask);
     _minimizeButton = [[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(_closeButton.frame) + b, NSHeight(frame) - i, a, a)];
     _minimizeButton.autoresizingMask = mask;
     _minimizeButton.image = [NSImage imageNamed:@"ODWindowMinimizeButton"];
+    //_minimizeButton.image = [NSImage imageNamed:NSImageNameStatusNone];
     _minimizeButton.bordered = NO;
     _minimizeButton.action = @selector(performMiniaturize:);
     _minimizeButton.target = self;
@@ -237,6 +240,7 @@ BOOL is_full_screen(long mask);
     _zoomButton = [[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(_minimizeButton.frame) + b, NSHeight(frame) - i, a, a)];
     _zoomButton.autoresizingMask = mask;
     _zoomButton.image = [NSImage imageNamed:@"ODWindowZoomButton"];
+    //_zoomButton.image = [NSImage imageNamed:NSImageNameStatusNone];
     _zoomButton.bordered = NO;
     _zoomButton.action = @selector(performZoom:);
     _zoomButton.target = self;
@@ -250,10 +254,12 @@ BOOL is_full_screen(long mask);
     _tabButton.cell.bezeled = NO;
     _tabButton.action = @selector(tabButtonAction:);
     _tabButton.target = self;
-    _tabButton.font = [NSFont systemFontOfSize:10];
-    _tabButton.title = @"1/10";
+    _tabButton.image = [NSImage imageNamed:NSImageNameListViewTemplate];
+    //_tabButton.font = [NSFont systemFontOfSize:10];
+    //_tabButton.title = @"1/10";
     _tabButton.alignment = NSTextAlignmentRight;
-    _tabButton.frame = NSMakeRect(NSMaxX(frame) - 58, NSHeight(frame) - 17, 36, 10);
+    //_tabButton.frame = NSMakeRect(NSMaxX(frame) - 58, NSHeight(frame) - 17, 36, 10);
+    _tabButton.frame = NSMakeRect(NSMaxX(frame) - 40, NSHeight(frame) - i, a, a);
     _tabButton.autoresizingMask = mask;
     
     _auxButton = [[NSButton alloc] init];
@@ -261,6 +267,7 @@ BOOL is_full_screen(long mask);
     _auxButton.action = @selector(auxButtonAction:);
     _auxButton.target = self;
     _auxButton.image = [NSImage imageNamed:@"ODWindowAuxButton"];
+    //_auxButton.image = [NSImage imageNamed:NSImageNameSmartBadgeTemplate];
     _auxButton.frame = NSMakeRect(NSWidth(frame) - 20, NSHeight(frame) - i, a, a);
     _auxButton.autoresizingMask = mask;
     
@@ -275,7 +282,7 @@ BOOL is_full_screen(long mask);
     _titleCell.lineBreakMode = NSLineBreakByTruncatingTail;
     _titleCell.alignment = NSTextAlignmentCenter;
     
-    _backgroundColor = [NSColor colorWithDeviceWhite:0.98 alpha:0.96];
+    _backgroundColor = [NSColor colorWithDeviceWhite:0.95 alpha:0.90];
     
     //[_button setButtonType:NSMomentaryPushButton];
     // [self performSelector:@selector(_setWindow:) withObject:owner];
@@ -287,11 +294,14 @@ BOOL is_full_screen(long mask);
     
     [_backgroundColor set];
     NSRectFill(dirtyRect);
-    NSRect frame = self.frame;
-    NSRect buttonFrame = _zoomButton.frame;
-    frame = NSMakeRect(NSMaxX(buttonFrame), NSMinY(buttonFrame) + 1, NSMinX(_tabButton.frame) - 48, 14);
-    _titleCell.stringValue = super.title;
-    [_titleCell drawWithFrame:frame inView:self];
+    if (_shouldDrawTitle) {
+        NSRect frame = self.frame;
+        NSRect buttonFrame = _zoomButton.frame;
+        frame = NSMakeRect(NSMaxX(buttonFrame), NSMinY(buttonFrame) + 1, NSMinX(_tabButton.frame) - 48, 14);
+        _titleCell.stringValue = super.title;
+        [_titleCell drawWithFrame:frame inView:self];
+    }
+
     //[self.window invalidateShadow];
 }
 
@@ -300,19 +310,19 @@ BOOL is_full_screen(long mask);
 //    [super updateTrackingAreas];
 //    if (_trackingArea) {
 //        [self removeTrackingArea:_trackingArea];
-//    } 
-//    
+//    }
+//
 //    NSRect frame = self.frame;
 //    CGFloat value = (_mouseEntered) ? 32 : 4;
 //    frame = NSMakeRect(0, NSHeight(frame) - value, NSWidth(frame), value);
-//    _trackingArea = [[NSTrackingArea alloc] initWithRect:frame 
-//                                                 options:NSTrackingActiveAlways|NSTrackingMouseEnteredAndExited 
-//                                                   owner:self 
+//    _trackingArea = [[NSTrackingArea alloc] initWithRect:frame
+//                                                 options:NSTrackingActiveAlways|NSTrackingMouseEnteredAndExited
+//                                                   owner:self
 //                                                userInfo:nil];
-//    
-//    
+//
+//
 //    [self addTrackingArea:_trackingArea];
-//    
+//
 //}
 //
 //- (void)mouseEntered:(NSEvent *)theEvent
@@ -337,7 +347,7 @@ BOOL is_full_screen(long mask);
 //        [self updateTrackingAreas];
 //        [self.window.contentView.animator setFrameSize:self.frame.size];
 //    }
-//    
+//
 //}
 
 - (BOOL)mouseDownCanMoveWindow {
@@ -346,7 +356,7 @@ BOOL is_full_screen(long mask);
 
 //- (void)mouseDragged:(NSEvent *)theEvent
 //{
-//    
+//
 //}
 
 - (void)performClose:(id)sender {
@@ -372,10 +382,10 @@ BOOL is_full_screen(long mask);
     } else {
         [window toggleFullScreen:sender];
         //        NSUInteger styleMask = window.styleMask;
-        //        if (styleMask & NSFullScreenWindowMask) 
+        //        if (styleMask & NSFullScreenWindowMask)
         //        {
         //            styleMask ^= NSFullScreenWindowMask;
-        //        
+        //
         //        } else {
         //            styleMask |= NSFullScreenWindowMask;
         //        }
@@ -384,22 +394,22 @@ BOOL is_full_screen(long mask);
 }
 
 - (void)tabButtonAction:(id)sender {
-//    ODDelegate *delegate = [NSApp delegate];
-//    [delegate showTabs:sender];
+    //    ODDelegate *delegate = [NSApp delegate];
+    //    [delegate showTabs:sender];
     [[ODTabSwitcher tabSwitcher] showPopover:sender];
     
 }
 
 - (void)auxButtonAction:(id)sender {
-//    ODDelegate *delegate = [NSApp delegate];
-//    [delegate showDownloads:sender];
+    //    ODDelegate *delegate = [NSApp delegate];
+    //    [delegate showDownloads:sender];
 }
 
 @end
 
 @interface ODWindow () {
     ODStatusbar *_statusbar;
-    ODTabBar *_tabBar;
+    ODTabView *_tabView;
     ODWindowFrame *_themeFrame;
     BOOL _fullscreen;
 }
@@ -418,9 +428,9 @@ BOOL is_full_screen(long mask);
     self.ignoresMouseEvents = NO;
     self.hidesOnDeactivate = NO;
     self.releasedWhenClosed = NO;
-    _tabBar = [[ODTabBar alloc] init];
-    _tabBar.window = self;
-    [[[ODTabSwitcher tabSwitcher] view] setNeedsDisplay:YES];
+    _tabView = [[ODTabView alloc] init];
+    //_tabView.window = self;
+    
     _fullscreen = is_full_screen(aStyle);
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(windowDidExitFullScreen:) name:NSWindowDidExitFullScreenNotification object:self];
@@ -437,8 +447,12 @@ BOOL is_full_screen(long mask);
     
     _statusbar = [[ODStatusbar alloc] initWithFrame:NSMakeRect(0, 0, NSWidth(self.frame), 24)];
     [_themeFrame addSubview:_statusbar positioned:NSWindowAbove relativeTo:nil];
+    _tabView.frame = NSMakeRect(64, NSHeight(self.frame) - 22, NSWidth(self.frame) - 120, 22);
+    _tabView.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
+    [_themeFrame addSubview:_tabView];
+    
     //CGSSetWindowBackgroundBlurRadius(CGSDefaultConnectionForThread(), self.windowNumber, 16);
-   // CGSSetWindowShadowAndRimParameters(CGSDefaultConnectionForThread(), (int)self.windowNumber, 200, 300, 10, 35, 0);
+    // CGSSetWindowShadowAndRimParameters(CGSDefaultConnectionForThread(), (int)self.windowNumber, 200, 300, 10, 35, 0);
 }
 
 - (BOOL)canBecomeMainWindow {
@@ -454,15 +468,6 @@ BOOL is_full_screen(long mask);
 }
 
 #pragma mark - Properties
-
-- (WebView *)webView {
-    WebView *result = nil;
-    ODTabItem *item = _tabBar.selectedTabItem;
-    if (item.type == ODTabTypeWebView) {
-        result = (id)item.view;
-    }
-    return result;
-}
 
 - (void)setStatus:(NSString *)status {
     _statusbar.status = status;
@@ -490,14 +495,13 @@ BOOL is_full_screen(long mask);
         result = YES;
     }
     return result;
-//    ODWindowFrame *windowFrame = [self _borderView];
-//    
-//    return windowFrame->_shouldHideTitlebar;
+    //    ODWindowFrame *windowFrame = [self _borderView];
+    //
+    //    return windowFrame->_shouldHideTitlebar;
 }
 
 - (void)setTitlebarHidden:(BOOL)value {
-    ODWindowFrame *windowFrame = [self _borderView];
-    windowFrame->_shouldHideTitlebar = value;
+    _themeFrame->_shouldHideTitlebar = value;
     NSView *view = self.contentView;
     NSSize size = self.frame.size;
     if (!value) {
@@ -506,14 +510,30 @@ BOOL is_full_screen(long mask);
     [view setFrameSize:size];
 }
 
+- (void)setTabViewHidden:(BOOL)value {
+    _tabView.hidden = value;
+    _themeFrame->_shouldDrawTitle = value;
+    if (value) {
+        [_themeFrame setNeedsDisplay:YES];
+    }
+}
+
+- (BOOL)isTabViewHidden {
+    return _tabView.hidden;
+}
+
 - (void)setTitlebarInfo:(NSString *)string {
     
     _themeFrame->_tabButton.title = string;
 }
 
 - (void)setTitle:(NSString *)title {
-    [super setTitle:title];
-    [[self _borderView] setNeedsDisplay:YES];
+        [super setTitle:title];
+    if (_themeFrame->_shouldDrawTitle) {
+        [_themeFrame setNeedsDisplay:YES];
+    } else {
+        [_tabView setNeedsDisplay:YES];
+    }
 }
 
 - (NSButton *)auxButton {
@@ -526,10 +546,10 @@ BOOL is_full_screen(long mask);
 - (void)toggleTitlebar:(id)sender {
     BOOL value = ([self isTitlebarHidden]) ? NO : YES;
     [self setTitlebarHidden:value];
-//    NSView *view = self.contentView;
-//    NSSize size = self.frame.size;
-//    size.height -= 22;
-//    [view setFrameSize:size];
+    //    NSView *view = self.contentView;
+    //    NSSize size = self.frame.size;
+    //    size.height -= 22;
+    //    [view setFrameSize:size];
 }
 
 - (void)zoomVertically:(id)sender {
@@ -554,8 +574,9 @@ BOOL is_full_screen(long mask);
     //self.delegate = nil;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
-    [_tabBar removeAllTabs];
-    _tabBar.window = nil;
+    [_tabView removeAllTabs];
+    [_tabView removeFromSuperview];
+    _tabView = nil;
     [_statusbar removeFromSuperview];
     _statusbar = nil;
     [_themeFrame removeFromSuperview];
@@ -587,7 +608,7 @@ BOOL is_full_screen(long mask);
                 
             default:
                 break;
-        } 
+        }
         
         // NSRect frame = self.frame;
         if (deltaX || deltaY) {
@@ -596,22 +617,22 @@ BOOL is_full_screen(long mask);
             origin.y -= deltaY;
             [self setFrameOrigin:origin];
         }
-
+        
     } else if ([NSEvent modifierFlags] == NSCommandKeyMask) {
         u_short keyCode = [theEvent keyCode];
         u_long idx = 9;
         switch (keyCode) {
             case 18:
-                idx = 0;  //    char: 1 
+                idx = 0;  //    char: 1
                 break;
             case 19:
-                idx = 1;  //    char: 2 
+                idx = 1;  //    char: 2
                 break;
             case 20:
-                idx = 2;  //    char: 3 
+                idx = 2;  //    char: 3
                 break;
             case 21:
-                idx = 3;  //    char: 4 
+                idx = 3;  //    char: 4
                 break;
             case 23:
                 idx = 4;  //    char: 5
@@ -620,20 +641,20 @@ BOOL is_full_screen(long mask);
                 idx = 5;  //    char: 6
                 break;
             case 26:
-                idx = 6;  //    char: 7 
+                idx = 6;  //    char: 7
                 break;
             case 28:
-                idx = 7;  //    char: 8 
+                idx = 7;  //    char: 8
                 break;
             case 25:
-                idx = 8;  //    char: 9 
+                idx = 8;  //    char: 9
                 break;
             default:
                 break;
         }
-        u_long count = _tabBar.numberOfTabItems;
+        u_long count = _tabView.numberOfTabViewItems;
         if (count > idx && idx != 9) {
-            [_tabBar selectTabItemAtIndex:idx];
+            [_tabView selectTabViewItemAtIndex:idx];
         }
     }
 }

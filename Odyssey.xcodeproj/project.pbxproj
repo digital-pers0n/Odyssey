@@ -7,44 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE08675E1E9A48EF000B9C23 /* ODTabSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08675C1E9A48EF000B9C23 /* ODTabSwitcher.m */; settings = {ASSET_TAGS = (); }; };
-		CE08675F1E9A48EF000B9C23 /* ODTabSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE08675D1E9A48EF000B9C23 /* ODTabSwitcher.xib */; settings = {ASSET_TAGS = (); }; };
+		CE08675E1E9A48EF000B9C23 /* ODTabSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08675C1E9A48EF000B9C23 /* ODTabSwitcher.m */; };
+		CE08675F1E9A48EF000B9C23 /* ODTabSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE08675D1E9A48EF000B9C23 /* ODTabSwitcher.xib */; };
 		CE5404851E96AA88009FFBE1 /* ODDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5404841E96AA88009FFBE1 /* ODDelegate.m */; };
 		CE5404881E96AA88009FFBE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5404871E96AA88009FFBE1 /* main.m */; };
 		CE54048A1E96AA88009FFBE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5404891E96AA88009FFBE1 /* Assets.xcassets */; };
 		CE54048D1E96AA88009FFBE1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE54048B1E96AA88009FFBE1 /* MainMenu.xib */; };
 		CE5404951E96AC5D009FFBE1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5404941E96AC5D009FFBE1 /* WebKit.framework */; };
-		CE5554E81ED87BDF009FBA93 /* ODPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5554E71ED87BDF009FBA93 /* ODPopover.m */; settings = {ASSET_TAGS = (); }; };
-		CE5554EB1ED87C1A009FBA93 /* ODPopoverWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5554EA1ED87C1A009FBA93 /* ODPopoverWindow.m */; settings = {ASSET_TAGS = (); }; };
-		CE5DD1011EB3A1A100855641 /* ODFindBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DD0FF1EB3A1A100855641 /* ODFindBanner.m */; settings = {ASSET_TAGS = (); }; };
-		CE5DD1021EB3A1A100855641 /* ODFindBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE5DD1001EB3A1A100855641 /* ODFindBanner.xib */; settings = {ASSET_TAGS = (); }; };
-		CE5E56EF1EACB3FC008C618B /* ODDelegate+ODelegateExtensionMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E56EE1EACB3FC008C618B /* ODDelegate+ODelegateExtensionMethods.m */; settings = {ASSET_TAGS = (); }; };
-		CE66BCF01EA65597004F8DF1 /* WebBookmarks.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE66BCEF1EA65597004F8DF1 /* WebBookmarks.plist */; settings = {ASSET_TAGS = (); }; };
-		CE85FCEB1EAE382F00BC8E20 /* ODContentFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85FCEA1EAE382F00BC8E20 /* ODContentFilter.m */; settings = {ASSET_TAGS = (); }; };
-		CE85FCEF1EAE406C00BC8E20 /* ODContentFilterEditRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85FCED1EAE406C00BC8E20 /* ODContentFilterEditRule.m */; settings = {ASSET_TAGS = (); }; };
-		CE85FCF01EAE406C00BC8E20 /* ODContentFilterEditRule.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE85FCEE1EAE406C00BC8E20 /* ODContentFilterEditRule.xib */; settings = {ASSET_TAGS = (); }; };
-		CEA67F8A1EA8D89700AFED05 /* ODDownloadData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67F891EA8D89700AFED05 /* ODDownloadData.m */; settings = {ASSET_TAGS = (); }; };
-		CEA67F8E1EA8EDA500AFED05 /* ODDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67F8C1EA8EDA500AFED05 /* ODDownloadManager.m */; settings = {ASSET_TAGS = (); }; };
-		CEA67F8F1EA8EDA500AFED05 /* ODDownloadManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA67F8D1EA8EDA500AFED05 /* ODDownloadManager.xib */; settings = {ASSET_TAGS = (); }; };
-		CEAD77291EB09E7C00BB77D6 /* ODPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAD77281EB09E7C00BB77D6 /* ODPreferences.m */; settings = {ASSET_TAGS = (); }; };
-		CEAD772C1EB0C32700BB77D6 /* UserAgent.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEAD772B1EB0C32700BB77D6 /* UserAgent.plist */; settings = {ASSET_TAGS = (); }; };
-		CEB288541EE2FCFD005FCED3 /* ODWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB288531EE2FCFD005FCED3 /* ODWindow.m */; settings = {ASSET_TAGS = (); }; };
-		CED8586A1EAF95A400A6ABA5 /* dummy.js in Resources */ = {isa = PBXBuildFile; fileRef = CED858661EAF95A400A6ABA5 /* dummy.js */; settings = {ASSET_TAGS = (); }; };
-		CED8586B1EAF95A400A6ABA5 /* WebFilterList.txt in Resources */ = {isa = PBXBuildFile; fileRef = CED858671EAF95A400A6ABA5 /* WebFilterList.txt */; settings = {ASSET_TAGS = (); }; };
-		CED8586C1EAF95A400A6ABA5 /* WebFilterWhiteList.txt in Resources */ = {isa = PBXBuildFile; fileRef = CED858681EAF95A400A6ABA5 /* WebFilterWhiteList.txt */; settings = {ASSET_TAGS = (); }; };
-		CED8586D1EAF95A400A6ABA5 /* blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = CED858691EAF95A400A6ABA5 /* blocked.png */; settings = {ASSET_TAGS = (); }; };
-		CEDAD88E1EB2152E007A2694 /* ODHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDAD88D1EB2152E007A2694 /* ODHistory.m */; settings = {ASSET_TAGS = (); }; };
-		CEDBD9DF1E97F061008B594A /* ODTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBD9DE1E97F061008B594A /* ODTabBar.m */; settings = {ASSET_TAGS = (); }; };
-		CEDBD9E21E97F84E008B594A /* ODTabItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBD9E11E97F84E008B594A /* ODTabItem.m */; settings = {ASSET_TAGS = (); }; };
-		CEE495E21EA0EC2D008DCDDC /* ODBookmarksOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E01EA0EC2D008DCDDC /* ODBookmarksOutline.m */; settings = {ASSET_TAGS = (); }; };
-		CEE495E31EA0EC2D008DCDDC /* ODBookmarksOutline.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE495E11EA0EC2D008DCDDC /* ODBookmarksOutline.xib */; settings = {ASSET_TAGS = (); }; };
-		CEE495E71EA0ECC2008DCDDC /* ODBookmarkData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E61EA0ECC2008DCDDC /* ODBookmarkData.m */; settings = {ASSET_TAGS = (); }; };
-		CEE495EA1EA12625008DCDDC /* ODBookmarks.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E91EA12625008DCDDC /* ODBookmarks.m */; settings = {ASSET_TAGS = (); }; };
-		CEE495EF1EA14042008DCDDC /* ODBookmarkAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495ED1EA14042008DCDDC /* ODBookmarkAdd.m */; settings = {ASSET_TAGS = (); }; };
-		CEE495F01EA14042008DCDDC /* ODBookmarkAdd.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE495EE1EA14042008DCDDC /* ODBookmarkAdd.xib */; settings = {ASSET_TAGS = (); }; };
-		CEF1A00A1E9FB6FA0061804D /* ODAddressField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF1A0081E9FB6FA0061804D /* ODAddressField.m */; settings = {ASSET_TAGS = (); }; };
-		CEF1A00B1E9FB6FA0061804D /* ODAddressField.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF1A0091E9FB6FA0061804D /* ODAddressField.xib */; settings = {ASSET_TAGS = (); }; };
-		CEF1A00D1E9FC77B0061804D /* SearchEngines.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF1A00C1E9FC77B0061804D /* SearchEngines.plist */; settings = {ASSET_TAGS = (); }; };
+		CE5554E81ED87BDF009FBA93 /* ODPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5554E71ED87BDF009FBA93 /* ODPopover.m */; };
+		CE5554EB1ED87C1A009FBA93 /* ODPopoverWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5554EA1ED87C1A009FBA93 /* ODPopoverWindow.m */; };
+		CE5DD1011EB3A1A100855641 /* ODFindBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DD0FF1EB3A1A100855641 /* ODFindBanner.m */; };
+		CE5DD1021EB3A1A100855641 /* ODFindBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE5DD1001EB3A1A100855641 /* ODFindBanner.xib */; };
+		CE5E56EF1EACB3FC008C618B /* ODDelegate+ODelegateExtensionMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E56EE1EACB3FC008C618B /* ODDelegate+ODelegateExtensionMethods.m */; };
+		CE66BCF01EA65597004F8DF1 /* WebBookmarks.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE66BCEF1EA65597004F8DF1 /* WebBookmarks.plist */; };
+		CE85FCEB1EAE382F00BC8E20 /* ODContentFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85FCEA1EAE382F00BC8E20 /* ODContentFilter.m */; };
+		CE85FCEF1EAE406C00BC8E20 /* ODContentFilterEditRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85FCED1EAE406C00BC8E20 /* ODContentFilterEditRule.m */; };
+		CE85FCF01EAE406C00BC8E20 /* ODContentFilterEditRule.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE85FCEE1EAE406C00BC8E20 /* ODContentFilterEditRule.xib */; };
+		CEA67F8A1EA8D89700AFED05 /* ODDownloadData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67F891EA8D89700AFED05 /* ODDownloadData.m */; };
+		CEA67F8E1EA8EDA500AFED05 /* ODDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67F8C1EA8EDA500AFED05 /* ODDownloadManager.m */; };
+		CEA67F8F1EA8EDA500AFED05 /* ODDownloadManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA67F8D1EA8EDA500AFED05 /* ODDownloadManager.xib */; };
+		CEAD77291EB09E7C00BB77D6 /* ODPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAD77281EB09E7C00BB77D6 /* ODPreferences.m */; };
+		CEAD772C1EB0C32700BB77D6 /* UserAgent.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEAD772B1EB0C32700BB77D6 /* UserAgent.plist */; };
+		CEB288541EE2FCFD005FCED3 /* ODWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB288531EE2FCFD005FCED3 /* ODWindow.m */; };
+		CEB3F64C1FF6C6A9004D9834 /* ODTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB3F6491FF6C6A9004D9834 /* ODTabView.m */; };
+		CEB3F64D1FF6C6A9004D9834 /* ODTabViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB3F64B1FF6C6A9004D9834 /* ODTabViewItem.m */; };
+		CED8586A1EAF95A400A6ABA5 /* dummy.js in Resources */ = {isa = PBXBuildFile; fileRef = CED858661EAF95A400A6ABA5 /* dummy.js */; };
+		CED8586B1EAF95A400A6ABA5 /* WebFilterList.txt in Resources */ = {isa = PBXBuildFile; fileRef = CED858671EAF95A400A6ABA5 /* WebFilterList.txt */; };
+		CED8586C1EAF95A400A6ABA5 /* WebFilterWhiteList.txt in Resources */ = {isa = PBXBuildFile; fileRef = CED858681EAF95A400A6ABA5 /* WebFilterWhiteList.txt */; };
+		CED8586D1EAF95A400A6ABA5 /* blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = CED858691EAF95A400A6ABA5 /* blocked.png */; };
+		CEDAD88E1EB2152E007A2694 /* ODHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDAD88D1EB2152E007A2694 /* ODHistory.m */; };
+		CEE495E21EA0EC2D008DCDDC /* ODBookmarksOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E01EA0EC2D008DCDDC /* ODBookmarksOutline.m */; };
+		CEE495E31EA0EC2D008DCDDC /* ODBookmarksOutline.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE495E11EA0EC2D008DCDDC /* ODBookmarksOutline.xib */; };
+		CEE495E71EA0ECC2008DCDDC /* ODBookmarkData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E61EA0ECC2008DCDDC /* ODBookmarkData.m */; };
+		CEE495EA1EA12625008DCDDC /* ODBookmarks.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E91EA12625008DCDDC /* ODBookmarks.m */; };
+		CEE495EF1EA14042008DCDDC /* ODBookmarkAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495ED1EA14042008DCDDC /* ODBookmarkAdd.m */; };
+		CEE495F01EA14042008DCDDC /* ODBookmarkAdd.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE495EE1EA14042008DCDDC /* ODBookmarkAdd.xib */; };
+		CEF1A00A1E9FB6FA0061804D /* ODAddressField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF1A0081E9FB6FA0061804D /* ODAddressField.m */; };
+		CEF1A00B1E9FB6FA0061804D /* ODAddressField.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF1A0091E9FB6FA0061804D /* ODAddressField.xib */; };
+		CEF1A00D1E9FC77B0061804D /* SearchEngines.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF1A00C1E9FC77B0061804D /* SearchEngines.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +88,10 @@
 		CEAD772A1EB0C1C500BB77D6 /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPreferencesPrivate.h; sourceTree = "<group>"; };
 		CEAD772B1EB0C32700BB77D6 /* UserAgent.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserAgent.plist; sourceTree = "<group>"; };
 		CEB288531EE2FCFD005FCED3 /* ODWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODWindow.m; sourceTree = "<group>"; };
+		CEB3F6481FF6C6A9004D9834 /* ODTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabView.h; sourceTree = "<group>"; };
+		CEB3F6491FF6C6A9004D9834 /* ODTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabView.m; sourceTree = "<group>"; };
+		CEB3F64A1FF6C6A9004D9834 /* ODTabViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabViewItem.h; sourceTree = "<group>"; };
+		CEB3F64B1FF6C6A9004D9834 /* ODTabViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabViewItem.m; sourceTree = "<group>"; };
 		CED858661EAF95A400A6ABA5 /* dummy.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dummy.js; sourceTree = "<group>"; };
 		CED858671EAF95A400A6ABA5 /* WebFilterList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebFilterList.txt; sourceTree = "<group>"; };
 		CED858681EAF95A400A6ABA5 /* WebFilterWhiteList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebFilterWhiteList.txt; sourceTree = "<group>"; };
@@ -127,6 +131,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE0BA0971FF7E46100759C99 /* ODTabView */ = {
+			isa = PBXGroup;
+			children = (
+				CEB3F6481FF6C6A9004D9834 /* ODTabView.h */,
+				CEB3F6491FF6C6A9004D9834 /* ODTabView.m */,
+				CEB3F64A1FF6C6A9004D9834 /* ODTabViewItem.h */,
+				CEB3F64B1FF6C6A9004D9834 /* ODTabViewItem.m */,
+			);
+			name = ODTabView;
+			sourceTree = "<group>";
+		};
 		CE5404771E96AA87009FFBE1 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +198,7 @@
 				CEC860701EB36C4A00336CF7 /* ODFindBanner */,
 				CEF1A0061E9FA7CA0061804D /* ODAddressField */,
 				CEDBD9DC1E97EF98008B594A /* ODTabBar */,
+				CE0BA0971FF7E46100759C99 /* ODTabView */,
 				CE5404971E96ACD9009FFBE1 /* ODWindow.h */,
 				CEB288531EE2FCFD005FCED3 /* ODWindow.m */,
 				CE5404981E96ACD9009FFBE1 /* ODWindow-legacy.m */,
@@ -411,6 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA67F8E1EA8EDA500AFED05 /* ODDownloadManager.m in Sources */,
+				CEB3F64C1FF6C6A9004D9834 /* ODTabView.m in Sources */,
 				CEF1A00A1E9FB6FA0061804D /* ODAddressField.m in Sources */,
 				CEE495E71EA0ECC2008DCDDC /* ODBookmarkData.m in Sources */,
 				CEE495EF1EA14042008DCDDC /* ODBookmarkAdd.m in Sources */,
@@ -422,15 +439,14 @@
 				CEE495E21EA0EC2D008DCDDC /* ODBookmarksOutline.m in Sources */,
 				CEB288541EE2FCFD005FCED3 /* ODWindow.m in Sources */,
 				CE85FCEF1EAE406C00BC8E20 /* ODContentFilterEditRule.m in Sources */,
-				CEDBD9DF1E97F061008B594A /* ODTabBar.m in Sources */,
 				CE5554EB1ED87C1A009FBA93 /* ODPopoverWindow.m in Sources */,
 				CE08675E1E9A48EF000B9C23 /* ODTabSwitcher.m in Sources */,
 				CE85FCEB1EAE382F00BC8E20 /* ODContentFilter.m in Sources */,
 				CE5404881E96AA88009FFBE1 /* main.m in Sources */,
+				CEB3F64D1FF6C6A9004D9834 /* ODTabViewItem.m in Sources */,
 				CE5554E81ED87BDF009FBA93 /* ODPopover.m in Sources */,
 				CE5404851E96AA88009FFBE1 /* ODDelegate.m in Sources */,
 				CE5DD1011EB3A1A100855641 /* ODFindBanner.m in Sources */,
-				CEDBD9E21E97F84E008B594A /* ODTabItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

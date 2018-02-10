@@ -9,8 +9,8 @@
 #import "ODHistory.h"
 #import "ODDelegate.h"
 #import "ODWindow.h"
-#import "ODTabBar.h"
-#import "ODTabItem.h"
+#import "ODTabView.h"
+#import "ODTabViewItem.h"
 
 @import WebKit;
 
@@ -66,7 +66,7 @@
 -(void)menuItemClicked:(id)sender
 {
     ODWindow *window = (id)[NSApp mainWindow];
-    WebView *view = window.webView;
+    WebView *view = (WebView *)window.tabView.selectedTabViewItem.view;
     view.mainFrameURL = [sender toolTip];
     //[view setMainFrameURL:[[sender representedObject] URLString]];
     //[[view backForwardList] goToItem:[sender representedObject]]; 

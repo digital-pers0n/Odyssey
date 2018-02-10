@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ODTabBar, WebView;
+@class ODTabView;
 
 @interface NSWindow (NSWindowPrivate)
 
@@ -18,8 +18,7 @@
 
 @interface ODWindow : NSWindow
 
-@property (readonly) ODTabBar *tabBar;
-@property (readonly) WebView *webView; 
+@property (readonly) ODTabView *tabView;
 @property (readonly, getter=isFullscreen) BOOL fullscreen;
 - (IBAction)zoomVertically:(id)sender;
 
@@ -29,8 +28,9 @@
 @property (getter=isStatusbarHidden) BOOL statusbarHidden;
 
 
-- (void)setTitlebarInfo:(NSString *)string;
+//- (void)setTitlebarInfo:(NSString *)string;
 @property (getter=isTitlebarHidden) BOOL titlebarHidden;
+@property (getter=isTabViewHidden) BOOL tabViewHidden;
 
 @property (readonly) NSButton *auxButton;
 

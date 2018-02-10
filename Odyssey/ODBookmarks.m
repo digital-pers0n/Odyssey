@@ -11,8 +11,8 @@
 #import "ODBookmarksOutline.h"
 #import "ODBookmarkData.h"
 #import "ODBookmarkAdd.h"
-#import "ODTabBar.h"
-#import "ODTabItem.h"
+#import "ODTabView.h"
+#import "ODTabViewItem.h"
 #import "ODWindow.h"
 
 @import WebKit;
@@ -93,14 +93,15 @@
     
     ODBookmarksOutline *outline = [[ODBookmarksOutline alloc] initWithData:_bookmarksTreeData];
     NSView *view = outline.view;
-    ODTabItem *tab = [[ODTabItem alloc] initWithView:view];
+    ODTabViewItem *tab = [[ODTabViewItem alloc] initWithView:view];
     tab.label = @"Bookmarks";
     tab.tag = BOOKMARKS_TAB_TAG;
+    tab.type = ODTabTypeOther;
     tab.representedObject = outline;
     ODWindow *window = (ODWindow *)[NSApp mainWindow];
-    ODTabBar *tabBar = window.tabBar;
-    [tabBar addTabItem:tab relativeToSelectedTab:YES];
-    [tabBar selectTabItem:tab];
+    ODTabView *tabView = window.tabView;
+    [tabView addTabViewItem:tab relativeToSelectedTab:YES];
+    [tabView selectTabViewItem:tab];
     NSRect frame = window.contentView.frame;
     [view setFrameSize:NSMakeSize(NSWidth(frame), NSHeight(frame))];
     [view setNeedsDisplay:YES];
@@ -123,12 +124,12 @@
 //    _editor = [[ODBookmarksOutline alloc] initWithData:_bookmarksTreeData];
 //    [_editor loadView];
 //    NSView *view = _editor.view;
-//    ODTabItem *tab = [[ODTabItem alloc] initWithView:view];
+//    ODTabViewItem *tab = [[ODTabViewItem alloc] initWithView:view];
 //    tab.label = @"Bookmarks";
 //    ODWindow *window = (ODWindow *)[NSApp mainWindow];
-//    ODTabBar *tabBar = window.tabBar;
-//    [tabBar addTabItem:tab relativeToSelectedTab:YES];
-//    [tabBar selectTabItem:tab];
+//    ODTabView *tabView = window.tabView;
+//    [tabView addTabItem:tab relativeToSelectedTab:YES];
+//    [tabView selectTabItem:tab];
 //    NSRect frame = window.frame;
 //    [view setFrameSize:NSMakeSize(NSWidth(frame), NSHeight(frame))];
 //    [view setNeedsDisplay:YES];
@@ -144,13 +145,13 @@
     ODBookmarkAdd *dialog;
     ODBookmarkData *bookmark;
     ODWindow *window = (ODWindow *)[NSApp mainWindow];
-    ODTabBar *tabBar = window.tabBar;
+    ODTabView *tabView = window.tabView;
     NSUInteger tag = [sender tag];
     
     if (tag == 1000) {
     
-        ODTabItem *item = tabBar.selectedTabItem;
-        if (item.type == ODTabTypeWebView) {
+        ODTabViewItem *item = tabView.selectedTabViewItem;
+        if (item.type == ODTabTypeDefault) {
             WebView *webView = (id)item.view;
             bookmark =  [[ODBookmarkData alloc] initLeafWithTitle:item.label address:webView.mainFrameURL];
         }
@@ -160,14 +161,14 @@
         
 
         
-        NSArray *tabs = tabBar.tabItems;
+        NSArray *tabs = tabView.tabViewItems;
         
         
         NSMutableArray *bookmarks = [NSMutableArray new];
         WebView *webView;
         NSString *address;
-        for (ODTabItem *item in tabs) {
-            if (item.type == ODTabTypeWebView) {
+        for (ODTabViewItem *item in tabs) {
+            if (item.type == ODTabTypeDefault) {
                 webView = (id)item.view;
                 address = (item.tag == 100) ? item.representedObject : webView.mainFrameURL;
 

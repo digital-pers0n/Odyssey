@@ -195,7 +195,7 @@
         //NSLog(@"Bytes received - %d",_bytesReceived);
     }
     static int updates = 0;
-    if (updates > 16) {
+    if (updates > 4) {
          [_delegate downloadDataDidUpdate:self];
         updates = 0;
     } else {

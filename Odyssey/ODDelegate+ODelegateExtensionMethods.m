@@ -8,8 +8,8 @@
 
 #import "ODDelegate.h"
 #import "ODWindow.h"
-#import "ODTabBar.h"
-#import "ODTabItem.h"
+#import "ODTabView.h"
+#import "ODTabViewItem.h"
 #import "ODPopoverWindow.h"
 
 @import WebKit; 
@@ -38,8 +38,8 @@
         NSUInteger index = 0;
         NSDictionary *windowData;
         NSMutableArray *tabArray = [NSMutableArray new];
-        for (ODTabItem *item in window.tabBar.tabItems) {
-            if (item.type == ODTabTypeWebView) {
+        for (ODTabViewItem *item in window.tabView.tabViewItems) {
+            if (item.type == ODTabTypeDefault) {
                 WebView *webView = (id)item.view;
                 NSString *label;
                 NSString *url;
@@ -56,7 +56,7 @@
                 NSDictionary *tab = @{TAB_TITLE_KEY: label, TAB_ADDRESS_KEY : url};
                 [tabArray addObject:tab];
                 if (item.state == ODTabStateSelected) {
-                    index = [window.tabBar indexOfTabItem:item];
+                    index = [window.tabView indexOfTabViewItem:item];
                 }
             }
         }
@@ -90,20 +90,20 @@
         } else if ([windowData[IS_MINIATURIZED_KEY] boolValue]) {
             [window performMiniaturize:nil];
         }
-        ODTabBar *tabBar = window.tabBar;
-        tabBar.delegate = (id<ODTabBarDelegate>)self;
+        ODTabView *tabView = window.tabView;
+        tabView.delegate = (id<ODTabViewDelegate>)self;
         NSMutableArray *tabArray = [NSMutableArray new];
         
         for (NSDictionary *tabData in windowData[TABLIST_KEY]) {
-            ODTabItem *tabItem = [self _setUpWebTabItem];
+            ODTabViewItem *tabItem = [self _setUpWebTabItem];
             tabItem.label = tabData[TAB_TITLE_KEY];
             tabItem.representedObject = tabData[TAB_ADDRESS_KEY];
             [(id)tabItem.view setHostWindow:window];
             [tabArray addObject:tabItem];
         }
-        [tabBar addTabItems:tabArray];
-        [tabBar selectTabItemAtIndex:[windowData[SELECTED_TAB_KEY] unsignedIntegerValue]];
-        //[window setTitle:tabBar.selectedTabItem.label];
+        [tabView addTabViewItems:tabArray];
+        [tabView selectTabViewItemAtIndex:[windowData[SELECTED_TAB_KEY] unsignedIntegerValue]];
+        //[window setTitle:tabView.selectedTabItem.label];
     }
 }
 
@@ -216,10 +216,9 @@
     return result;
 }
 
--(void)playWithMpv:(NSURL *)url
-{
-    
-    NSURL *appURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"io.mpv"];
+- (void)playWithMpv:(NSURL *)url {
+    NSWorkspace *sharedWorkspace = [NSWorkspace sharedWorkspace];
+    NSURL *appURL = [sharedWorkspace URLForApplicationWithBundleIdentifier:@"io.mpv"];
     if (appURL) {
         NSString *ytdl = @"--no-ytdl";
         NSString *ytdlFormat = @"";
@@ -244,7 +243,7 @@
         }
         NSArray *args = @[@"--loop=yes", ytdl, ytdlFormat, url.absoluteString];
         NSError *error = nil;
-        [[NSWorkspace sharedWorkspace] launchApplicationAtURL:appURL 
+        [sharedWorkspace launchApplicationAtURL:appURL
                                                       options:NSWorkspaceLaunchAsync | NSWorkspaceLaunchNewInstance
                                                 configuration:@{NSWorkspaceLaunchConfigurationArguments:args} 
                                                         error:&error];
