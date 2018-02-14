@@ -368,6 +368,10 @@ NSString *kPrivateDragUTI = @"ODTabViewDragUTI";
     return nil;
 }
 
+- (NSMutableArray *)_tabViewItemArray {
+    return _tabViewItems;
+}
+
 //- (void)addTabViewItem:(ODTabViewItem *)item {
 //    _count++;
 //    

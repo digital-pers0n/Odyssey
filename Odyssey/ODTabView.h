@@ -60,9 +60,9 @@
 - (ODTabViewItem *)tabViewItemAtIndex:(NSInteger)idx;
 - (ODTabViewItem *)tabViewItemWithView:(id)view;
 
-/* Info */
+/* Private */
 
-//- (NSString *)info;
+@property (readonly) NSMutableArray *_tabViewItemArray;
 
 @end
 
