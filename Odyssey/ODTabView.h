@@ -55,7 +55,7 @@
 
 /* Query */
 
-- (NSInteger)numberOfTabViewItems;
+- (NSUInteger)numberOfTabViewItems;
 - (NSInteger)indexOfTabViewItem:(ODTabViewItem *)TabViewItem;
 - (ODTabViewItem *)tabViewItemAtIndex:(NSInteger)idx;
 - (ODTabViewItem *)tabViewItemWithView:(id)view;

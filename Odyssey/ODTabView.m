@@ -339,7 +339,7 @@ NSString *kPrivateDragUTI = @"ODTabViewDragUTI";
 
 #pragma mark - Query
 
-- (NSInteger)numberOfTabViewItems
+- (NSUInteger)numberOfTabViewItems
 {
     return _tabViewItems.count;
 }
