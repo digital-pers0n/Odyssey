@@ -26,7 +26,9 @@ typedef NS_ENUM(NSUInteger, ODPopoverAppearance) {
 @property NSSize contentSize;
 @property ODPopoverAppearance appearance;
 
+// Close via popoverShouldClose:
 - (IBAction)performClose:(id)sender;
+// Force close
 - (void)close;
 
 @end

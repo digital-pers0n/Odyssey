@@ -14,6 +14,11 @@
     ODPopoverWindow *_visualRepresentation;
     NSViewController *_contentViewController;
     ODPopoverAppearance _appearance;
+    id<ODPopoverDelegate> _delegate;
+    
+    struct __ODPoppverDelegateRespondTo {
+        unsigned int popoverShouldClose:1;
+    } _delegateRespondTo;
 }
 
 @end
@@ -28,8 +33,20 @@
                                                                    styleMask:NSBorderlessWindowMask 
                                                                      backing:NSBackingStoreBuffered 
                                                                        defer:YES];
+        _visualRepresentation.delegate = self;
     }
     return self;
+}
+
+- (id<ODPopoverDelegate>)delegate {
+    return _delegate;
+}
+
+- (void)setDelegate:(id<ODPopoverDelegate>)delegate {
+    if ([delegate respondsToSelector:@selector(popoverShouldClose:)]) {
+        _delegateRespondTo.popoverShouldClose = YES;
+    }
+    _delegate = delegate;
 }
 
 //- (void)setContentSize:(NSSize)contentSize
@@ -54,6 +71,16 @@
 }
 
 #pragma mark - Methods
+
+- (IBAction)performClose:(id)sender {
+    BOOL shouldClose = (_delegateRespondTo.popoverShouldClose) ? [_delegate popoverShouldClose:self] : YES;
+    if (shouldClose) {
+        [_delegate popoverWillClose:self];
+        [self close];
+        [_delegate popoverDidClose:self];
+    }
+}
+
 - (void)close
 {
     [_visualRepresentation close];
@@ -120,8 +147,9 @@
         
         [_visualRepresentation setFrame:popoverFrame display:YES animate:YES];
         _visualRepresentation.contentView = contentView;
-        _visualRepresentation.delegate = self;
+        [_delegate popoverWillShow:self];
         [_visualRepresentation makeKeyAndOrderFront:self];
+        [_delegate popoverDidShow:self];
         _shown = YES;
         
         
