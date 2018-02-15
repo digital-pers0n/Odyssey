@@ -13,15 +13,32 @@ typedef NS_ENUM(NSUInteger, ODPopoverAppearance) {
     ODPopoverAppearanceDark
 };
 
+@protocol ODPopoverDelegate;
+
 @interface ODPopover : NSResponder
+
+@property(assign) id<ODPopoverDelegate>delegate;
 
 - (void)showRelativeToRect:(NSRect)positioningRect ofView:(NSView *)positioningView preferredEdge:(NSRectEdge)preferredEdge;
 @property (readonly, getter=isShown) BOOL shown;
 @property NSViewController *contentViewController;
 @property NSRect positioningRect;
-@property (nonatomic) NSSize contentSize;
+@property NSSize contentSize;
 @property ODPopoverAppearance appearance;
 
--(void)close;
+- (IBAction)performClose:(id)sender;
+- (void)close;
 
+@end
+
+#pragma mark -
+#pragma mark Delegate Methods
+
+@protocol ODPopoverDelegate <NSObject>
+@optional
+- (BOOL)popoverShouldClose:(ODPopover *)popover;
+- (void)popoverWillShow:(ODPopover *)popover;
+- (void)popoverDidShow:(ODPopover *)popover;
+- (void)popoverWillClose:(ODPopover *)popover;
+- (void)popoverDidClose:(ODPopover *)popover;
 @end
