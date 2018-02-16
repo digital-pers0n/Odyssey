@@ -9,8 +9,7 @@
 #import "ODPopover.h"
 #import "ODPopoverWindow.h"
 
-@interface ODPopover () <NSWindowDelegate>
-{
+@interface ODPopover () <NSWindowDelegate> {
     ODPopoverWindow *_visualRepresentation;
     NSViewController *_contentViewController;
     ODPopoverAppearance _appearance;
@@ -18,6 +17,10 @@
     
     struct __ODPoppverDelegateRespondTo {
         unsigned int popoverShouldClose:1;
+        unsigned int popoverWillShow:1;
+        unsigned int popoverDidShow:1;
+        unsigned int popoverWillClose:1;
+        unsigned int popoverDidClose:1;
     } _delegateRespondTo;
 }
 
@@ -25,8 +28,7 @@
 
 @implementation ODPopover
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _visualRepresentation = [[ODPopoverWindow alloc] initWithContentRect:NSZeroRect 
@@ -46,26 +48,26 @@
     if ([delegate respondsToSelector:@selector(popoverShouldClose:)]) {
         _delegateRespondTo.popoverShouldClose = YES;
     }
+    if ([delegate respondsToSelector:@selector(popoverWillShow:)]) {
+        _delegateRespondTo.popoverWillShow = YES;
+    }
+    if ([delegate respondsToSelector:@selector(popoverDidShow:)]) {
+        _delegateRespondTo.popoverDidShow = YES;
+    }
+    if ([delegate respondsToSelector:@selector(popoverWillClose:)]) {
+        _delegateRespondTo.popoverWillClose = YES;
+    }
+    if ([delegate respondsToSelector:@selector(popoverDidClose:)]) {
+        _delegateRespondTo.popoverDidClose = YES;
+    }
     _delegate = delegate;
 }
 
-//- (void)setContentSize:(NSSize)contentSize
-//{
-//    _contentSize = contentSize;
-//    if (_shown) {
-//        NSRect frame = _visualRepresentation.frame;
-//        frame.size = contentSize;
-//        [_visualRepresentation setFrame:frame display:YES animate:YES];
-//    }
-//}
-
--(ODPopoverAppearance)appearance
-{
+- (ODPopoverAppearance)appearance {
     return _appearance;
 }
 
--(void)setAppearance:(ODPopoverAppearance)appearance
-{
+- (void)setAppearance:(ODPopoverAppearance)appearance {
     _appearance = appearance;
     [_visualRepresentation setWindowAppearance:appearance];
 }
@@ -75,20 +77,22 @@
 - (IBAction)performClose:(id)sender {
     BOOL shouldClose = (_delegateRespondTo.popoverShouldClose) ? [_delegate popoverShouldClose:self] : YES;
     if (shouldClose) {
-        [_delegate popoverWillClose:self];
+        if (_delegateRespondTo.popoverWillClose) {
+            [_delegate popoverWillClose:self];
+        }
         [self close];
-        [_delegate popoverDidClose:self];
+        if (_delegateRespondTo.popoverDidClose) {
+           [_delegate popoverDidClose:self];
+        }
     }
 }
 
-- (void)close
-{
+- (void)close {
     [_visualRepresentation close];
     _shown = NO;
 }
 
-- (void)showRelativeToRect:(NSRect)positioningRect ofView:(NSView *)positioningView preferredEdge:(NSRectEdge)preferredEdge
-{
+- (void)showRelativeToRect:(NSRect)positioningRect ofView:(NSView *)positioningView preferredEdge:(NSRectEdge)preferredEdge {
     NSView *contentView;
     NSRect contentViewFrame;
     NSRect popoverFrame;
@@ -147,9 +151,13 @@
         
         [_visualRepresentation setFrame:popoverFrame display:YES animate:YES];
         _visualRepresentation.contentView = contentView;
-        [_delegate popoverWillShow:self];
+        if (_delegateRespondTo.popoverWillShow) {
+            [_delegate popoverWillShow:self];
+        }
         [_visualRepresentation makeKeyAndOrderFront:self];
-        [_delegate popoverDidShow:self];
+        if (_delegateRespondTo.popoverDidShow) {
+            [_delegate popoverDidShow:self];
+        }
         _shown = YES;
         
         
@@ -159,8 +167,7 @@
 
 #pragma mark - Window Delegate
 
--(void)windowDidResignKey:(NSNotification *)notification
-{
+- (void)windowDidResignKey:(NSNotification *)notification {
     [self close];
 }
 
