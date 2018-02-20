@@ -469,11 +469,11 @@ BOOL is_full_screen(long mask);
 
 #pragma mark - Properties
 
-- (void)setStatus:(NSString *)status {
+- (void)setStatusString:(NSString *)status {
     _statusbar.status = status;
 }
 
-- (NSString *)status {
+- (NSString *)statusString {
     return _statusbar->_status;
 }
 

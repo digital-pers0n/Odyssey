@@ -24,7 +24,7 @@
 
 //-(void)addSubview:(NSView *)view;
 
-@property NSString *status;
+@property NSString *statusString;
 @property (getter=isStatusbarHidden) BOOL statusbarHidden;
 
 

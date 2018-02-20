@@ -565,8 +565,8 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         NSURL *url = [elementInformation objectForKey:WebElementLinkURLKey];
         if (url) {
             NSString *str = url.absoluteString;
-            if (![str isEqualToString:_window.status]) {
-                _window.status = str;
+            if (![str isEqualToString:_window.statusString]) {
+                _window.statusString = str;
             }
         }
     }
@@ -1084,7 +1084,7 @@ decisionListener:(id)listener {
     [window makeFirstResponder:view];
     NSString *label = item.label;
     if (window.titlebarHidden) {
-        [window setStatus:[NSString stringWithFormat:@"Tab %lu of %lu '%@'", 
+        [window setStatusString:[NSString stringWithFormat:@"Tab %lu of %lu '%@'",
                            [tabView indexOfTabViewItem:item] + 1,
                            tabView.numberOfTabViewItems,
                            label]];

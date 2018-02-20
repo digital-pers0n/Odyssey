@@ -272,7 +272,7 @@
             startingLineNumber = "98"
             endingLineNumber = "98"
             landmarkName = "-isInsecure:domain:"
-            landmarkType = "7">
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -288,7 +288,7 @@
             startingLineNumber = "133"
             endingLineNumber = "133"
             landmarkName = "-isAddress:inList:"
-            landmarkType = "7">
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
