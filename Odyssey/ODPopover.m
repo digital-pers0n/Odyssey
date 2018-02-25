@@ -15,7 +15,7 @@
     ODPopoverAppearance _appearance;
     id<ODPopoverDelegate> _delegate;
     
-    struct __ODPoppverDelegateRespondTo {
+    struct __ODPopoverDelegateRespondTo {
         unsigned int popoverShouldClose:1;
         unsigned int popoverWillShow:1;
         unsigned int popoverDidShow:1;
