@@ -18,5 +18,21 @@
 		<key>URLTemplate</key>
 		<string>https://duckduckgo.com/?q={searchTerms}&amp;t=osx</string>
 	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Bing</string>
+		<key>Identifier</key>
+		<string>com.bing.www</string>
+		<key>URLTemplate</key>
+		<string>https://www.bing.com/search?q={searchTerms}</string>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Yahoo</string>
+		<key>Identifier</key>
+		<string>com.yahoo.search</string>
+		<key>URLTemplate</key>
+		<string>https://search.yahoo.com/search?ei=utf-8&amp;fr=aaplw&amp;p={searchTerms}</string>
+	</dict>
 </array>
 </plist>
