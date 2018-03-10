@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, ODMenuItemList) {
     ODMenuItemOpenLinkInNewTab = 0,
     ODMenuItemImageInNewTab,
     ODMenuItemPlayWithMpv,
+    ODMenuItemSearchImage,
 };
 
 typedef NS_ENUM(NSUInteger, ODWebTabTag) {
@@ -153,7 +154,12 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
                                                            keyEquivalent:@""];
         openImageInNewTab.target = self;
         
-        _menuItemList = @[openLinkInNewTab, openImageInNewTab, playWithMpvItem];
+        NSMenuItem *searchImage = [[NSMenuItem alloc] initWithTitle:@"Search By Image"
+                                                                   action:@selector(searchImageMenuItemClicked:)
+                                                            keyEquivalent:@""];
+        openImageInNewTab.target = self;
+        
+        _menuItemList = @[openLinkInNewTab, openImageInNewTab, playWithMpvItem, searchImage];
         
     
     }
@@ -619,12 +625,12 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         long tag = item.tag;
         
         if (tag == WebMenuItemTagOpenLinkInNewWindow || tag == WebMenuItemTagOpenImageInNewWindow || tag == 2042) {
-            NSMenuItem *openInNewTab;
-            NSMenuItem *saveImage;
+            NSMenuItem *openInNewTab, *searchImage, *saveImage;
             index = [menuItems indexOfObject:item];
             
             if (tag == WebMenuItemTagOpenImageInNewWindow) {
                 openInNewTab = _menuItemList[ODMenuItemImageInNewTab];
+                searchImage = _menuItemList[ODMenuItemSearchImage];
                 saveImage = _downloadManager.saveImageMenuItem;
                 url = [element objectForKey:WebElementImageURLKey];
                 openInNewTab.representedObject = url;
@@ -635,8 +641,12 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
                 if (rsc) {
                     index = [menuItems indexOfObject:openInNewTab];
                     saveImage.representedObject = rsc;
+                    searchImage.representedObject = rsc.URL;
                     [menuItems insertObject:saveImage atIndex:index + 1];
+                } else {
+                    searchImage.representedObject = url;
                 }
+                 [menuItems insertObject:searchImage atIndex:index + 1];
                 
             } else  if (tag == WebMenuItemTagOpenLinkInNewWindow){
                 openInNewTab = _menuItemList[ODMenuItemOpenLinkInNewTab];

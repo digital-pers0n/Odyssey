@@ -88,5 +88,6 @@
 - (void)playWithMpvMenuItemClicked:(id)sender;// NSURL as representedObject
 - (void)openInNewWindowMenuItemClicked:(id)sender;
 - (void)openInNewTabMenuItemClicked:(id)sender;
+- (void)searchImageMenuItemClicked:(id)sender;
 
 @end

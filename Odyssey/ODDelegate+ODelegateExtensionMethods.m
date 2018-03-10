@@ -175,6 +175,23 @@
     [self playWithMpv:url];
 }
 
+- (void)searchImageMenuItemClicked:(id)sender {
+    NSURL *url = [sender representedObject];
+    NSEventModifierFlags flags = [NSEvent modifierFlags];
+    NSString *address = [NSString stringWithFormat:@"https://www.google.com/searchbyimage?image_url=%@", url.absoluteString];
+    switch (flags) {
+        case NSAlternateKeyMask:
+            [self openInNewWindow:address];
+            break;
+        case NSCommandKeyMask:
+            [self openInMainWindow:address newTab:YES background:NO];
+            break;
+        default:
+            [self openInMainWindow:address newTab:YES background:YES];
+            break;
+    }
+}
+
 #pragma mark - mpv support
 
 -(BOOL)canPlayWithMpv:(NSURL *)url
