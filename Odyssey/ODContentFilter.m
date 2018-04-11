@@ -20,8 +20,8 @@
     NSMenuItem *_jsFilterMenuItem;
     NSMenuItem *_addRuleMenuItem;
     NSMenuItem *_contextMenuItem;
-    NSMutableSet *_blackList;
-    NSMutableSet *_whiteList;
+    NSMutableArray *_blackList;
+    NSMutableArray *_whiteList;
     NSURL *_blockImageURL;
     NSURL *_blockJSURL;
 }
@@ -40,7 +40,7 @@
             NSString *path = [[NSBundle mainBundle] pathForResource:@"WebFilterList" ofType:@"txt"];
             load = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         }
-        _blackList = [[NSMutableSet alloc] initWithArray:[load componentsSeparatedByString:@"\n"]];
+        _blackList = [[NSMutableArray alloc] initWithArray:[load componentsSeparatedByString:@"\n"]];
         load = nil;
         load = [NSString stringWithContentsOfFile:WHITELIST_SAVE_PATH encoding:NSUTF8StringEncoding error:nil];
         
@@ -48,7 +48,7 @@
             NSString *path = [[NSBundle mainBundle] pathForResource:@"WebFilterWhiteList" ofType:@"txt"];
             load = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         }
-        _whiteList = [[NSMutableSet alloc] initWithArray:[load componentsSeparatedByString:@"\n"]];
+        _whiteList = [[NSMutableArray alloc] initWithArray:[load componentsSeparatedByString:@"\n"]];
         
         _jsFilterMenuItem = [[NSMenuItem alloc] init];
         _jsFilterMenuItem.title = @"JS Filter";
@@ -78,9 +78,9 @@
 
 -(void)saveData
 {
-    NSString *str = [_blackList.allObjects componentsJoinedByString:@"\n"];
+    NSString *str = [_blackList componentsJoinedByString:@"\n"];
     [str writeToFile:BLACKLIST_SAVE_PATH atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    str = [_whiteList.allObjects componentsJoinedByString:@"\n"];
+    str = [_whiteList componentsJoinedByString:@"\n"];
     [str writeToFile:WHITELIST_SAVE_PATH atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
