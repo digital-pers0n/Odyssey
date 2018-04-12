@@ -33,31 +33,23 @@ BOOL is_full_screen(long mask);
 
 @end
 
-@interface ODStatusbar : NSView
+@interface ODStatusbar ()
 {
     NSColor *_backgroundColor;
     NSColor *_strokeColor;
-    NSMutableAttributedString *_attributedStatus;
-    NSDictionary *_attrs;
     NSFont *_boldFont;
     dispatch_source_t _statusTimer;
-    
-@public
     NSString *_status;
+    NSAttributedString *_attributedStatus;
+    NSDictionary *_attributes;
 }
-
-
-
-@property NSString *status;
-
-
 @end
 
 @implementation ODStatusbar
 
 - (void)drawRect:(NSRect)dirtyRect {
     //[super drawRect:dirtyRect];
-    if (_status && self.alphaValue == 1.0) {
+    if (self.alphaValue == 1.0) {
         self.wantsLayer = YES;
         NSSize size = [_attributedStatus size];
         NSRect frame = self.bounds;
@@ -95,58 +87,48 @@ BOOL is_full_screen(long mask);
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        self.alphaValue = 0.0;
         [self setAutoresizingMask:NSViewWidthSizable];
         [self setTranslatesAutoresizingMaskIntoConstraints:YES];
         NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
         [paragraph setLineBreakMode: NSLineBreakByTruncatingMiddle];
         NSUInteger fontSize = 12;
-        _attrs =  @{
+        _attributes =  @{
                     NSFontAttributeName:[NSFont systemFontOfSize:fontSize]/*[NSFont fontWithName:@"Lucida Grande" size:12]*/,
                     NSParagraphStyleAttributeName : paragraph,
                     };
         
         _backgroundColor = [NSColor colorWithDeviceWhite:0.96 alpha:1.0];
         _strokeColor = [NSColor colorWithDeviceWhite:0.64 alpha:1.0];
-        //[NSBezierPath setDefaultLineWidth:0.75];
-        
         _boldFont = [NSFont boldSystemFontOfSize:fontSize];
-        
-        
-        
     }
     return self;
 }
 
--(NSString *)status
-{
+- (void)setAttributedStatus:(NSAttributedString *)attributedStatus {
+    _attributedStatus = attributedStatus;
+    self.wantsLayer = NO;
+    [self setAlphaValue:1];
+    [self setNeedsDisplay:YES];
+    [self fadeTimerWithInterval:4];
+}
+
+- (NSAttributedString *)attributedStatus {
+    return _attributedStatus;
+}
+
+- (NSString *)status {
     return _status;
 }
 
--(void)setStatus:(NSString *)status
-{
-    BOOL hasHttpDomain = NO;
+- (void)setStatus:(NSString *)status {
     _status = status;
     if (status) {
-        NSRange range = [status rangeOfString:@"http://"];
-        if (range.length) {
-            status = [status stringByReplacingCharactersInRange:range withString:@""];
-            hasHttpDomain = YES;
-            
-        }
-        _attributedStatus = [[NSMutableAttributedString alloc] initWithString:status attributes:_attrs];
-        if (hasHttpDomain) {
-            range = [status rangeOfString:@"/"];
-            [_attributedStatus addAttribute:NSFontAttributeName value:_boldFont range:NSMakeRange(0, range.location)];
-        }
-        self.wantsLayer = NO;
-        [self setAlphaValue:1];
-        [self setNeedsDisplay:YES];
-        [self _fadeTimerWithInterval:4];
+        self.attributedStatus = [[NSAttributedString alloc] initWithString:status attributes:_attributes];
     }
 }
 
--(void)_fadeTimerWithInterval:(int)seconds
+-(void)fadeTimerWithInterval:(int)seconds
 {
     if(_statusTimer){
         dispatch_source_cancel(_statusTimer);
@@ -473,15 +455,11 @@ BOOL is_full_screen(long mask);
     _statusbar.status = status;
 }
 
-- (NSString *)statusString {
-    return _statusbar->_status;
-}
-
 - (void)setStatusbarHidden:(BOOL)value {
     _statusbar.hidden = value;
     if (!value) {
         _statusbar.alphaValue = 1;
-        [_statusbar _fadeTimerWithInterval:5];
+        [_statusbar fadeTimerWithInterval:5];
     }
 }
 

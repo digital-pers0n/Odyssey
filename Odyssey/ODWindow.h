@@ -16,17 +16,27 @@
 
 @end
 
+@interface ODStatusbar : NSView
+
+@property NSString *status;
+@property NSAttributedString *attributedStatus;
+@property NSColor *backgroundColor;
+@property NSColor *strokeColor;
+@property NSFont *boldFont;
+@property NSDictionary *attributes;
+
+@end
+
 @interface ODWindow : NSWindow
 
 @property (readonly) ODTabView *tabView;
+@property (readonly) ODStatusbar *statusbar;
 @property (readonly, getter=isFullscreen) BOOL fullscreen;
 - (IBAction)zoomVertically:(id)sender;
 
 //-(void)addSubview:(NSView *)view;
 
-@property NSString *statusString;
 @property (getter=isStatusbarHidden) BOOL statusbarHidden;
-
 
 //- (void)setTitlebarInfo:(NSString *)string;
 @property (getter=isTitlebarHidden) BOOL titlebarHidden;
