@@ -80,6 +80,8 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     BOOL _zoomTextOnly;
     NSString *_initPath;
     
+    NSString *_previousStatus;
+    
     NSUserDefaults *_userDefaults;
 }
 
@@ -565,20 +567,34 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 - (void)webView:(WebView *)sender mouseDidMoveOverElement:(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags
 {
 
-    NSWindow *window = sender.window;
+    ODWindow *window = (id)sender.window;
     
     if (window == _window) {
         NSURL *url = [elementInformation objectForKey:WebElementLinkURLKey];
         if (url) {
             NSString *str = url.absoluteString;
-            if (![str isEqualToString:_window.statusString]) {
-                _window.statusString = str;
-            }
+            ODStatusbar *sbar = _window.statusbar;
+            if (![str isEqualToString:_previousStatus] || sbar.alphaValue == 0.0) {
+                _previousStatus = str;
+                BOOL hasHttpDomain = NO;
+                    NSRange range = [str rangeOfString:@"http://"];
+                    if (range.length) {
+                        str = [str stringByReplacingCharactersInRange:range withString:@""];
+                        hasHttpDomain = YES;
+                    }
+                    NSMutableAttributedString *aStatus = [[NSMutableAttributedString alloc] initWithString:str attributes:sbar.attributes];
+                    if (hasHttpDomain) {
+                        range = [str rangeOfString:@"/"];
+                        [aStatus addAttribute:NSFontAttributeName value:sbar.boldFont range:NSMakeRange(0, range.location)];
+                    }
+                sbar.attributedStatus = aStatus;
+                
         }
     }
 }
+}
 
-- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id<WebOpenPanelResultListener>)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles 
+- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id<WebOpenPanelResultListener>)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles
 {
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
@@ -1094,7 +1110,7 @@ decisionListener:(id)listener {
     [window makeFirstResponder:view];
     NSString *label = item.label;
     if (window.titlebarHidden) {
-        [window setStatusString:[NSString stringWithFormat:@"Tab %lu of %lu '%@'",
+        [window.statusbar setStatus:[NSString stringWithFormat:@"Tab %lu of %lu '%@'",
                            [tabView indexOfTabViewItem:item] + 1,
                            tabView.numberOfTabViewItems,
                            label]];

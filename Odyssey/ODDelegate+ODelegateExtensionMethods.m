@@ -186,6 +186,9 @@
         case NSCommandKeyMask:
             [self openInMainWindow:address newTab:YES background:NO];
             break;
+        case NSShiftKeyMask:
+            [self openInMainWindow:address newTab:NO background:NO];
+            break;
         default:
             [self openInMainWindow:address newTab:YES background:YES];
             break;
