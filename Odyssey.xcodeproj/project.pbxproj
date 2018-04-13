@@ -60,7 +60,6 @@
 		CE54048E1E96AA88009FFBE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE5404941E96AC5D009FFBE1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CE5404971E96ACD9009FFBE1 /* ODWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODWindow.h; sourceTree = "<group>"; };
-		CE5404981E96ACD9009FFBE1 /* ODWindow-legacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ODWindow-legacy.m"; sourceTree = "<group>"; };
 		CE5554E61ED87BDF009FBA93 /* ODPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODPopover.h; sourceTree = "<group>"; };
 		CE5554E71ED87BDF009FBA93 /* ODPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODPopover.m; sourceTree = "<group>"; };
 		CE5554E91ED87C1A009FBA93 /* ODPopoverWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODPopoverWindow.h; sourceTree = "<group>"; };
@@ -75,14 +74,11 @@
 		CE85FCEC1EAE406C00BC8E20 /* ODContentFilterEditRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODContentFilterEditRule.h; sourceTree = "<group>"; };
 		CE85FCED1EAE406C00BC8E20 /* ODContentFilterEditRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODContentFilterEditRule.m; sourceTree = "<group>"; };
 		CE85FCEE1EAE406C00BC8E20 /* ODContentFilterEditRule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODContentFilterEditRule.xib; sourceTree = "<group>"; };
-		CE9E9D171EF966270009D180 /* ODDownloadData-legacy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ODDownloadData-legacy.m"; sourceTree = "<group>"; };
 		CEA67F881EA8D89700AFED05 /* ODDownloadData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDownloadData.h; sourceTree = "<group>"; };
 		CEA67F891EA8D89700AFED05 /* ODDownloadData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDownloadData.m; sourceTree = "<group>"; };
 		CEA67F8B1EA8EDA500AFED05 /* ODDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDownloadManager.h; sourceTree = "<group>"; };
 		CEA67F8C1EA8EDA500AFED05 /* ODDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDownloadManager.m; sourceTree = "<group>"; };
 		CEA67F8D1EA8EDA500AFED05 /* ODDownloadManager.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODDownloadManager.xib; sourceTree = "<group>"; };
-		CEAB93DE1EB76F3F0050D408 /* ODYtdlDownloadData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODYtdlDownloadData.h; sourceTree = "<group>"; };
-		CEAB93DF1EB76F3F0050D408 /* ODYtdlDownloadData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODYtdlDownloadData.m; sourceTree = "<group>"; };
 		CEAD77271EB09E7C00BB77D6 /* ODPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODPreferences.h; sourceTree = "<group>"; };
 		CEAD77281EB09E7C00BB77D6 /* ODPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODPreferences.m; sourceTree = "<group>"; };
 		CEAD772A1EB0C1C500BB77D6 /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPreferencesPrivate.h; sourceTree = "<group>"; };
@@ -98,10 +94,6 @@
 		CED858691EAF95A400A6ABA5 /* blocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocked.png; sourceTree = "<group>"; };
 		CEDAD88C1EB2152E007A2694 /* ODHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODHistory.h; sourceTree = "<group>"; };
 		CEDAD88D1EB2152E007A2694 /* ODHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODHistory.m; sourceTree = "<group>"; };
-		CEDBD9DD1E97F061008B594A /* ODTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabBar.h; sourceTree = "<group>"; };
-		CEDBD9DE1E97F061008B594A /* ODTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabBar.m; sourceTree = "<group>"; };
-		CEDBD9E01E97F84E008B594A /* ODTabItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabItem.h; sourceTree = "<group>"; };
-		CEDBD9E11E97F84E008B594A /* ODTabItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabItem.m; sourceTree = "<group>"; };
 		CEE495DF1EA0EC2D008DCDDC /* ODBookmarksOutline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODBookmarksOutline.h; sourceTree = "<group>"; };
 		CEE495E01EA0EC2D008DCDDC /* ODBookmarksOutline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODBookmarksOutline.m; sourceTree = "<group>"; };
 		CEE495E11EA0EC2D008DCDDC /* ODBookmarksOutline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODBookmarksOutline.xib; sourceTree = "<group>"; };
@@ -201,7 +193,6 @@
 				CE0BA0971FF7E46100759C99 /* ODTabView */,
 				CE5404971E96ACD9009FFBE1 /* ODWindow.h */,
 				CEB288531EE2FCFD005FCED3 /* ODWindow.m */,
-				CE5404981E96ACD9009FFBE1 /* ODWindow-legacy.m */,
 			);
 			name = ODWindow;
 			sourceTree = "<group>";
@@ -233,11 +224,8 @@
 		CEAD0C1D1EA7D3D600409753 /* ODDownloads */ = {
 			isa = PBXGroup;
 			children = (
-				CEAB93DE1EB76F3F0050D408 /* ODYtdlDownloadData.h */,
-				CEAB93DF1EB76F3F0050D408 /* ODYtdlDownloadData.m */,
 				CEA67F881EA8D89700AFED05 /* ODDownloadData.h */,
 				CEA67F891EA8D89700AFED05 /* ODDownloadData.m */,
-				CE9E9D171EF966270009D180 /* ODDownloadData-legacy.m */,
 				CEA67F8B1EA8EDA500AFED05 /* ODDownloadManager.h */,
 				CEA67F8C1EA8EDA500AFED05 /* ODDownloadManager.m */,
 				CEA67F8D1EA8EDA500AFED05 /* ODDownloadManager.xib */,
@@ -288,10 +276,6 @@
 		CEDBD9DC1E97EF98008B594A /* ODTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				CEDBD9E01E97F84E008B594A /* ODTabItem.h */,
-				CEDBD9E11E97F84E008B594A /* ODTabItem.m */,
-				CEDBD9DD1E97F061008B594A /* ODTabBar.h */,
-				CEDBD9DE1E97F061008B594A /* ODTabBar.m */,
 				CE08675B1E9A48EF000B9C23 /* ODTabSwitcher.h */,
 				CE08675C1E9A48EF000B9C23 /* ODTabSwitcher.m */,
 				CE08675D1E9A48EF000B9C23 /* ODTabSwitcher.xib */,
