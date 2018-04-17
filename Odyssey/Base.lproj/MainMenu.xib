@@ -123,6 +123,19 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
+                            <menuItem title="Save Session" id="2oJ-9w-7xm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="saveSessionMenuAction:" target="Voe-Tx-rLC" id="wgg-iD-Uba"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Manage Sessions..." id="1oa-3n-4IB">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageSessionsMenuAction:" target="Voe-Tx-rLC" id="i9N-c2-Ip5"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="mlB-64-oN7"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
