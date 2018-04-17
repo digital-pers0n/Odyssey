@@ -29,11 +29,8 @@
 
 #pragma mark - Session
 
--(void)storeSession
-{
+- (NSArray *)sessionArray {
     NSMutableArray *sessionArray = [[NSMutableArray alloc] initWithCapacity:_windows.count];
-//    NSMutableDictionary *window = [NSMutableDictionary new];
-    
     for (ODWindow *window in _windows) {
         NSUInteger index = 0;
         NSDictionary *windowData;
@@ -50,9 +47,6 @@
                     label = webView.mainFrameTitle;
                     url = webView.mainFrameURL;
                 }
-               
-                               //if (!url) url = @"about:blank";
-                
                 NSDictionary *tab = @{TAB_TITLE_KEY: label, TAB_ADDRESS_KEY : url};
                 [tabArray addObject:tab];
                 if (item.state == ODTabStateSelected) {
@@ -62,24 +56,26 @@
         }
         windowData = @{TABLIST_KEY: tabArray, WINDOW_RECT_KEY: NSStringFromRect(window.frame),
                        IS_MINIATURIZED_KEY: [NSNumber numberWithBool:window.miniaturized],
-                       IS_FULLSCREEN_KEY: [NSNumber numberWithBool:window.fullscreen], 
+                       IS_FULLSCREEN_KEY: [NSNumber numberWithBool:window.fullscreen],
                        SELECTED_TAB_KEY: [NSNumber numberWithUnsignedInteger:index]};
         [sessionArray addObject:windowData];
     }
-    
+    return sessionArray;
+}
+
+- (void)storeSession {
+    NSArray *sessionArray = [self sessionArray];
     [sessionArray writeToFile:SESSION_SAVE_PATH atomically:YES];
 }
 
--(void)restoreSession
-{
-    NSMutableArray *sessionArray = [[NSMutableArray alloc] initWithContentsOfFile:SESSION_SAVE_PATH];
-    NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask 
+- (void)restoreSessionArray:(NSArray *)sessionArray {
+    NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask
     | NSMiniaturizableWindowMask  ;
-
+    
     for (NSDictionary *windowData in sessionArray) {
-        ODWindow *window  = [[ODWindow alloc] initWithContentRect:NSRectFromString(windowData[WINDOW_RECT_KEY]) 
-                                                        styleMask:styleMask 
-                                                          backing:NSBackingStoreBuffered 
+        ODWindow *window  = [[ODWindow alloc] initWithContentRect:NSRectFromString(windowData[WINDOW_RECT_KEY])
+                                                        styleMask:styleMask
+                                                          backing:NSBackingStoreBuffered
                                                             defer:YES];
         [self _setUpWindow:window];
         [window awakeFromNib];
@@ -103,8 +99,12 @@
         }
         [tabView addTabViewItems:tabArray];
         [tabView selectTabViewItemAtIndex:[windowData[SELECTED_TAB_KEY] unsignedIntegerValue]];
-        //[window setTitle:tabView.selectedTabItem.label];
     }
+}
+
+- (void)restoreSession {
+    NSArray *sessionArray = [[NSMutableArray alloc] initWithContentsOfFile:SESSION_SAVE_PATH];
+    [self restoreSessionArray:sessionArray];
 }
 
 #pragma mark - modal dialog

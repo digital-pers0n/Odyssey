@@ -29,6 +29,8 @@
 @property (readonly) ODBookmarks *bookmarks;
 @property (readonly) ODContentFilter *contentFilter;
 
+- (IBAction)saveSessionMenuAction:(id)sender;
+- (IBAction)manageSessionsMenuAction:(id)sender;
 
     /* Window */
 
@@ -80,6 +82,8 @@
 
 - (void)storeSession;
 - (void)restoreSession;
+- (NSArray *)sessionArray;
+- (void)restoreSessionArray:(NSArray *)sessionArray;
 
 - (NSPanel *)modalDialogWithView:(NSView *)view;
 

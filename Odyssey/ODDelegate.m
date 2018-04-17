@@ -18,6 +18,8 @@
 #import "ODPreferences.h"
 #import "ODHistory.h"
 #import "ODFindBanner.h"
+#import "ODSessionItem.h"
+#import "ODSessionManager.h"
 
 @import WebKit;
 
@@ -65,7 +67,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 #define DEFAULTS_ZOOM_TEXT_ONLY_KEY @"ZoomTextOnly"
 
 
-@interface ODDelegate () <ODTabViewDelegate, ODTabSwitcherDelegate, WebUIDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebResourceLoadDelegate> {
+@interface ODDelegate () <ODTabViewDelegate, ODTabSwitcherDelegate, ODSessionManagerDelegate, WebUIDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebResourceLoadDelegate> {
     
     ODBookmarks *_bookmarks;
     ODDownloadManager *_downloadManager;
@@ -74,6 +76,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     ODHistory *_history;
     ODFindBanner *_findBanner;
     ODTabSwitcher *_tabSwitcher;
+    ODSessionManager *_sessionManager;
     
     NSMenuItem *_playWithMpvMenuItem;
     NSArray *_menuItemList;
@@ -126,6 +129,9 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     _tabSwitcher = [ODTabSwitcher tabSwitcher];
     _tabSwitcher.delegate = self;
     [_tabSwitcher.view setNeedsDisplay:YES];
+    _sessionManager = [[ODSessionManager alloc] init];
+    _sessionManager.sessionSavePath = [@"~/Library/Application Support/Odyssey/archivedSession.plist" stringByExpandingTildeInPath];
+    _sessionManager.delegate = self;
     
     
     
@@ -177,12 +183,37 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
-  [self storeSession];
+    [self storeSession];
+    [_sessionManager saveSession];
 }
 
 
 
 #pragma mark - Application Actions
+
+static inline NSString *_sessionName() {
+    time_t t = 0;
+    time(&t);
+    struct tm  sometime;
+    struct tm *p = &sometime;
+    p = localtime(&t);
+    sometime = *p;
+    return [NSString stringWithFormat:@"Session-%i%.2i%.2i-%.2i%.2i%.2i",
+            sometime.tm_year + 1900, sometime.tm_mon + 1, sometime.tm_mday, sometime.tm_hour, sometime.tm_min, sometime.tm_sec];
+
+}
+
+- (IBAction)saveSessionMenuAction:(id)sender {
+
+    ODSessionItem *i = [[ODSessionItem alloc] init];
+    i.name =  _sessionName();
+    i.sessionArray = [self sessionArray];
+    [_sessionManager addSessionItem:i];
+}
+
+- (IBAction)manageSessionsMenuAction:(id)sender {
+    [_sessionManager showSessionWindow];
+}
 
 - (ODWindow *)newWindow {
     NSRect screen = [[NSScreen mainScreen] visibleFrame];
@@ -566,7 +597,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
 
 - (void)webView:(WebView *)sender mouseDidMoveOverElement:(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags
 {
-
+    
     ODWindow *window = (id)sender.window;
     
     if (window == _window) {
@@ -577,21 +608,21 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
             if (![str isEqualToString:_previousStatus] || sbar.alphaValue == 0.0) {
                 _previousStatus = str;
                 BOOL hasHttpDomain = NO;
-                    NSRange range = [str rangeOfString:@"http://"];
-                    if (range.length) {
-                        str = [str stringByReplacingCharactersInRange:range withString:@""];
-                        hasHttpDomain = YES;
-                    }
-                    NSMutableAttributedString *aStatus = [[NSMutableAttributedString alloc] initWithString:str attributes:sbar.attributes];
-                    if (hasHttpDomain) {
-                        range = [str rangeOfString:@"/"];
-                        [aStatus addAttribute:NSFontAttributeName value:sbar.boldFont range:NSMakeRange(0, range.location)];
-                    }
+                NSRange range = [str rangeOfString:@"http://"];
+                if (range.length) {
+                    str = [str stringByReplacingCharactersInRange:range withString:@""];
+                    hasHttpDomain = YES;
+                }
+                NSMutableAttributedString *aStatus = [[NSMutableAttributedString alloc] initWithString:str attributes:sbar.attributes];
+                if (hasHttpDomain) {
+                    range = [str rangeOfString:@"/"];
+                    [aStatus addAttribute:NSFontAttributeName value:sbar.boldFont range:NSMakeRange(0, range.location)];
+                }
                 sbar.attributedStatus = aStatus;
                 
+            }
         }
     }
-}
 }
 
 - (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id<WebOpenPanelResultListener>)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles
@@ -1164,6 +1195,22 @@ decisionListener:(id)listener {
     wView.hostWindow = tv.window;
 }
 
+#pragma mark - ODSessionManagerDelegate
+
+- (void)sessionManager:(ODSessionManager *)manager restoreSession:(ODSessionItem *)item {
+    [self storeSession];
+    for (ODWindow *w in _windows.copy) {
+        [w performClose:nil];
+    }
+    [self restoreSessionArray:item.sessionArray];
+}
+- (void)sessionManager:(ODSessionManager *)manager storeSession:(ODSessionItem **)item {
+    ODSessionItem *i = [[ODSessionItem alloc] init];
+    i.name = _sessionName();
+    i.sessionArray = [self sessionArray];
+    *item = i;
+}
+
 #pragma mark - NSNotifications
 
 - (void)windowWillClose:(NSNotification *)notification {
@@ -1260,5 +1307,4 @@ decisionListener:(id)listener {
     
     
 }
-
 @end
