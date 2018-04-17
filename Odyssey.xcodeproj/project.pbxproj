@@ -42,6 +42,9 @@
 		CEE495EA1EA12625008DCDDC /* ODBookmarks.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495E91EA12625008DCDDC /* ODBookmarks.m */; };
 		CEE495EF1EA14042008DCDDC /* ODBookmarkAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE495ED1EA14042008DCDDC /* ODBookmarkAdd.m */; };
 		CEE495F01EA14042008DCDDC /* ODBookmarkAdd.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE495EE1EA14042008DCDDC /* ODBookmarkAdd.xib */; };
+		CEF0475B2080F278007780CC /* ODSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF047592080F278007780CC /* ODSessionManager.m */; };
+		CEF0475C2080F278007780CC /* ODSessionManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF0475A2080F278007780CC /* ODSessionManager.xib */; };
+		CEF0475F2080F8B6007780CC /* ODSessionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0475E2080F8B6007780CC /* ODSessionItem.m */; };
 		CEF1A00A1E9FB6FA0061804D /* ODAddressField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF1A0081E9FB6FA0061804D /* ODAddressField.m */; };
 		CEF1A00B1E9FB6FA0061804D /* ODAddressField.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF1A0091E9FB6FA0061804D /* ODAddressField.xib */; };
 		CEF1A00D1E9FC77B0061804D /* SearchEngines.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF1A00C1E9FC77B0061804D /* SearchEngines.plist */; };
@@ -104,6 +107,11 @@
 		CEE495EC1EA14042008DCDDC /* ODBookmarkAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODBookmarkAdd.h; sourceTree = "<group>"; };
 		CEE495ED1EA14042008DCDDC /* ODBookmarkAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODBookmarkAdd.m; sourceTree = "<group>"; };
 		CEE495EE1EA14042008DCDDC /* ODBookmarkAdd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODBookmarkAdd.xib; sourceTree = "<group>"; };
+		CEF047582080F278007780CC /* ODSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODSessionManager.h; sourceTree = "<group>"; };
+		CEF047592080F278007780CC /* ODSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODSessionManager.m; sourceTree = "<group>"; };
+		CEF0475A2080F278007780CC /* ODSessionManager.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODSessionManager.xib; sourceTree = "<group>"; };
+		CEF0475D2080F8B6007780CC /* ODSessionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODSessionItem.h; sourceTree = "<group>"; };
+		CEF0475E2080F8B6007780CC /* ODSessionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODSessionItem.m; sourceTree = "<group>"; };
 		CEF1A0071E9FB6FA0061804D /* ODAddressField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODAddressField.h; sourceTree = "<group>"; };
 		CEF1A0081E9FB6FA0061804D /* ODAddressField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODAddressField.m; sourceTree = "<group>"; };
 		CEF1A0091E9FB6FA0061804D /* ODAddressField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODAddressField.xib; sourceTree = "<group>"; };
@@ -154,6 +162,7 @@
 		CE5404821E96AA88009FFBE1 /* Odyssey */ = {
 			isa = PBXGroup;
 			children = (
+				CEF047572080F227007780CC /* ODSessionManager */,
 				CE5554E51ED87B6D009FBA93 /* ODPopover */,
 				CEDAD88B1EB21301007A2694 /* ODHistory */,
 				CEAD77261EB09E0F00BB77D6 /* ODPreferences */,
@@ -316,6 +325,18 @@
 			name = ODBookmarkAdd;
 			sourceTree = "<group>";
 		};
+		CEF047572080F227007780CC /* ODSessionManager */ = {
+			isa = PBXGroup;
+			children = (
+				CEF047582080F278007780CC /* ODSessionManager.h */,
+				CEF047592080F278007780CC /* ODSessionManager.m */,
+				CEF0475A2080F278007780CC /* ODSessionManager.xib */,
+				CEF0475D2080F8B6007780CC /* ODSessionItem.h */,
+				CEF0475E2080F8B6007780CC /* ODSessionItem.m */,
+			);
+			name = ODSessionManager;
+			sourceTree = "<group>";
+		};
 		CEF1A0061E9FA7CA0061804D /* ODAddressField */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +410,7 @@
 				CE85FCF01EAE406C00BC8E20 /* ODContentFilterEditRule.xib in Resources */,
 				CE54048A1E96AA88009FFBE1 /* Assets.xcassets in Resources */,
 				CEAD772C1EB0C32700BB77D6 /* UserAgent.plist in Resources */,
+				CEF0475C2080F278007780CC /* ODSessionManager.xib in Resources */,
 				CEF1A00D1E9FC77B0061804D /* SearchEngines.plist in Resources */,
 				CED8586A1EAF95A400A6ABA5 /* dummy.js in Resources */,
 				CE66BCF01EA65597004F8DF1 /* WebBookmarks.plist in Resources */,
@@ -414,7 +436,9 @@
 				CEB3F64C1FF6C6A9004D9834 /* ODTabView.m in Sources */,
 				CEF1A00A1E9FB6FA0061804D /* ODAddressField.m in Sources */,
 				CEE495E71EA0ECC2008DCDDC /* ODBookmarkData.m in Sources */,
+				CEF0475F2080F8B6007780CC /* ODSessionItem.m in Sources */,
 				CEE495EF1EA14042008DCDDC /* ODBookmarkAdd.m in Sources */,
+				CEF0475B2080F278007780CC /* ODSessionManager.m in Sources */,
 				CEE495EA1EA12625008DCDDC /* ODBookmarks.m in Sources */,
 				CEDAD88E1EB2152E007A2694 /* ODHistory.m in Sources */,
 				CEAD77291EB09E7C00BB77D6 /* ODPreferences.m in Sources */,
