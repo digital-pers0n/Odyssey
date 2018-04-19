@@ -14,8 +14,6 @@
     @public
     NSMutableArray *_windows;
     BOOL _shouldUseYtdl;
-    NSPanel *_modalDialog;
-    ODPopoverWindow *_modalWindow;
 }
 
 
@@ -84,8 +82,6 @@
 - (void)restoreSession;
 - (NSArray *)sessionArray;
 - (void)restoreSessionArray:(NSArray *)sessionArray;
-
-- (NSPanel *)modalDialogWithView:(NSView *)view;
 
 - (BOOL)canPlayWithMpv:(NSURL *)url;
 - (void)playWithMpv:(NSURL *)url;

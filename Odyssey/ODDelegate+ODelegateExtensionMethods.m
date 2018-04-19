@@ -107,54 +107,6 @@
     [self restoreSessionArray:sessionArray];
 }
 
-#pragma mark - modal dialog
-
--(NSPanel *)modalDialogWithView:(NSView *)view
-{
-    if (!_modalWindow) {
-        _modalWindow = [[ODPopoverWindow alloc] initWithContentRect:NSZeroRect 
-                                                          styleMask:NSBorderlessWindowMask 
-                                                            backing:NSBackingStoreBuffered defer:YES];
-        [_modalWindow setWindowAppearance:1];
-    }
-    NSRect viewFrame = view.frame;
-    NSRect frame = [[NSApp mainWindow] frame];
-    NSPoint point = NSMakePoint(NSMinX(frame) + ((NSWidth(frame) - NSWidth(viewFrame)) / 2),
-                                NSMinY(frame) + ((NSHeight(frame) - NSHeight(viewFrame)) / 2));
-    [_modalWindow setFrame:viewFrame display:NO animate:NO];
-    if (point.y >0) {
-        [_modalWindow setFrameOrigin:point];
-    } else {
-        [_modalWindow center];
-    }
-    
-    [_modalWindow setContentView:view];
-    return _modalWindow;
-    
-//    if (!_modalDialog) {
-//        NSInteger styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask | NSUtilityWindowMask;
-//        _modalDialog = [[NSPanel alloc] initWithContentRect:NSZeroRect styleMask:styleMask backing:NSBackingStoreBuffered defer:YES];
-//        [_modalDialog setBackgroundColor:[NSColor blackColor]];
-//    } else {
-//        
-//        //[_modalDialog.contentView.subviews.firstObject removeFromSuperview];
-//    }
-//    NSRect viewFrame = view.frame;
-//    NSRect frame = [[NSApp mainWindow] frame];
-//    NSPoint point =  NSMakePoint(NSMinX(frame) + ((NSWidth(frame) - NSWidth(viewFrame)) / 2),
-//                                 NSMinY(frame) + ((NSHeight(frame) - NSHeight(viewFrame)) / 2));
-//    [_modalDialog setFrame:viewFrame display:NO animate:NO];
-//    if (point.y > 0) {
-//         [_modalDialog setFrameOrigin:point];
-//    } else {
-//        [_modalDialog center];
-//    }
-//   
-//    //[_modalDialog.contentView addSubview:view];
-//    [_modalDialog setContentView:view];
-//    return _modalDialog;
-}
-
 #pragma mark - menuitem actions
 
 -(void)openInNewTabMenuItemClicked:(id)sender
