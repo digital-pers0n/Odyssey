@@ -7,7 +7,7 @@
 //
 
 #import "ODContentFilterEditRule.h"
-#import "ODDelegate.h"
+#import "ODModalDialog.h"
 
 @interface ODContentFilterEditRule ()
 {
@@ -28,23 +28,13 @@
     return [self className];
 }
 
--(void)editRule:(NSString *)rule withReply:(void (^)(NSString *))respond
-{
-    
+- (void)editRule:(NSString *)rule withReply:(void (^)(NSString *))respond {
     NSView *view = self.view;
-    //NSRect viewFrame = view.frame;
+
     _textView.string = rule;
     _wasCancelled = YES;
-    
-//    NSInteger styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask | NSUtilityWindowMask;
-//    NSPanel *window = [[NSPanel alloc] initWithContentRect:viewFrame styleMask:styleMask backing:NSBackingStoreBuffered defer:YES];
-//    [window setBackgroundColor:[NSColor blackColor]];
-//    NSRect frame = [[NSApp mainWindow] frame];
-//    NSPoint point =  NSMakePoint(NSMinX(frame) + ((NSWidth(frame) - NSWidth(viewFrame)) / 2),
-//                                 NSMinY(frame) + ((NSHeight(frame) - NSHeight(viewFrame)) / 2));
-//    [window setFrameOrigin:point];
-//    [window.contentView addSubview:view];
-    NSPanel *window = [(ODDelegate *)[NSApp delegate] modalDialogWithView:view];
+
+    NSPanel *window = [ODModalDialog modalDialogWithView:view];
     [window setInitialFirstResponder:_textView];
     [window makeKeyAndOrderFront:nil];
     

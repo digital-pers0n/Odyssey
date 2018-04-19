@@ -8,7 +8,7 @@
 
 #import "ODBookmarkAdd.h"
 #import "ODBookmarkData.h"
-#import "ODDelegate.h"
+#import "ODModalDialog.h"
 
 
 @interface ODBookmarkAdd ()
@@ -54,8 +54,7 @@
 
 
 
--(void)addBookmark:(ODBookmarkData *)bookmark bookmarksTreeData:(NSDictionary *)treeData withReply:(void (^)(NSDictionary *))respond
-{
+- (void)addBookmark:(ODBookmarkData *)bookmark bookmarksTreeData:(NSDictionary *)treeData withReply:(void (^)(NSDictionary *))respond {
     _shouldAddFolder = [bookmark isList];
     _bookmark = bookmark;
     _rootTreeData = treeData;
@@ -70,17 +69,7 @@
             [_addressField setStringValue:[_bookmark address]];
         }
     }
-    
-//    NSRect viewFrame = view.frame;
-//    NSInteger styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask | NSUtilityWindowMask;
-//    NSPanel *window = [[NSPanel alloc] initWithContentRect:viewFrame styleMask:styleMask backing:NSBackingStoreBuffered defer:YES];
-//    [window setBackgroundColor:[NSColor blackColor]];
-//    NSRect frame = [[NSApp mainWindow] frame];
-//    NSPoint point =  NSMakePoint(NSMinX(frame) + ((NSWidth(frame) - NSWidth(viewFrame)) / 2),
-//                                 NSMinY(frame) + ((NSHeight(frame) - NSHeight(viewFrame)) / 2));
-//    [window setFrameOrigin:point];
-//    [window.contentView addSubview:view];
-    NSPanel *window = [(ODDelegate *)[NSApp delegate] modalDialogWithView:view];
+    NSPanel *window = [ODModalDialog modalDialogWithView:view];
     [window setInitialFirstResponder:_nameField];
     [window makeKeyAndOrderFront:nil];
     
@@ -101,22 +90,14 @@
             if (![url hasPrefix:@"http://"] && ![url hasPrefix:@"https://"] && ![url hasPrefix:@"file:///"] ) {
                 url = [NSString stringWithFormat:@"http://%@", url];
             }
-            
-          
             [_bookmark setAddress:url];
-          
-            
         } 
         _bookmark.title = [_nameField stringValue];
         [self addNewDataToSelection:_bookmark];
         result = [self dictionaryFromTreeNode:_rootTreeNode];
         [result writeToFile:BOOKMARKS_SAVE_PATH atomically:YES];
-    } 
-    
-    
+    }
     respond(result);
-    
-    
 }
 
 - (void)viewDidLoad {

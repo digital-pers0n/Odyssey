@@ -7,7 +7,7 @@
 //
 
 #import "ODAddressField.h"
-#import "ODDelegate.h"
+#import "ODModalDialog.h"
 
 #define ID_KEY @"Identifier"
 #define NAME_KEY @"Name"
@@ -46,8 +46,7 @@
     return [self className];
 }
 
--(void)editString:(NSString *)rule withReply:(void (^)(NSString *))respond
-{
+- (void)editString:(NSString *)rule withReply:(void (^)(NSString *))respond {
     {
         BOOL(^checkString)(id, id) = ^(NSString *arg0, NSString *arg1) {
             NSRange range = [arg0 rangeOfString:arg1 options:NSCaseInsensitiveSearch];
@@ -64,24 +63,11 @@
         if (rule) {
             
             _addressField.stringValue = rule;
-        } 
-//        
-//        NSRect viewFrame = view.frame;
-//        NSInteger styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask | NSUtilityWindowMask;
-//        NSPanel *window = [[NSPanel alloc] initWithContentRect:viewFrame styleMask:styleMask backing:NSBackingStoreBuffered defer:YES];
-//        [window setBackgroundColor:[NSColor blackColor]];
-//        //[window setFrame:view.frame display:NO animate:NO];
-//        NSRect frame = [[NSApp mainWindow] frame];
-//        NSPoint point =  NSMakePoint(NSMinX(frame) + ((NSWidth(frame) - NSWidth(viewFrame)) / 2),
-//                                     NSMinY(frame) + ((NSHeight(frame) - NSHeight(viewFrame)) / 2));
-//        [window setFrameOrigin:point];
-//        [window.contentView addSubview:view];
-        NSPanel *window = [(ODDelegate *)[NSApp delegate] modalDialogWithView:view];
+        }
+        NSPanel *window = [ODModalDialog modalDialogWithView:view];
         [window setInitialFirstResponder:_addressField];
         [window makeKeyAndOrderFront:nil];
-        
-        
-        //[NSApp beginSheet:window modalForWindow:[NSApp mainWindow] modalDelegate:self didEndSelector:nil contextInfo:nil];
+
         [NSApp runModalForWindow:window];
     
         // sheet is up here...
@@ -109,20 +95,11 @@
                 
                 rule = [rule stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 rule = [_searchURL stringByReplacingOccurrencesOfString:@"{searchTerms}" withString:rule];
-                
             }
-            
-            
         }
-        
         respond(rule);
-        
-        
     }
 }
-
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
