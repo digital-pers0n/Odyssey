@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE08675E1E9A48EF000B9C23 /* ODTabSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08675C1E9A48EF000B9C23 /* ODTabSwitcher.m */; };
 		CE08675F1E9A48EF000B9C23 /* ODTabSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE08675D1E9A48EF000B9C23 /* ODTabSwitcher.xib */; };
+		CE491B1C2088C86B00B7B759 /* ODModalDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = CE491B1B2088C86B00B7B759 /* ODModalDialog.m */; };
 		CE5404851E96AA88009FFBE1 /* ODDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5404841E96AA88009FFBE1 /* ODDelegate.m */; };
 		CE5404881E96AA88009FFBE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5404871E96AA88009FFBE1 /* main.m */; };
 		CE54048A1E96AA88009FFBE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5404891E96AA88009FFBE1 /* Assets.xcassets */; };
@@ -54,6 +55,8 @@
 		CE08675B1E9A48EF000B9C23 /* ODTabSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODTabSwitcher.h; sourceTree = "<group>"; };
 		CE08675C1E9A48EF000B9C23 /* ODTabSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODTabSwitcher.m; sourceTree = "<group>"; };
 		CE08675D1E9A48EF000B9C23 /* ODTabSwitcher.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODTabSwitcher.xib; sourceTree = "<group>"; };
+		CE491B1A2088C86B00B7B759 /* ODModalDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODModalDialog.h; sourceTree = "<group>"; };
+		CE491B1B2088C86B00B7B759 /* ODModalDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODModalDialog.m; sourceTree = "<group>"; };
 		CE5404801E96AA87009FFBE1 /* Odyssey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odyssey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5404831E96AA88009FFBE1 /* ODDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ODDelegate.h; sourceTree = "<group>"; };
 		CE5404841E96AA88009FFBE1 /* ODDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ODDelegate.m; sourceTree = "<group>"; };
@@ -142,6 +145,15 @@
 			name = ODTabView;
 			sourceTree = "<group>";
 		};
+		CE491B192088C73F00B7B759 /* ODModalDialog */ = {
+			isa = PBXGroup;
+			children = (
+				CE491B1A2088C86B00B7B759 /* ODModalDialog.h */,
+				CE491B1B2088C86B00B7B759 /* ODModalDialog.m */,
+			);
+			name = ODModalDialog;
+			sourceTree = "<group>";
+		};
 		CE5404771E96AA87009FFBE1 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +174,7 @@
 		CE5404821E96AA88009FFBE1 /* Odyssey */ = {
 			isa = PBXGroup;
 			children = (
+				CE491B192088C73F00B7B759 /* ODModalDialog */,
 				CEF047572080F227007780CC /* ODSessionManager */,
 				CE5554E51ED87B6D009FBA93 /* ODPopover */,
 				CEDAD88B1EB21301007A2694 /* ODHistory */,
@@ -450,6 +463,7 @@
 				CE5554EB1ED87C1A009FBA93 /* ODPopoverWindow.m in Sources */,
 				CE08675E1E9A48EF000B9C23 /* ODTabSwitcher.m in Sources */,
 				CE85FCEB1EAE382F00BC8E20 /* ODContentFilter.m in Sources */,
+				CE491B1C2088C86B00B7B759 /* ODModalDialog.m in Sources */,
 				CE5404881E96AA88009FFBE1 /* main.m in Sources */,
 				CEB3F64D1FF6C6A9004D9834 /* ODTabViewItem.m in Sources */,
 				CE5554E81ED87BDF009FBA93 /* ODPopover.m in Sources */,
