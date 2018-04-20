@@ -151,6 +151,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
                                                           action:@selector(playWithMpvMenuItemClicked:) 
                                                    keyEquivalent:@""];
         playWithMpvItem.target = self;
+        playWithMpvItem.toolTip = @"Click: 1080p, ⌥+Click: 720p, ⌘+Click: 480p, ⇧+Click: Audio";
     
         NSMenuItem *openLinkInNewTab = [[NSMenuItem alloc] initWithTitle:@"Open Link In New Tab" 
                                                              action:@selector(openInNewTabMenuItemClicked:) 
@@ -165,7 +166,8 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         NSMenuItem *searchImage = [[NSMenuItem alloc] initWithTitle:@"Search By Image"
                                                                    action:@selector(searchImageMenuItemClicked:)
                                                             keyEquivalent:@""];
-        openImageInNewTab.target = self;
+        searchImage.target = self;
+        searchImage.toolTip = @"Click: New Background Tab, ⌥+Click: New Window, ⌘+Click: New Foreground Tab, ⇧+Click: Current Tab";
         
         _menuItemList = @[openLinkInNewTab, openImageInNewTab, playWithMpvItem, searchImage];
         
