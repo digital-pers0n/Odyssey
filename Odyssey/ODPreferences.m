@@ -16,6 +16,8 @@
 #define NAME_KEY @"Name"
 #define USERAGENT_KEY @"UserAgentString"
 
+NSString * const ODCustomUserAgentKey = @"CustomUserAgentKey";
+
 @class WebInspectorFrontend;
 
 @interface WebInspector : NSObject
@@ -61,7 +63,8 @@
 @interface ODPreferences () <NSMenuDelegate> {
     
     NSMenu *_menu;
-    
+    NSString *_userAgentString;
+    NSString *_defaultUserAgentString;
 }
 
 @end
@@ -98,7 +101,12 @@
         NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
         NSString *string = [NSString stringWithFormat:@"Odyssey %@/(%@)", info[@"CFBundleShortVersionString"], info[@"CFBundleVersion"]];
         _defaultUserAgentString = [string stringByAppendingString:@" Version/10.1.2 Safari/603.3.8"];
-        
+        string = [[NSUserDefaults standardUserDefaults] objectForKey:ODCustomUserAgentKey];
+        if (string) {
+            _userAgentString = string;
+        } else {
+            _userAgentString = _defaultUserAgentString;
+        }
         ODDelegate *delegate = [NSApp delegate];
         [_menu addItem:[delegate.contentFilter contextMenuItem]];
         [_menu addItem:[NSMenuItem separatorItem]];
@@ -174,7 +182,12 @@
             [_preferences setMediaPlaybackAllowsInline:NO];
             [_preferences setFrameFlatteningEnabled:YES];
         }
-        
+//        _preferences.defaultFontSize = 12;
+//        _preferences.defaultFixedFontSize = 12;
+//        puts(_preferences.serifFontFamily.UTF8String);
+//        _preferences.sansSerifFontFamily = @"Lucida Grande";
+//        puts(_preferences.sansSerifFontFamily.UTF8String);
+//        puts(_preferences.fixedFontFamily.UTF8String);
         
         item = [[NSMenuItem alloc] initWithTitle:@"Load JavaScript" action:@selector(menuItemAction:) keyEquivalent:@"J"];
         item.tag = ODMenuItemJavaScriptTag;
@@ -423,6 +436,7 @@
     if ([sender tag] == 10) {
         [v setCustomUserAgent:nil];
         [v setApplicationNameForUserAgent:_defaultUserAgentString];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ODCustomUserAgentKey];
     } else {
         [v setCustomUserAgent:[sender toolTip]];
     }

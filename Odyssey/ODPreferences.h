@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, ODMenuItemTag) {
 @interface ODPreferences : NSObject
 
 @property (readonly) WebPreferences *preferences;
-@property (readonly) NSString *defaultUserAgentString;
+@property (readonly) NSString *userAgentString;
 
 
 @end

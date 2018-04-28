@@ -1270,7 +1270,7 @@ decisionListener:(id)listener {
     [view setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable];
     [view setTranslatesAutoresizingMaskIntoConstraints:YES];
     view.shouldUpdateWhileOffscreen = NO;
-    view.applicationNameForUserAgent = _preferences.defaultUserAgentString;
+    view.customUserAgent = _preferences.userAgentString;
     view.textSizeMultiplier = [_userDefaults doubleForKey:DEFAULTS_TEXT_ZOOM_KEY];
     view.pageSizeMultiplier = [_userDefaults doubleForKey:DEFAULTS_PAGE_ZOOM_KEY];
     ODTabViewItem *result = [[ODTabViewItem alloc] initWithView:view];
