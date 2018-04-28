@@ -119,7 +119,7 @@
     return request;
 }
 
--(BOOL)isAddress:(NSString *)address inList:(NSSet *)list
+-(BOOL)isAddress:(NSString *)address inList:(NSArray *)list
 {
     BOOL result = NO;
     
