@@ -58,8 +58,8 @@
 		CE491B1A2088C86B00B7B759 /* ODModalDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODModalDialog.h; sourceTree = "<group>"; };
 		CE491B1B2088C86B00B7B759 /* ODModalDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODModalDialog.m; sourceTree = "<group>"; };
 		CE5404801E96AA87009FFBE1 /* Odyssey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odyssey.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE5404831E96AA88009FFBE1 /* ODDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ODDelegate.h; sourceTree = "<group>"; };
-		CE5404841E96AA88009FFBE1 /* ODDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ODDelegate.m; sourceTree = "<group>"; };
+		CE5404831E96AA88009FFBE1 /* ODDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ODDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		CE5404841E96AA88009FFBE1 /* ODDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ODDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CE5404871E96AA88009FFBE1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE5404891E96AA88009FFBE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE54048C1E96AA88009FFBE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		CE5DD0FE1EB3A1A100855641 /* ODFindBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODFindBanner.h; sourceTree = "<group>"; };
 		CE5DD0FF1EB3A1A100855641 /* ODFindBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODFindBanner.m; sourceTree = "<group>"; };
 		CE5DD1001EB3A1A100855641 /* ODFindBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ODFindBanner.xib; sourceTree = "<group>"; };
-		CE5E56EE1EACB3FC008C618B /* ODDelegate+ODelegateExtensionMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ODDelegate+ODelegateExtensionMethods.m"; sourceTree = "<group>"; };
+		CE5E56EE1EACB3FC008C618B /* ODDelegate+ODelegateExtensionMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ODDelegate+ODelegateExtensionMethods.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CE66BCEF1EA65597004F8DF1 /* WebBookmarks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WebBookmarks.plist; sourceTree = "<group>"; };
 		CE85FCE91EAE382F00BC8E20 /* ODContentFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODContentFilter.h; sourceTree = "<group>"; };
 		CE85FCEA1EAE382F00BC8E20 /* ODContentFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODContentFilter.m; sourceTree = "<group>"; };

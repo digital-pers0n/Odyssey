@@ -29,7 +29,7 @@ extern NSString *WebElementMediaURLKey;
 typedef NS_ENUM(NSUInteger, ODMenuItemList) {
     ODMenuItemOpenLinkInNewTab = 0,
     ODMenuItemImageInNewTab,
-    ODMenuItemPlayWithMpv,
+    ODMenuItemOpenWithMpv,
     ODMenuItemSearchImage,
 };
 
@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     ODTabSwitcher *_tabSwitcher;
     ODSessionManager *_sessionManager;
     
-    NSMenuItem *_playWithMpvMenuItem;
+    NSMenuItem *_openWithMpvMenuItem;
     NSArray *_menuItemList;
     BOOL _zoomTextOnly;
     NSString *_initPath;
@@ -147,11 +147,11 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
      
     { 
     
-        NSMenuItem *playWithMpvItem = [[NSMenuItem alloc] initWithTitle:@"Play With MPV" 
-                                                          action:@selector(playWithMpvMenuItemClicked:) 
+        NSMenuItem *openWithMpvItem = [[NSMenuItem alloc] initWithTitle:@"Open With MPV" 
+                                                          action:@selector(openWithMpvMenuItemClicked:) 
                                                    keyEquivalent:@""];
-        playWithMpvItem.target = self;
-        playWithMpvItem.toolTip = @"Click: 1080p, ⌥+Click: 720p, ⌘+Click: 480p, ⇧+Click: Audio";
+        openWithMpvItem.target = self;
+        openWithMpvItem.toolTip = @"Click: 1080p, ⌥+Click: 720p, ⌘+Click: 480p, ⇧+Click: Audio";
     
         NSMenuItem *openLinkInNewTab = [[NSMenuItem alloc] initWithTitle:@"Open Link In New Tab" 
                                                              action:@selector(openInNewTabMenuItemClicked:) 
@@ -169,7 +169,7 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
         searchImage.target = self;
         searchImage.toolTip = @"Click: New Background Tab, ⌥+Click: New Window, ⌘+Click: New Foreground Tab, ⇧+Click: Current Tab";
         
-        _menuItemList = @[openLinkInNewTab, openImageInNewTab, playWithMpvItem, searchImage];
+        _menuItemList = @[openLinkInNewTab, openImageInNewTab, openWithMpvItem, searchImage];
         
     
     }
@@ -601,7 +601,7 @@ static inline NSString *_sessionName() {
 {
     
     ODWindow *window = (id)sender.window;
-    
+
     if (window == _window) {
         NSURL *url = [elementInformation objectForKey:WebElementLinkURLKey];
         if (url) {
@@ -741,11 +741,11 @@ static inline NSString *_sessionName() {
     
     if (url) {
         
-        if ([self canPlayWithMpv:url]) {
-            NSMenuItem *playWithMpv = _menuItemList[ODMenuItemPlayWithMpv];
-            playWithMpv.representedObject = url;
+        if ([self canOpenWithMpv:url]) {
+            NSMenuItem *openWithMpv = _menuItemList[ODMenuItemOpenWithMpv];
+            openWithMpv.representedObject = url;
             [menuItems addObject:[NSMenuItem separatorItem]];
-            [menuItems addObject:playWithMpv];
+            [menuItems addObject:openWithMpv];
             NSString *host = url.host;
             NSRange range = [host rangeOfString:@"youtu"];
             if (_shouldUseYtdl && range.length) {
@@ -775,11 +775,11 @@ static inline NSString *_sessionName() {
 //            
 //            NSURL *url = [element objectForKey:WebElementLinkURLKey];
 //            
-//            if ([self canPlayWithMpv:url]) {
+//            if ([self canOpenWithMpv:url]) {
 //                
-//                _playWithMpvMenuItem.representedObject = url;
+//                _openWithMpvMenuItem.representedObject = url;
 //                [menuItems addObject:[NSMenuItem separatorItem]];
-//                [menuItems addObject:_playWithMpvMenuItem];
+//                [menuItems addObject:_openWithMpvMenuItem];
 //            }
 //            
 //        } else if (tag == WebMenuItemTagDownloadLinkToDisk) {
@@ -836,8 +836,8 @@ static inline NSString *_sessionName() {
 //                }
 //                NSURL *url = [NSURL URLWithString:string] ;
 //                if (url) {
-//                    if ([self canPlayWithMpv:url]) {
-//                        NSMenuItem *play = [[NSMenuItem alloc] initWithTitle:@"Play With MPV" action:@selector(playWithMpv:) keyEquivalent:@""];
+//                    if ([self canOpenWithMpv:url]) {
+//                        NSMenuItem *play = [[NSMenuItem alloc] initWithTitle:@"Play With MPV" action:@selector(openWithMpv:) keyEquivalent:@""];
 //                        play.target = self;
 //                        play.representedObject = url;
 //                        [menuItems addObject:[NSMenuItem separatorItem]];
@@ -1017,7 +1017,7 @@ static inline NSString *_sessionName() {
     NSURL *URL = [error.userInfo objectForKey:NSURLErrorFailingURLErrorKey];
     if (error.code == WebKitErrorCannotShowMIMEType) { 
         if ([[URL pathExtension] isEqualToString:@"webm"]) {
-            [self playWithMpv:URL];
+            [self openWithMpv:URL];
             
         } else {
             

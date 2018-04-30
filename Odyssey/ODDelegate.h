@@ -83,9 +83,9 @@
 - (NSArray *)sessionArray;
 - (void)restoreSessionArray:(NSArray *)sessionArray;
 
-- (BOOL)canPlayWithMpv:(NSURL *)url;
-- (void)playWithMpv:(NSURL *)url;
-- (void)playWithMpvMenuItemClicked:(id)sender;// NSURL as representedObject
+- (BOOL)canOpenWithMpv:(NSURL *)url;
+- (void)openWithMpv:(NSURL *)url;
+- (void)openWithMpvMenuItemClicked:(id)sender;// NSURL as representedObject
 - (void)openInNewWindowMenuItemClicked:(id)sender;
 - (void)openInNewTabMenuItemClicked:(id)sender;
 - (void)searchImageMenuItemClicked:(id)sender;

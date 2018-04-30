@@ -121,10 +121,10 @@
     [self openInNewWindow:url.absoluteString];
 }
 
--(void)playWithMpvMenuItemClicked:(id)sender
+-(void)openWithMpvMenuItemClicked:(id)sender
 {
     NSURL *url = [sender representedObject];
-    [self playWithMpv:url];
+    [self openWithMpv:url];
 }
 
 - (void)searchImageMenuItemClicked:(id)sender {
@@ -149,10 +149,10 @@
 
 #pragma mark - mpv support
 
--(BOOL)canPlayWithMpv:(NSURL *)url
+-(BOOL)canOpenWithMpv:(NSURL *)url
 {
 #ifdef DEBUG
-    NSLog(@"canPlayWithMpv: checking URL: %@", url);
+    NSLog(@"canOpenWithMpv: checking URL: %@", url);
 #endif
     
     BOOL result = NO;
@@ -188,7 +188,7 @@
     return result;
 }
 
-- (void)playWithMpv:(NSURL *)url {
+- (void)openWithMpv:(NSURL *)url {
     NSWorkspace *sharedWorkspace = [NSWorkspace sharedWorkspace];
     NSURL *appURL = [sharedWorkspace URLForApplicationWithBundleIdentifier:@"io.mpv"];
     if (appURL) {
@@ -221,7 +221,7 @@
                                                         error:&error];
         if (error) {
             
-            NSLog(@"playWithMpv: [NSWorkspace sharedWorkspace] launchApplicationAtURL: failed \n%@", error.localizedDescription);
+            NSLog(@"openWithMpv: [NSWorkspace sharedWorkspace] launchApplicationAtURL: failed \n%@", error.localizedDescription);
         }
         
     } else {
@@ -233,11 +233,11 @@
         if (str) {
             system(str);
 #ifdef DEBUG
-            NSLog(@"playWithMpv: %@  cmd: %s", url, str);
+            NSLog(@"openWithMpv: %@  cmd: %s", url, str);
 #endif            
         } else {
 #ifdef DEBUG            
-            NSLog(@"playWithMpv: failed - cmd is NULL");
+            NSLog(@"openWithMpv: failed - cmd is NULL");
 #endif            
         }
 
