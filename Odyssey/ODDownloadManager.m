@@ -120,7 +120,7 @@ extern NSString *WebElementMediaURLKey;
     
 }
 
--(IBAction)showInFinder:(id)sender;
+-(IBAction)revealInFinder:(id)sender;
 -(IBAction)copyLink:(id)sender;
 -(IBAction)openFile:(id)sender;
 -(IBAction)removeFromList:(id)sender;
@@ -496,7 +496,7 @@ extern NSString *WebElementMediaURLKey;
     }
 }
 
--(void)showInFinder:(id)sender
+-(void)revealInFinder:(id)sender
 {
     NSInteger row = _tableView.selectedRow;
     NSInteger clickedRow = _tableView.clickedRow;
