@@ -99,7 +99,8 @@ NSString * const ODCustomUserAgentKey = @"CustomUserAgentKey";
         }
         
         NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-        NSString *string = [NSString stringWithFormat:@"Odyssey %@/(%@)", info[@"CFBundleShortVersionString"], info[@"CFBundleVersion"]];
+        // TODO: fix user-agent
+        NSString *string = [NSString stringWithFormat:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/601.6.17 (KHTML, like Gecko) Version/9.1.1 Odyssey %@/(%@)", info[@"CFBundleShortVersionString"], info[@"CFBundleVersion"]];
         _defaultUserAgentString = [string stringByAppendingString:@" Version/10.1.2 Safari/603.3.8"];
         string = [[NSUserDefaults standardUserDefaults] objectForKey:ODCustomUserAgentKey];
         if (string) {
