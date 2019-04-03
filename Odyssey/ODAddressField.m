@@ -46,16 +46,12 @@
     return [self className];
 }
 
+static inline BOOL _containsString(NSString *a, NSString *b) {
+    return ([a rangeOfString:b options:NSCaseInsensitiveSearch].length) ? YES : NO;
+}
+
 - (void)editString:(NSString *)rule withReply:(void (^)(NSString *))respond {
     {
-        BOOL(^checkString)(id, id) = ^(NSString *arg0, NSString *arg1) {
-            NSRange range = [arg0 rangeOfString:arg1 options:NSCaseInsensitiveSearch];
-            if (range.length) {
-                return YES;
-            }
-            return NO;
-        };
-        
         _cancelled = YES;
         
         NSView *view = self.view;
@@ -83,9 +79,9 @@
             
             rule = _addressField.stringValue;
             
-            if (checkString(rule, @".")) {
+            if (_containsString(rule, @".")) {
                 
-                if (!checkString(rule, @"http") && !checkString(rule, @"file")) {
+                if (!_containsString(rule, @"http") && ! _containsString(rule, @"file")) {
                     
                     rule = [NSString stringWithFormat:@"http://%@", rule];
                     
