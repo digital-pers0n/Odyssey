@@ -225,6 +225,7 @@ static inline NSString *_sessionName() {
     | NSMiniaturizableWindowMask  ;
     
     ODWindow *window  = [[ODWindow alloc] initWithContentRect:frame styleMask:styleMask backing:NSBackingStoreBuffered defer:YES];
+    window.collectionBehavior |= NSWindowCollectionBehaviorFullScreenPrimary;
     [self _setUpWindow:window];
     
     
