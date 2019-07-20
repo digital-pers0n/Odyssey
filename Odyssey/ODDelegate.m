@@ -602,11 +602,22 @@ static inline NSString *_sessionName() {
 {
     
     ODWindow *window = (id)sender.window;
-
+    sender.toolTip = nil;
     if (window == _window) {
         NSURL *url = [elementInformation objectForKey:WebElementLinkURLKey];
         if (url) {
             NSString *str = url.absoluteString;
+            if (([NSEvent modifierFlags] & NSAlternateKeyMask) && [self canOpenWithMpv:url] && !_shouldUseYtdl) {
+                NSTask *task = [[NSTask alloc] init];
+                NSPipe *outPipe = [[NSPipe alloc] init];
+                task.launchPath = @"/usr/local/bin/ffprobe";
+                task.arguments = @[@"-hide_banner", @"-i", str];
+                task.standardError = outPipe;
+                [task launch];
+                NSData *data = [[task.standardError fileHandleForReading] readDataToEndOfFile];
+                NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                sender.toolTip = string;
+            }
             ODStatusbar *sbar = _window.statusbar;
             if (![str isEqualToString:_previousStatus] || sbar.alphaValue == 0.0) {
                 _previousStatus = str;
