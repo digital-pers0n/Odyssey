@@ -165,7 +165,7 @@ extern NSString *WebElementMediaURLKey;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.rowHeight = 32.0;
-
+    [_tableView setAction:nil];
     [_tableView setDoubleAction:@selector(openFile:)];
     
     
