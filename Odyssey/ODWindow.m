@@ -357,6 +357,14 @@ BOOL is_full_screen(long mask);
     }
 }
 
+#ifdef MAC_OS_X_VERSION_10_13
+
+- (void)performZoom:(id)sender {
+    [self.window zoom:sender];
+}
+
+#else
+
 - (void)performZoom:(id)sender {
     NSWindow *window = self.window;
     if ([NSEvent modifierFlags] == NSAlternateKeyMask) {
@@ -374,6 +382,8 @@ BOOL is_full_screen(long mask);
         //        window.styleMask = styleMask;
     }
 }
+
+#endif
 
 - (void)tabButtonAction:(id)sender {
     //    ODDelegate *delegate = [NSApp delegate];
