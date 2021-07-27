@@ -414,7 +414,11 @@ BOOL is_full_screen(long mask);
     
 }
 
-- (instancetype)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (instancetype)initWithContentRect:(NSRect)contentRect
+                          styleMask:(NSWindowStyleMask)aStyle
+                            backing:(NSBackingStoreType)bufferingType
+                              defer:(BOOL)flag
+{
     self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
     self.movableByWindowBackground = YES;
     self.ignoresMouseEvents = NO;
