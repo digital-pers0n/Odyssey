@@ -185,7 +185,7 @@ NSString *kPrivateDragUTI = @"ODTabViewDragUTI";
     [_selectedTabViewItem _setState:ODTabStateBackground];
     
     _selectedTabViewItem = item;
-    NSView *contentView = _window.contentView;
+    NSView *contentView = self.window.contentView;
     NSView *view = item.view;
     view.frame = contentView.frame;
     //[_window addSubview:view];
@@ -300,7 +300,7 @@ NSString *kPrivateDragUTI = @"ODTabViewDragUTI";
     if (_tabViewItems.count == 0) {
         
         _selectedTabViewItem = nil;
-        [_window close];
+        [self.window close];
     }
     [self setNeedsDisplay:YES];
 }
