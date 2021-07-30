@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -82,6 +81,12 @@
                                         <menuItem title="Tab" keyEquivalent="t" id="FXN-Fs-0Wn">
                                             <connections>
                                                 <action selector="openTab:" target="Voe-Tx-rLC" id="fwt-Ab-wRM"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="WKWebView" id="yFS-Lk-z4O">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showWK2Window:" target="Voe-Tx-rLC" id="saM-nu-Tc2"/>
                                             </connections>
                                         </menuItem>
                                     </items>

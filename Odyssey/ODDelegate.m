@@ -21,6 +21,8 @@
 #import "ODSessionItem.h"
 #import "ODSessionManager.h"
 
+#import "ODKWindowController.h"
+
 @import WebKit;
 
 
@@ -86,6 +88,8 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     NSString *_previousStatus;
     
     NSUserDefaults *_userDefaults;
+    
+    ODKWindowController *_appController;
 }
 
 @property (weak) IBOutlet NSMenuItem *zoomTextOnlyMenuItem;
@@ -189,7 +193,12 @@ typedef NS_ENUM(NSUInteger, ODWebTabTag) {
     [_sessionManager saveSession];
 }
 
+#pragma mark - ODKWindowController 
 
+- (IBAction)showWK2Window:(id)sender {
+    _appController = [[ODKWindowController alloc] init];
+    [_appController.window makeKeyAndOrderFront:nil];
+}
 
 #pragma mark - Application Actions
 
